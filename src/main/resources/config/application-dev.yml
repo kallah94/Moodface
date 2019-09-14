@@ -51,7 +51,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/Moodface?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
-    password:
+    password: kallah
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -77,12 +77,12 @@ spring:
           home: target/elasticsearch
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
-    contexts: dev, faker
+    contexts: dev
   mail:
     host: localhost
     port: 25
-    username:
-    password:
+    username: fallmoussa994@gmail.com
+    password: FALLMOUSSA3112letoubien
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
