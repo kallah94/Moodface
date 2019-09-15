@@ -31,6 +31,12 @@ public class UserDTO {
     @Size(max = 50)
     private String lastName;
 
+    /* Ajout de l attribut service dans UserDTO */
+    @NotBlank
+    @Size(max = 50)
+    private String serviceName;
+    /* Fin ajout attribut */
+
     @Email
     @Size(min = 5, max = 254)
     private String email;
@@ -106,6 +112,15 @@ public class UserDTO {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+    /* Ajout des deux mehodes get et set */
+    public String getServiceName(){
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName){
+        this.serviceName = serviceName;
+    }
+    /* Fin ajout des mehodes get et set */
 
     public String getEmail() {
         return email;
@@ -185,6 +200,7 @@ public class UserDTO {
             "login='" + login + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
+            ", serviceName='" + serviceName + '\'' +
             ", email='" + email + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated=" + activated +
