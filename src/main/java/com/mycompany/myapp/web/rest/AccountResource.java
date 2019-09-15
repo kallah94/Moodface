@@ -30,6 +30,11 @@ import java.util.*;
 public class AccountResource {
 
     private static class AccountResourceException extends RuntimeException {
+        /**
+         *
+         */
+        private static final long serialVersionUID = 1L;
+
         private AccountResourceException(String message) {
             super(message);
         }
@@ -125,7 +130,7 @@ public class AccountResource {
         if (!user.isPresent()) {
             throw new AccountResourceException("User could not be found");
         }
-        userService.updateUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
+        userService.updateUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getServiceName(), userDTO.getEmail(),
             userDTO.getLangKey(), userDTO.getImageUrl());
     }
 

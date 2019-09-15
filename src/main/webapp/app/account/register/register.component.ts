@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
   registerForm = this.fb.group({
     login: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[_.@A-Za-z0-9-]*$')]],
+    serviceName: ['', [Validators.required, Validators.maxLength(254)]],
     email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]]
@@ -47,12 +48,13 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   register() {
     let registerAccount = {};
     const login = this.registerForm.get(['login']).value;
+    const serviceName = this.registerForm.get(['serviceName']).value;
     const email = this.registerForm.get(['email']).value;
     const password = this.registerForm.get(['password']).value;
     if (password !== this.registerForm.get(['confirmPassword']).value) {
       this.doNotMatch = 'ERROR';
     } else {
-      registerAccount = { ...registerAccount, login, email, password };
+      registerAccount = { ...registerAccount, login, serviceName, email, password };
       this.doNotMatch = null;
       this.error = null;
       this.errorUserExists = null;
