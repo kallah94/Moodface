@@ -52,8 +52,8 @@
                 </div>
                 <!-- insertion du champs service name-->
                 <div class="form-group">
-                    <label class="form-control-label" for="serviceName" jhiTranslate="global.form.serviceName.label">serviceName</label>
-                    <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="{{'global.form.serviceName.placeholder' | translate}}"
+                    <label class="form-control-label" for="serviceName" >serviceName</label>
+                    <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="service Name"
                            formControlName="serviceName">
                         <div *ngIf="registerForm.get('serviceName').invalid && (registerForm.get('serviceName').dirty || registerForm.get('serviceName').touched)">
                             <small class="form-text text-danger" *ngIf="registerForm.get('serviceName').errors.required" jhiTranslate="register.messages.validate.serviceName.required">
