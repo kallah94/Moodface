@@ -50,10 +50,24 @@
                         </small>
                     </div>
                 </div>
+                <!-- insertion du champs first name-->
+                <div class="form-group">
+                    <label class="form-control-label" for="firstName" >First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name"
+                    formControlName="firstName">
+                </div>
+                <!--fin insertion champs first name-->
+                <!-- insertion du champs flast name-->
+                <div class="form-group">
+                    <label class="form-control-label" for="lastName" >Last Name</label>
+                    <input type="text" class="form-control" id="flastName" name="lastName" placeholder="Last Name"
+                    formControlName="lastName">
+                </div>
+                <!--fin insertion champs last name-->
                 <!-- insertion du champs service name-->
                 <div class="form-group">
-                    <label class="form-control-label" for="serviceName" >serviceName</label>
-                    <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="service Name"
+                    <label class="form-control-label" for="serviceName" >Service Name</label>
+                    <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="Service Name"
                            formControlName="serviceName">
                         <div *ngIf="registerForm.get('serviceName').invalid && (registerForm.get('serviceName').dirty || registerForm.get('serviceName').touched)">
                             <small class="form-text text-danger" *ngIf="registerForm.get('serviceName').errors.required" jhiTranslate="register.messages.validate.serviceName.required">
