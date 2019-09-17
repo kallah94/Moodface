@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     let registerAccount = {};
     const login = this.registerForm.get(['login']).value;
     const firstName = this.registerForm.get(['firstName']).value;
-    const lastName = this.registerForm.get(['firstName']).value;
+    const lastName = this.registerForm.get(['lastName']).value;
     const serviceName = this.registerForm.get(['serviceName']).value;
     const email = this.registerForm.get(['email']).value;
     const password = this.registerForm.get(['password']).value;

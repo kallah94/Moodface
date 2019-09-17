@@ -60,7 +60,7 @@
                 <!-- insertion du champs flast name-->
                 <div class="form-group">
                     <label class="form-control-label" for="lastName" >Last Name</label>
-                    <input type="text" class="form-control" id="flastName" name="lastName" placeholder="Last Name"
+                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name"
                     formControlName="lastName">
                 </div>
                 <!--fin insertion champs last name-->
@@ -70,11 +70,10 @@
                     <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="Service Name"
                            formControlName="serviceName">
                         <div *ngIf="registerForm.get('serviceName').invalid && (registerForm.get('serviceName').dirty || registerForm.get('serviceName').touched)">
-                            <small class="form-text text-danger" *ngIf="registerForm.get('serviceName').errors.required" jhiTranslate="register.messages.validate.serviceName.required">
+                            <small class="form-text text-danger" *ngIf="registerForm.get('serviceName').errors.required">
                                Your service name is required.
                             </small>
-                           <small class="form-text text-danger" *ngIf="registerForm.get('serviceName').errors.maxlength"
-                                   jhiTranslate="register.messages.validate.serviceName.maxlength">
+                           <small class="form-text text-danger" *ngIf="registerForm.get('serviceName').errors.maxlength">
                                 Your username cannot be longer than 50 characters.
                            </small>
                        </div>
