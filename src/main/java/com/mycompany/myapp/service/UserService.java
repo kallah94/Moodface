@@ -115,6 +115,9 @@ public class UserService {
         /*Ajout champs serviceName */
         newUser.setServiceName(userDTO.getServiceName());
         /* FIn ajout champs service */
+        /* ajout du champs departement name */
+        newUser.setDepartementName(userDTO.getDepartementName());
+        /* fin ajout du champs departement name */
         newUser.setEmail(userDTO.getEmail().toLowerCase());
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
@@ -150,6 +153,9 @@ public class UserService {
         /*Ajout champs serviceName */
         user.setServiceName(userDTO.getServiceName());
         /* Fin ajout champs serviceName */
+        /* Ajout champs departemenname */
+        user.setDepartementName(userDTO.getDepartementName());
+        /* Fin ajout champs departement Name */
         user.setEmail(userDTO.getEmail().toLowerCase());
         user.setImageUrl(userDTO.getImageUrl());
         if (userDTO.getLangKey() == null) {
@@ -183,11 +189,12 @@ public class UserService {
      * @param firstName first name of user.
      * @param lastName  last name of user.
      * @param serviceName service name of user.
+     * @param departementName departement name of user.
      * @param email     email id of user.
      * @param langKey   language key.
      * @param imageUrl  image URL of user.
      */
-    public void updateUser(String firstName, String lastName, String serviceName, String email, String langKey, String imageUrl) {
+    public void updateUser(String firstName, String lastName, String serviceName, String departementName, String email, String langKey, String imageUrl) {
         SecurityUtils.getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)
             .ifPresent(user -> {
@@ -196,6 +203,9 @@ public class UserService {
                 /* ajout champs serviceName */
                 user.setServiceName(serviceName);
                 /* fin d ajout champs serviceName */
+                /* ajout champs departementName */
+                user.setDepartementName(departementName);
+                /* Fin ajout departementName */
                 user.setEmail(email.toLowerCase());
                 user.setLangKey(langKey);
                 user.setImageUrl(imageUrl);
@@ -224,6 +234,9 @@ public class UserService {
                 /* Ajout champs serviceName */
                 user.setServiceName(userDTO.getServiceName());
                 /* Fin champs serviceName */
+                /* AJout departementName */
+                user.setDepartementName(userDTO.getDepartementName());
+                /* Fin ajout champs departementName */
                 user.setEmail(userDTO.getEmail().toLowerCase());
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());

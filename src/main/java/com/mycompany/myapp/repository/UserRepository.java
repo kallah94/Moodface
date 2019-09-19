@@ -52,4 +52,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     /* Ajout entete methode findAllByServiceName */
     Page<User> findAllByServiceName(Pageable pageable, String serviceName);
     /* Fin ajout de l entete de la methode findAllByServiceName */
+
+    /* Ajout entet methode findAllByDepartementName */
+    Page<User> findAllByDepartementName(Pageable pageable, String departementName);
+    /* Fin ajout entete methode findAllByDepartementName */
 }

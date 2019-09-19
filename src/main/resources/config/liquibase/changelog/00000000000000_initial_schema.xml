@@ -23,9 +23,16 @@
             <column name="password_hash" type="varchar(60)"/>
             <column name="first_name" type="varchar(50)"/>
             <column name="last_name" type="varchar(50)"/>
+            <!-- Ajout de la colonne service_name dans la base de donnees de l appli-->
             <column name="service_name" type="varchar(50)">
                 <constraints nullable = "true"/>
             </column>
+            <!-- fin ajout champs service Name-->
+             <!--Ajout colonne departement_name dans la base de donnees de l appli-->
+            <column name="depart_name" type="varchar(50)">
+                <constraints nullable = "true"/>
+            </column>
+            <!-- fin ajout departement name -->
             <column name="email" type="varchar(191)">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_user_email"/>
             </column>
