@@ -69,7 +69,8 @@
                     <label class="form-control-label" for="serviceName" >Service Name</label>
                     <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="Service Name"
                            formControlName="serviceName">
-                        <div *ngIf="registerForm.get('serviceName').invalid && (registerForm.get('serviceName').dirty || registerForm.get('serviceName').touched)">
+                        <!--
+                           <div *ngIf="registerForm.get('serviceName').invalid && (registerForm.get('serviceName').dirty || registerForm.get('serviceName').touched)">
                             <small class="form-text text-danger" *ngIf="registerForm.get('serviceName').errors.required">
                                Your service name is required.
                             </small>
@@ -77,8 +78,18 @@
                                 Your username cannot be longer than 50 characters.
                            </small>
                        </div>
+                       -->
                 </div>
                 <!-- fin insertion champs de service -->
+                <!-- insertion champs departementName -->
+                <!--
+                <div class="form-group">
+                    <label class="form-control-label" for="departementName">Department Name</label>
+                    <input type="text" class="form-control" id="departementName" name="departementName" placeholder="Department Name"
+                    formControlName="departementName">
+                </div>
+                -->
+                <!-- fin insertion -->
                 <div class="form-group">
                     <label class="form-control-label" for="email" jhiTranslate="global.form.email.label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"

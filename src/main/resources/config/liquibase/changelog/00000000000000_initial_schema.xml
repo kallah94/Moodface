@@ -29,7 +29,7 @@
             </column>
             <!-- fin ajout champs service Name-->
              <!--Ajout colonne departement_name dans la base de donnees de l appli-->
-            <column name="depart_name" type="varchar(50)">
+            <column name="departement_name" type="varchar(50)">
                 <constraints nullable = "true"/>
             </column>
             <!-- fin ajout departement name -->

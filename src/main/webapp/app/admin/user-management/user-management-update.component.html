@@ -61,8 +61,8 @@
                 </div>
                 <!-- insertion du champs service name-->
                 <div class="form-group">
-                    <label class="form-control-label" for="serviceName" >serviceName</label>
-                    <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="service Name"
+                    <label class="form-control-label" for="serviceName" >service Name</label>
+                    <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="Service Name"
                             formControlName="serviceName">
                         <!--div *ngIf="editForm.get('serviceName').invalid && (editForm.get('serviceName').dirty || editForm.get('serviceName').touched)">
                             <small class="form-text text-danger" *ngIf="editForm.get('serviceName').errors.required" >
@@ -75,6 +75,13 @@
                     </div-->
                 </div>
                 <!-- fin insertion champs de service -->
+                <!-- ajout chmaps departementName-->
+                <div class="form-group">
+                    <label class="form-control-label" for="departementName">Department Name</label>
+                    <input type="text" class="form-control" id="departementName" name="departementName" placeholder="Department Name"
+                    formControlName="departementName">
+                </div>
+                <!-- fin ajout champs departement -->
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="userManagement.email">Email</label>
                     <input type="email" class="form-control" name="email" formControlName="email">
