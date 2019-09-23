@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="mood">
+            <h2><span jhiTranslate="moodfaceApp.mood.detail.title">Mood</span> {{mood.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="moodfaceApp.mood.commentaire">Commentaire</span></dt>
+                <dd>
+                    <span>{{mood.commentaire}}</span>
+                </dd>
+                <dt><span jhiTranslate="moodfaceApp.mood.mood">Mood</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'moodfaceApp.Moods.' + mood.mood}}">{{mood.mood}}</span>
+                </dd>
+                <dt><span jhiTranslate="moodfaceApp.mood.agent">Agent</span></dt>
+                <dd>
+                    {{mood.agent?.login}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/mood', mood.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

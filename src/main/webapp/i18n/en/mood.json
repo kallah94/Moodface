@@ -1,0 +1,25 @@
+{
+  "moodfaceApp": {
+    "mood": {
+      "home": {
+        "title": "Moods",
+        "createLabel": "Create a new Mood",
+        "createOrEditLabel": "Create or edit a Mood",
+        "search": "Search for Mood",
+        "notFound": "No Moods found"
+      },
+      "created": "A new Mood is created with identifier {{ param }}",
+      "updated": "A Mood is updated with identifier {{ param }}",
+      "deleted": "A Mood is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Mood {{ id }}?"
+      },
+      "detail": {
+        "title": "Mood"
+      },
+      "commentaire": "Commentaire",
+      "mood": "Mood",
+      "agent": "Agent"
+    }
+  }
+}
