@@ -37,6 +37,12 @@ public class UserDTO {
     private String serviceName;
     /* Fin ajout attribut */
 
+    /* Ajout de l attribut DepartementName dans UserDTO */
+    @NotBlank
+    @Size(max = 50)
+    private String departementName;
+    /* Fin ajout de l attribut departementName */
+
     @Email
     @Size(min = 5, max = 254)
     private String email;
@@ -68,7 +74,8 @@ public class UserDTO {
         this.login = user.getLogin();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-        this.serviceName = user.getServiceName(); //ajout champs service dan suserDTO
+        this.serviceName = user.getServiceName(); //ajout champs service dans userDTO
+        this.departementName = user.getDepartementName(); // ajout champs departement dans userDTO
         this.email = user.getEmail();
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();
@@ -122,6 +129,16 @@ public class UserDTO {
         this.serviceName = serviceName;
     }
     /* Fin ajout des mehodes get et set */
+
+    /* Ajout des deux methodes get et set */
+    public String getDepartementName(){
+        return departementName;
+    }
+
+    public void setDepartementName(String departementName){
+        this.departementName = departementName;
+    }
+    /* Fin ajout methodes set et get */
 
     public String getEmail() {
         return email;
@@ -202,6 +219,7 @@ public class UserDTO {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", serviceName='" + serviceName + '\'' +
+            ", departementName='" + departementName + '\'' +
             ", email='" + email + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated=" + activated +

@@ -62,6 +62,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private String serviceName;
     /* Fin Ajout champs service_name */
 
+    /* Ajout champs DepartementName */
+    @Size(max = 50)
+    @Column(name = "departement_name", length = 50, nullable = false)
+    private String departementName;
+    /* Fin ajout departemenetName */
+
     @Email
     @Size(min = 5, max = 254)
     @Column(length = 254, unique = true)
@@ -152,7 +158,16 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.serviceName = serviceName;
     }
     /* Fin ajout des methodes */
+    
+    /* Ajout champs departementName */
+    public String getDepartementName(){
+        return departementName;
+    }
 
+    public void setDepartementName(String departementName){
+        this.departementName = departementName;
+    }
+    /* Fin ajout ajout champs departementName */
     public String getEmail() {
         return email;
     }
@@ -240,6 +255,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", serviceName='" + serviceName + '\'' +
+            ", departementName='" + departementName + '\'' +
             ", email='" + email + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated='" + activated + '\'' +

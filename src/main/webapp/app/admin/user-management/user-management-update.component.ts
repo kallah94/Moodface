@@ -19,7 +19,8 @@ export class UserMgmtUpdateComponent implements OnInit {
     login: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[_.@A-Za-z0-9-]*')]],
     firstName: ['', [Validators.maxLength(50)]],
     lastName: ['', [Validators.maxLength(50)]],
-    serviceName: ['', [Validators.required, Validators.maxLength(50)]],
+    serviceName: ['', [Validators.required, Validators.maxLength(50)]], // ajout champs serviceName
+    departementName: ['', [Validators.required, Validators.maxLength(50)]], // ajout champs departementName
     email: ['', [Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     activated: [true],
     langKey: [],
@@ -55,7 +56,8 @@ export class UserMgmtUpdateComponent implements OnInit {
       login: user.login,
       firstName: user.firstName,
       lastName: user.lastName,
-      serviceName: user.serviceName,
+      serviceName: user.serviceName, // ajout champs serviceName
+      departementName: user.departementName, // ajout champs departementname
       email: user.email,
       activated: user.activated,
       langKey: user.langKey,
@@ -81,7 +83,8 @@ export class UserMgmtUpdateComponent implements OnInit {
     user.login = this.editForm.get(['login']).value;
     user.firstName = this.editForm.get(['firstName']).value;
     user.lastName = this.editForm.get(['lastName']).value;
-    user.serviceName = this.editForm.get(['serviceName']).value;
+    user.serviceName = this.editForm.get(['serviceName']).value; // ajout champs service
+    user.departementName = this.editForm.get(['departementName']).value; // ajout champs departementName
     user.email = this.editForm.get(['email']).value;
     user.activated = this.editForm.get(['activated']).value;
     user.langKey = this.editForm.get(['langKey']).value;
