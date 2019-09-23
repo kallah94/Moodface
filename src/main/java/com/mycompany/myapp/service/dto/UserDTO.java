@@ -31,11 +31,20 @@ public class UserDTO {
     @Size(max = 50)
     private String lastName;
 
-    /* Ajout de l attribut service dans UserDTO */
+    /* Ajout des champs dans UserDTO */
+
     @NotBlank
     @Size(max = 50)
     private String serviceName;
-    /* Fin ajout attribut */
+
+    @NotBlank
+    @Size(max = 50)
+    private String departementName;
+
+    @Size(max = 50)
+    private String plateauName;
+
+    /* Fin ajout attributs */
 
     @Email
     @Size(min = 5, max = 254)
@@ -68,7 +77,11 @@ public class UserDTO {
         this.login = user.getLogin();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-        this.serviceName = user.getServiceName(); //ajout champs service dan suserDTO
+        //ajout champs service dan suserDTO
+        this.serviceName = user.getServiceName(); 
+        this.departementName = user.getDepartementName(); 
+        this.plateauName = user.getPlateauName(); 
+        //fin ajout champs service dan suserDTO
         this.email = user.getEmail();
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();
@@ -114,12 +127,29 @@ public class UserDTO {
         this.lastName = lastName;
     }
     /* Ajout des deux mehodes get et set */
+
     public String getServiceName(){
         return serviceName;
     }
 
     public void setServiceName(String serviceName){
         this.serviceName = serviceName;
+    }
+
+    public String getDepartementName(){
+        return departementName;
+    }
+
+    public void setDepartementame(String departementName){
+        this.departementName = departementName;
+    }
+
+    public String getPlateauName(){
+        return plateauName;
+    }
+
+    public void setPlateauName(String plateauName){
+        this.plateauName = plateauName;
     }
     /* Fin ajout des mehodes get et set */
 
@@ -201,7 +231,11 @@ public class UserDTO {
             "login='" + login + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
+            // ajout des champs 
             ", serviceName='" + serviceName + '\'' +
+            ", departementName='" + departementName + '\'' +
+            ", plateauName='" + plateauName + '\'' +
+            // fin ajout des champs
             ", email='" + email + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated=" + activated +
