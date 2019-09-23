@@ -4,6 +4,7 @@ export interface IUser {
   firstName?: string;
   lastName?: string;
   serviceName?: string; // ajout champs serviceName
+  departementName?: string; // ajout champs departementName
   email?: string;
   activated?: boolean;
   langKey?: string;
@@ -22,6 +23,7 @@ export class User implements IUser {
     public firstName?: string,
     public lastName?: string,
     public serviceName?: string, // ajout champs serviceName
+    public departementName?: string, // ajout champs departementName
     public email?: string,
     public activated?: boolean,
     public langKey?: string,
@@ -37,6 +39,7 @@ export class User implements IUser {
     this.firstName = firstName ? firstName : null;
     this.lastName = lastName ? lastName : null;
     this.serviceName = serviceName ? serviceName : null; // ajout champs serviceName
+    this.departementName = departementName ? departementName : null; // ajout champs departementName
     this.email = email ? email : null;
     this.activated = activated ? activated : false;
     this.langKey = langKey ? langKey : null;
