@@ -6,7 +6,10 @@ export class Account {
     public firstName: string,
     public langKey: string,
     public lastName: string,
-    public serviceName: string, // Ajou champs serviceName
+    // Ajou champs
+    public serviceName: string,
+    public eepartementName: string,
+    public plateauName: string,
     public login: string,
     public imageUrl: string
   ) {}
