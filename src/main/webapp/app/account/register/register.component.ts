@@ -10,7 +10,8 @@ import { Register } from './register.service';
 
 @Component({
   selector: 'jhi-register',
-  templateUrl: './register.component.html'
+  templateUrl: './register.component.html',
+  styleUrls: ['register.component.scss']
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
   doNotMatch: string;
@@ -82,7 +83,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   openLogin() {
     this.modalRef = this.loginModalService.open();
   }
-
   private processError(response: HttpErrorResponse) {
     this.success = null;
     if (response.status === 400 && response.error.type === LOGIN_ALREADY_USED_TYPE) {

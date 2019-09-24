@@ -85,7 +85,8 @@ export class UserMgmtUpdateComponent implements OnInit {
     user.login = this.editForm.get(['login']).value;
     user.firstName = this.editForm.get(['firstName']).value;
     user.lastName = this.editForm.get(['lastName']).value;
-    user.serviceName = this.editForm.get(['serviceName']).value;
+    user.serviceName = this.editForm.get(['serviceName']).value; // ajout champs service
+    user.departementName = this.editForm.get(['departementName']).value; // ajout champs departementName
     user.email = this.editForm.get(['email']).value;
     user.activated = this.editForm.get(['activated']).value;
     user.langKey = this.editForm.get(['langKey']).value;

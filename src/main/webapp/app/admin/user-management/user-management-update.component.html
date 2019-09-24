@@ -54,26 +54,27 @@
 
                     <div *ngIf="editForm.get('lastName').invalid && (editForm.get('lastName').dirty || editForm.get('lastName').touched)">
                         <small class="form-text text-danger"
-                        *ngIf="editForm.get('lastName').errors.maxlength" jhiTranslate="entity.validation.maxlength"
-                        [translateValues]="{max: 50}">
+                        *ngIf="editForm.get('lastName').errors.maxlength">
                             This field cannot be longer than 50 characters.
                         </small>
                     </div>
                 </div>
                 <!-- insertion du champs service name-->
                 <div class="form-group">
-                    <label class="form-control-label" for="serviceName" >serviceName</label>
-                    <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="service Name"
+                    <label class="form-control-label" for="serviceName" >service Name</label>
+                    <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="Service Name"
                             formControlName="serviceName">
+
                         <div *ngIf="editForm.get('serviceName').invalid && (editForm.orm.get('serviceName').dirty || editForm.get('serviceName').touched)">
                             <small class="form-text text-danger" *ngIf="editForm.get('serviceName').errors.required" jhiTranslate="register.messages.validate.serviceName.required">
                                 Your service name is required.
                             </small>
                             <small class="form-text text-danger" *ngIf="editForm.get('serviceName').errors.maxlength"
                                     jhiTranslate="register.messages.validate.serviceName.maxlength">
+
                                 Your username cannot be longer than 50 characters.
                             </small>
-                    </div>
+                    </div-->
                 </div>
 
                 <div class="form-group">
@@ -88,6 +89,13 @@
                             formControlName="plateauName">
                 </div>
                 <!-- fin insertion champs de service -->
+                <!-- ajout chmaps departementName-->
+                <div class="form-group">
+                    <label class="form-control-label" for="departementName">Department Name</label>
+                    <input type="text" class="form-control" id="departementName" name="departementName" placeholder="Department Name"
+                    formControlName="departementName">
+                </div>
+                <!-- fin ajout champs departement -->
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="userManagement.email">Email</label>
                     <input type="email" class="form-control" name="email" formControlName="email">

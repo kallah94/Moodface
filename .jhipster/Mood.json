@@ -1,0 +1,36 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "agent",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "mood"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "commentaire",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "mood",
+            "fieldType": "Moods",
+            "fieldValues": "VERY_HAPPY,HAPPY,SAD,ANGRY",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20190920122031",
+    "dto": "no",
+    "searchEngine": "elasticsearch",
+    "service": "no",
+    "entityTableName": "mood",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

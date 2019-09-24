@@ -46,6 +46,12 @@ public class UserDTO {
 
     /* Fin ajout attributs */
 
+    /* Ajout de l attribut DepartementName dans UserDTO */
+    @NotBlank
+    @Size(max = 50)
+    private String departementName;
+    /* Fin ajout de l attribut departementName */
+
     @Email
     @Size(min = 5, max = 254)
     private String email;
@@ -77,11 +83,12 @@ public class UserDTO {
         this.login = user.getLogin();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-        //ajout champs service dan suserDTO
+        //ajout champs suserDTO
         this.serviceName = user.getServiceName(); 
         this.departementName = user.getDepartementName(); 
         this.plateauName = user.getPlateauName(); 
-        //fin ajout champs service dan suserDTO
+        //fin ajout champs suserDTO
+
         this.email = user.getEmail();
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();

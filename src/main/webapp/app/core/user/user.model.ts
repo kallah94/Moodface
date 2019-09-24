@@ -45,7 +45,7 @@ export class User implements IUser {
     // ajout champs s
     this.serviceName = serviceName ? serviceName : null;
     this.departementName = departementName ? departementName : null;
-    this.plateauName = plateauName ? plateauName : null;
+    this.plateauName = plateauName ? plateauName : nu
     this.email = email ? email : null;
     this.activated = activated ? activated : false;
     this.langKey = langKey ? langKey : null;

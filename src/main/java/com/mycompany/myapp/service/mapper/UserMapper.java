@@ -47,7 +47,7 @@ public class UserMapper {
             user.setLastName(userDTO.getLastName());
             /* ajout champs */
             user.setServiceName(userDTO.getServiceName());
-            user.setDepartementName(userDTO.getDepartementName());
+             user.setDepartementName(userDTO.getDepartementName());
             user.setPlateauName(userDTO.getPlateauName());
             /* fin ajout champs */
             user.setEmail(userDTO.getEmail());

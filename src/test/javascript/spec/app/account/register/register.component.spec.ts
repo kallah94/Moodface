@@ -57,6 +57,9 @@ describe('Component Tests', () => {
           email: '',
           password: 'password',
           login: '',
+          firstName: '',
+          lastName: '',
+          serviceName: '',
           langKey: 'fr'
         });
         expect(comp.success).toEqual(true);
