@@ -161,7 +161,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     
     /* Ajout champs departementName */
     public String getDepartementName(){
-        return departementName;
+        return departmentName;
     }
 
     public void setDepartementName(String departementName){
