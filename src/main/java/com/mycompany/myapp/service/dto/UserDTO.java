@@ -31,11 +31,20 @@ public class UserDTO {
     @Size(max = 50)
     private String lastName;
 
-    /* Ajout de l attribut service dans UserDTO */
+    /* Ajout des champs dans UserDTO */
+
     @NotBlank
     @Size(max = 50)
     private String serviceName;
-    /* Fin ajout attribut */
+
+    @NotBlank
+    @Size(max = 50)
+    private String departementName;
+
+    @Size(max = 50)
+    private String plateauName;
+
+    /* Fin ajout attributs */
 
     /* Ajout de l attribut DepartementName dans UserDTO */
     @NotBlank
@@ -74,8 +83,12 @@ public class UserDTO {
         this.login = user.getLogin();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-        this.serviceName = user.getServiceName(); //ajout champs service dans userDTO
-        this.departementName = user.getDepartementName(); // ajout champs departement dans userDTO
+        //ajout champs suserDTO
+        this.serviceName = user.getServiceName(); 
+        this.departementName = user.getDepartementName(); 
+        this.plateauName = user.getPlateauName(); 
+        //fin ajout champs suserDTO
+
         this.email = user.getEmail();
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();
@@ -121,6 +134,7 @@ public class UserDTO {
         this.lastName = lastName;
     }
     /* Ajout des deux mehodes get et set */
+
     public String getServiceName(){
         return serviceName;
     }
@@ -128,17 +142,23 @@ public class UserDTO {
     public void setServiceName(String serviceName){
         this.serviceName = serviceName;
     }
-    /* Fin ajout des mehodes get et set */
 
-    /* Ajout des deux methodes get et set */
     public String getDepartementName(){
         return departementName;
     }
 
-    public void setDepartementName(String departementName){
+    public void setDepartementame(String departementName){
         this.departementName = departementName;
     }
-    /* Fin ajout methodes set et get */
+
+    public String getPlateauName(){
+        return plateauName;
+    }
+
+    public void setPlateauName(String plateauName){
+        this.plateauName = plateauName;
+    }
+    /* Fin ajout des mehodes get et set */
 
     public String getEmail() {
         return email;
@@ -218,8 +238,11 @@ public class UserDTO {
             "login='" + login + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
+            // ajout des champs 
             ", serviceName='" + serviceName + '\'' +
             ", departementName='" + departementName + '\'' +
+            ", plateauName='" + plateauName + '\'' +
+            // fin ajout des champs
             ", email='" + email + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated=" + activated +

@@ -56,11 +56,23 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "last_name", length = 50)
     private String lastName;
 
-    /* Ajout champs service_name */
+    /* Ajout des champs */
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "departement_name", length = 50)
+    private String departementName;
+
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "plateau_name", length = 50)
+    private String plateauName;
+
     @Size(max = 50)
     @Column(name = "service_name", length = 50, nullable = false)
     private String serviceName;
-    /* Fin Ajout champs service_name */
+
+
+    /* Fin Ajout champs */
 
     /* Ajout champs DepartementName */
     @Size(max = 50)
@@ -150,12 +162,29 @@ public class User extends AbstractAuditingEntity implements Serializable {
     }
 
     /* Ajout des deux methodes setteur et getteur */
+
     public String getServiceName(){
         return serviceName;
     }
 
     public void setServiceName(String serviceName){
         this.serviceName = serviceName;
+    }
+
+    public String getDepartementName(){
+        return departementName;
+    }
+
+    public void setDepartementName(String departementName){
+        this.departementName =departementName;
+    }
+
+    public String getPlateauName(){
+        return plateauName;
+    }
+
+    public void setPlateauName(String plateauName){
+        this.plateauName = plateauName;
     }
     /* Fin ajout des methodes */
     
@@ -254,6 +283,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
             "login='" + login + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
+            ", departementName='" + departementName + '\'' +
+            ",plateauName='" + plateauName + '\'' +
             ", serviceName='" + serviceName + '\'' +
             ", departementName='" + departementName + '\'' +
             ", email='" + email + '\'' +

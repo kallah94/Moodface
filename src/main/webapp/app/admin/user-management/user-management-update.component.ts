@@ -19,8 +19,9 @@ export class UserMgmtUpdateComponent implements OnInit {
     login: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern('^[_.@A-Za-z0-9-]*')]],
     firstName: ['', [Validators.maxLength(50)]],
     lastName: ['', [Validators.maxLength(50)]],
-    serviceName: ['', [Validators.required, Validators.maxLength(50)]], // ajout champs serviceName
-    departementName: ['', [Validators.required, Validators.maxLength(50)]], // ajout champs departementName
+    serviceName: ['', [Validators.required, Validators.maxLength(50)]],
+    departementName: ['', [Validators.required, Validators.maxLength(50)]],
+    plateauName: ['', [Validators.maxLength(50)]],
     email: ['', [Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     activated: [true],
     langKey: [],
@@ -56,8 +57,9 @@ export class UserMgmtUpdateComponent implements OnInit {
       login: user.login,
       firstName: user.firstName,
       lastName: user.lastName,
-      serviceName: user.serviceName, // ajout champs serviceName
-      departementName: user.departementName, // ajout champs departementname
+      serviceName: user.serviceName,
+      departementName: user.departementName,
+      plateauName: user.plateauName,
       email: user.email,
       activated: user.activated,
       langKey: user.langKey,

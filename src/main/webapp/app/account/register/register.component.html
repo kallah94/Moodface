@@ -196,7 +196,7 @@
                     formControlName="lastName">
                 </div>
                 <!--fin insertion champs last name-->
-                <!-- insertion du champs service name-->
+                <!-- insertion du champs -->
                 <div class="form-group">
                     <label class="form-control-label" for="serviceName" >Service Name</label>
                     <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="Service Name"
@@ -210,16 +210,29 @@
                                 Your username cannot be longer than 50 characters.
                     
                 </div>
-                <!-- fin insertion champs de service -->
-                <!-- insertion champs departementName -->
-                <!--
+
                 <div class="form-group">
-                    <label class="form-control-label" for="departementName">Department Name</label>
-                    <input type="text" class="form-control" id="departementName" name="departementName" placeholder="Department Name"
-                    formControlName="departementName">
+                    <label class="form-control-label" for="departementName" >DepartementName</label>
+                    <input type="text" class="form-control" id="departentName" name="departementName" placeholder="Departement Name"
+                           formControlName="departementName">
+                        <div *ngIf="registerForm.get('departementName').invalid && (registerForm.get('departementName').dirty || registerForm.get('departementName').touched)">
+                            <small class="form-text text-danger" *ngIf="registerForm.get('departementName').errors.required" jhiTranslate="register.messages.validate.departementName.required">
+                               Your departement name is required.
+                            </small>
+                           <small class="form-text text-danger" *ngIf="registerForm.get('departementName').errors.maxlength"
+                                   jhiTranslate="register.messages.validate.departementName.maxlength">
+                                Your departement name cannot be longer than 50 characters.
+                           </small>
+                       </div>
                 </div>
-                -->
-                <!-- fin insertion -->
+
+                <div class="form-group">
+                    <label class="form-control-label" for="plateauName" >Plateau Name</label>
+                    <input type="text" class="form-control" id="plateauName" name="plateauName" placeholder="Plateau Name"
+                           formControlName="plateauName">
+                </div>
+
+                <!-- fin insertion champs -->
                 <div class="form-group">
                     <label class="form-control-label" for="email" jhiTranslate="global.form.email.label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"

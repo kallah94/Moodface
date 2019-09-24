@@ -3,8 +3,10 @@ export interface IUser {
   login?: string;
   firstName?: string;
   lastName?: string;
-  serviceName?: string; // ajout champs serviceName
-  departementName?: string; // ajout champs departementName
+  // ajout champs
+  serviceName?: string;
+  departementName?: string;
+  plateauName?: string;
   email?: string;
   activated?: boolean;
   langKey?: string;
@@ -22,8 +24,10 @@ export class User implements IUser {
     public login?: string,
     public firstName?: string,
     public lastName?: string,
-    public serviceName?: string, // ajout champs serviceName
-    public departementName?: string, // ajout champs departementName
+    // ajout champs
+    public serviceName?: string,
+    public departementName?: string,
+    public plateauName?: string,
     public email?: string,
     public activated?: boolean,
     public langKey?: string,
@@ -38,8 +42,10 @@ export class User implements IUser {
     this.login = login ? login : null;
     this.firstName = firstName ? firstName : null;
     this.lastName = lastName ? lastName : null;
-    this.serviceName = serviceName ? serviceName : null; // ajout champs serviceName
-    this.departementName = departementName ? departementName : null; // ajout champs departementName
+    // ajout champs s
+    this.serviceName = serviceName ? serviceName : null;
+    this.departementName = departementName ? departementName : null;
+    this.plateauName = plateauName ? plateauName : nu
     this.email = email ? email : null;
     this.activated = activated ? activated : false;
     this.langKey = langKey ? langKey : null;
