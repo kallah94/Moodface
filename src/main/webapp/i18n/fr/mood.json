@@ -1,0 +1,26 @@
+{
+  "moodface1App": {
+    "mood": {
+      "home": {
+        "title": "Moods",
+        "createLabel": "Créer un nouveau Mood",
+        "createOrEditLabel": "Créer ou éditer un Mood",
+        "search": "Recherche pour Mood",
+        "notFound": "Aucun Mood trouvé"
+      },
+      "created": "Un nouveau Mood a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Mood avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Mood avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Mood {{ id }} ?"
+      },
+      "detail": {
+        "title": "Mood"
+      },
+      "mood": "Mood",
+      "comment": "Comment",
+      "date": "Date",
+      "user": "User"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "moodface1App": {
+    "Moods": {
+      "null": "",
+      "VERY_HAPPY": "VERY_HAPPY",
+      "HAPPY": "HAPPY",
+      "SAD": "SAD",
+      "ANGRY": "ANGRY"
+    }
+  }
+}
