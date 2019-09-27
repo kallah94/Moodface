@@ -103,9 +103,9 @@ public class MoodResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of moods in body.
      */
     @GetMapping("/moods")
-    public ResponseEntity<List<MoodDTO>> getAllMoods(MoodCriteria criteria, Pageable pageable) {
-        log.debug("REST request to get Moods by criteria: {}", criteria);
-        Page<MoodDTO> page = moodQueryService.findByCriteria(criteria, pageable);
+    public ResponseEntity<List<MoodDTO>> getAllMoods(Pageable pageable) {
+        log.debug("REST request to get Moods");
+        Page<MoodDTO> page = moodQueryService.findByRole(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
