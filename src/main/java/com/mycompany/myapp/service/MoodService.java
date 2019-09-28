@@ -3,8 +3,6 @@ package com.mycompany.myapp.service;
 import com.mycompany.myapp.domain.Mood;
 import com.mycompany.myapp.repository.MoodRepository;
 import com.mycompany.myapp.repository.search.MoodSearchRepository;
-import com.mycompany.myapp.security.AuthoritiesConstants;
-import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.dto.MoodDTO;
 import com.mycompany.myapp.service.mapper.MoodMapper;
 import org.slf4j.Logger;
@@ -64,13 +62,8 @@ public class MoodService {
     @Transactional(readOnly = true)
     public Page<MoodDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Moods");
-        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
         return moodRepository.findAll(pageable)
             .map(moodMapper::toDto);
-        } else {
-            return moodRepository.findByUserIsCurrentUser(pageable)
-                .map(moodMapper::toDto);
-        }
     }
 
 
