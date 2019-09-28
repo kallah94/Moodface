@@ -151,13 +151,52 @@ public class UserResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
      */
+
+    /**
+     *
+     * @param pageable
+     * @return
+     */
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    /**
+     *
+     * @param pageable
+     * @param serviceName
+     * @return
+     */
+    @GetMapping("/users/service/{serviceName}")
+    public ResponseEntity<List<UserDTO>> getAllUsersByService(Pageable pageable, @PathVariable String serviceName) {
+        log.debug("REST request to get Users of the given service Name {}", serviceName);
+        final Page<UserDTO> page = userService.getUsersByService(pageable, serviceName);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    /**
+     *
+     * @param pageable
+     * @param departementName
+     * @return
+     */
+    @GetMapping("/users/departement/{departementName}")
+    public ResponseEntity<List<UserDTO>> getUsersByDepartement(Pageable pageable, @PathVariable String departementName ) {
+        log.debug("REST request to get Users of the given service Name {}", departementName);
+        final Page<UserDTO> page = userService.getUsersByDepartement(pageable, departementName);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
+    @GetMapping("/users/departement/{plateauName}")
+    public ResponseEntity<List<UserDTO>> getUsersByPlateauName(Pageable pageable, @PathVariable String plateauName) {
+        log.debug("REST request to get Users of the given service Name {}", plateauName);
+        final Page<UserDTO> page = userService.getAllUserByPlateauName(pageable, plateauName);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
     /**
      * Gets a list of all roles.
      * @return a string list of all roles.
