@@ -318,7 +318,35 @@ public class UserService {
         log.debug("find Users by a specifique plateau");
         return userRepository.findAllByPlateauName(plateauName, pageable);
     }
+    /**
+     *
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public List<String> getAllPlateau(){
+        log.debug("find all plateau");
+        return userRepository.findAllPlateauName();
+    }
 
+       /**
+     *
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public List<String> getAllService(){
+        log.debug("find all plateau");
+        return userRepository.findAllServiceName();
+    }
+
+       /**
+     *
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public List<String> getAllDepartement(){
+        log.debug("find all plateau");
+        return userRepository.findAllDepartementName();
+    }
     /**
      * Not activated users should be automatically deleted after 3 days.
      * <p>

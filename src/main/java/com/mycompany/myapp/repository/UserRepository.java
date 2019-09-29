@@ -50,7 +50,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);
 
-    /* Ajout entete methode findAllByChampsName */
+
     @Query("select user from User user where user.serviceName = :serviceName")
     Page<UserDTO> findAllByServiceName(@Param("serviceName") String serviceName, Pageable pageable);
 
@@ -59,6 +59,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select user from User user where user.plateauName = :plateauName")
     Page<UserDTO> findAllByPlateauName(@Param("plateauName") String plateauName, Pageable pageable);
-    /* Fin ajout de l entete de la methode findAllByServiceName */
+
+    @Query("select user.plateauName from User user")
+    List<String> findAllPlateauName();
+
+    @Query("select user.serviceName from User user")
+    List<String> findAllServiceName();
+
+    @Query("select user.departementName from User user")
+    List<String> findAllDepartementName();
 
 }

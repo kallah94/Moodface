@@ -198,6 +198,42 @@ public class UserResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
     /**
+     *
+     * @return
+     */
+    @GetMapping("/users/plateaux")
+    public Set<String> getAllPlateaux() {
+        log.debug("return a list of all differentes plateaux");
+        return StreamSupport
+            .stream(userService.getAllPlateau().spliterator(), false)
+            .collect(Collectors.toUnmodifiableSet());
+    }
+
+    /**
+     *
+     * @return
+     */
+    @GetMapping("/users/services")
+    public Set<String> getAllServices() {
+        log.debug("return a list of all differentes services");
+        return StreamSupport
+            .stream(userService.getAllService().spliterator(), false)
+            .collect(Collectors.toUnmodifiableSet());
+    }
+
+    /**
+     *
+     * @return
+     */
+    @GetMapping("/users/departements")
+    public Set<String> getAllDepartements() {
+        log.debug("return a list of all differentes departements");
+        return StreamSupport
+            .stream(userService.getAllDepartement().spliterator(), false)
+            .collect(Collectors.toUnmodifiableSet());
+    }
+
+    /**
      * Gets a list of all roles.
      * @return a string list of all roles.
      */
