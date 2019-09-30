@@ -37,6 +37,12 @@
     "form": {
       "username.label": "Nom d'utilisateur",
       "username.placeholder": "Votre nom d'utilisateur",
+      "lastName.label": "Nom",
+      "lastName.placeholder": "Votre Nom",
+      "firstName.label": "Prénom",
+      "firstName.placeholder": "Votre Prénom",
+      "serviceName.label": "Service",
+      "serviceName.placeholder": "Nom de votre Service",
       "currentpassword.label": "Mot de passe actuel",
       "currentpassword.placeholder": "Mot de passe actuel",
       "newpassword.label": "Nouveau mot de passe",
