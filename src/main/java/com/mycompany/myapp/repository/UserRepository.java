@@ -1,6 +1,7 @@
 package com.mycompany.myapp.repository;
 
 import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.service.dto.UserDTO;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -47,10 +50,23 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);
 
-    /* Ajout entete methode findAllByChampsName */
-    Page<User> findAllByServiceName(Pageable pageable, String serviceName);
-    Page<User> findAllByDepartementName(Pageable pageable, String departementName);
-    Page<User> findAllByPlateauName(Pageable pageable, String plateauName);
-    /* Fin ajout de l entete de la methode findAllByServiceName */
+
+    @Query("select user from User user where user.serviceName = :serviceName")
+    Page<UserDTO> findAllByServiceName(@Param("serviceName") String serviceName, Pageable pageable);
+
+    @Query("select user from User user where user.departementName = :departementName")
+    Page<UserDTO> findAllByDepartementName(@Param("departementName") String departementName, Pageable pageable);
+
+    @Query("select user from User user where user.plateauName = :plateauName")
+    Page<UserDTO> findAllByPlateauName(@Param("plateauName") String plateauName, Pageable pageable);
+
+    @Query("select user.plateauName from User user")
+    List<String> findAllPlateauName();
+
+    @Query("select user.serviceName from User user")
+    List<String> findAllServiceName();
+
+    @Query("select user.departementName from User user")
+    List<String> findAllDepartementName();
 
 }
