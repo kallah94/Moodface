@@ -52,8 +52,8 @@
                 </div>
                 <!-- insertion du champs first name-->
                 <div class="form-group">
-                    <label class="form-control-label" for="firstName">First Name</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name"
+                    <label class="form-control-label" for="firstName" jhiTranslate="global.form.firstName.label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="{{'global.form.firstName.placeholder' | translate}}"
                     formControlName="firstName">
                 </div>
                 <!--fin insertion champs first name-->
@@ -66,8 +66,8 @@
                 <!--fin insertion champs last name-->
                 <!-- insertion du champs -->
                 <div class="form-group">
-                    <label class="form-control-label" for="serviceName" >Service Name</label>
-                    <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="Service Name"
+                    <label class="form-control-label" for="serviceName" jhiTranslate="global.form.serviceName.label" >Service Name</label>
+                    <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="{{'global.form.serviceName.placeholder' | translate}}"
                            formControlName="serviceName">
                         <div *ngIf="registerForm.get('serviceName').invalid && (registerForm.get('serviceName').dirty || registerForm.get('serviceName').touched)">
                             <small class="form-text text-danger" *ngIf="registerForm.get('serviceName').errors.required" jhiTranslate="register.messages.validate.serviceName.required">
@@ -81,8 +81,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="departementName" >DepartementName</label>
-                    <input type="text" class="form-control" id="departentName" name="departementName" placeholder="Departement Name"
+                    <label class="form-control-label" for="departementName" jhiTranslate="global.form.departementName.label" >Département</label>
+                    <input type="text" class="form-control" id="departentName" name="departementName" placeholder="{{'global.form.departementName.placeholder' | translate}}"
                            formControlName="departementName">
                         <div *ngIf="registerForm.get('departementName').invalid && (registerForm.get('departementName').dirty || registerForm.get('departementName').touched)">
                             <small class="form-text text-danger" *ngIf="registerForm.get('departementName').errors.required" jhiTranslate="register.messages.validate.departementName.required">
@@ -96,8 +96,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="plateauName" >Plateau Name</label>
-                    <input type="text" class="form-control" id="plateauName" name="plateauName" placeholder="Plateau Name"
+                    <label class="form-control-label" for="plateauName" jhiTranslate="global.form.plateauName.label">Plateau</label>
+                    <input type="text" class="form-control" id="plateauName" name="plateauName" placeholder="{{'global.form.plateauName.placeholder' | translate}}"
                            formControlName="plateauName">
                 </div>
 
