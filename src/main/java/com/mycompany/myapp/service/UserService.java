@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import com.mycompany.myapp.config.Constants;
 import com.mycompany.myapp.domain.Authority;
@@ -323,9 +324,11 @@ public class UserService {
      * @return
      */
     @Transactional(readOnly = true)
-    public List<String> getAllPlateau(){
+    public Set<String> getAllPlateau(){
         log.debug("find all plateau");
-        return userRepository.findAllPlateauName();
+        return  StreamSupport
+            .stream(userRepository.findAllPlateauName().spliterator(), false)
+            .collect(Collectors.toUnmodifiableSet());
     }
 
        /**
@@ -333,9 +336,11 @@ public class UserService {
      * @return
      */
     @Transactional(readOnly = true)
-    public List<String> getAllService(){
+    public Set<String> getAllService(){
         log.debug("find all plateau");
-        return userRepository.findAllServiceName();
+        return  StreamSupport
+            .stream(userRepository.findAllServiceName().spliterator(), false)
+            .collect(Collectors.toUnmodifiableSet());
     }
 
        /**
@@ -343,9 +348,11 @@ public class UserService {
      * @return
      */
     @Transactional(readOnly = true)
-    public List<String> getAllDepartement(){
+    public Set<String> getAllDepartement() {
         log.debug("find all plateau");
-        return userRepository.findAllDepartementName();
+        return StreamSupport
+            .stream(userRepository.findAllDepartementName().spliterator(), false)
+            .collect(Collectors.toUnmodifiableSet());
     }
     /**
      * Not activated users should be automatically deleted after 3 days.

@@ -36,4 +36,16 @@ export class UserService {
   authorities(): Observable<string[]> {
     return this.http.get<string[]>(SERVER_API_URL + 'api/users/authorities');
   }
+
+  plateaux(): Observable<string[]> {
+    return this.http.get<string[]>(SERVER_API_URL + 'api/users/plateaux');
+  }
+
+  services(): Observable<string[]> {
+    return this.http.get<string[]>(SERVER_API_URL + 'api/users/services');
+  }
+
+  departements(): Observable<string[]> {
+    return this.http.get<string[]>(SERVER_API_URL + 'api/users/departements');
+  }
 }

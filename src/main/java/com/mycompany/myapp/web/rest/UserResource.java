@@ -202,11 +202,12 @@ public class UserResource {
      * @return
      */
     @GetMapping("/users/plateaux")
-    public Set<String> getAllPlateaux() {
+    public List<String> getAllPlateaux() {
         log.debug("return a list of all differentes plateaux");
-        return StreamSupport
-            .stream(userService.getAllPlateau().spliterator(), false)
-            .collect(Collectors.toUnmodifiableSet());
+        List<String> list = new ArrayList<>();
+        for (String plateau : userService.getAllPlateau())
+                list.add(plateau);
+        return list;
     }
 
     /**
@@ -214,11 +215,12 @@ public class UserResource {
      * @return
      */
     @GetMapping("/users/services")
-    public Set<String> getAllServices() {
+    public List<String> getAllServices() {
         log.debug("return a list of all differentes services");
-        return StreamSupport
-            .stream(userService.getAllService().spliterator(), false)
-            .collect(Collectors.toUnmodifiableSet());
+        List<String> list = new ArrayList<>();
+        for (String service : userService.getAllService())
+                list.add(service);
+        return list;
     }
 
     /**
@@ -226,11 +228,12 @@ public class UserResource {
      * @return
      */
     @GetMapping("/users/departements")
-    public Set<String> getAllDepartements() {
+    public List<String> getAllDepartements() {
         log.debug("return a list of all differentes departements");
-        return StreamSupport
-            .stream(userService.getAllDepartement().spliterator(), false)
-            .collect(Collectors.toUnmodifiableSet());
+        List<String> list = new ArrayList<>();
+        for (String departement : userService.getAllDepartement())
+                list.add(departement);
+        return list;
     }
 
     /**
