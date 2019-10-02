@@ -8,7 +8,7 @@ import { UserService } from 'app/core/user/user.service';
 import { UserMgmtComponent } from './user-management.component';
 import { UserMgmtDetailComponent } from './user-management-detail.component';
 import { UserMgmtUpdateComponent } from './user-management-update.component';
-
+import { PlateauComponent } from './user-management-plateaux.component';
 @Injectable({ providedIn: 'root' })
 export class UserMgmtResolve implements Resolve<any> {
   constructor(private service: UserService) {}
@@ -57,6 +57,14 @@ export const userManagementRoute: Routes = [
   {
     path: ':login/edit',
     component: UserMgmtUpdateComponent,
+    resolve: {
+      user: UserMgmtResolve
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'plateaux',
+    component: PlateauComponent,
     resolve: {
       user: UserMgmtResolve
     },
