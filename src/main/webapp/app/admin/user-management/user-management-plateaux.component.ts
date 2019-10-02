@@ -26,6 +26,9 @@ export class PlateauComponent implements OnInit {
   predicate: any;
   plateaux: [];
   currentAccount: any;
+  links: any;
+  totalItems: any;
+  olateaux: String[];
 
   constructor(
     private userService: UserService,
@@ -45,15 +48,26 @@ export class PlateauComponent implements OnInit {
       this.predicate = data.pagingParams.predicate;
     });
   }
+
   loadAll() {
-    this.userService.plateaux().subscribe(plateaux => {
-      plateaux = this.plateaux;
-    });
+    this.userService
+      .plateaux()
+      .subscribe((res: HttpResponse<any>) => this.onSuccess(res.body, res.headers), (res: HttpResponse<any>) => this.onError(res.body));
   }
   ngOnInit() {
     this.accountService.identity().then(account => {
       this.currentAccount = account;
       this.loadAll();
     });
+  }
+
+  private onSuccess(data, headers) {
+    this.links = this.parseLinks.parse(headers.get('link'));
+    this.totalItems = headers.get('X-Total-Count');
+    this.plateaux = data;
+  }
+
+  private onError(error) {
+    this.alertService.error(error.error, error.message, null);
   }
 }
