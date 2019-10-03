@@ -48,4 +48,8 @@ export class UserService {
   departements(): Observable<string[]> {
     return this.http.get<string[]>(SERVER_API_URL + 'api/users/departements');
   }
+
+  findUsersService(service: string): Observable<HttpResponse<IUser[]>> {
+    return this.http.get<IUser[]>(`${this.resourceUrl}/${service}`, { observe: 'response' });
+  }
 }
