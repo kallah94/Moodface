@@ -19,7 +19,7 @@ import { UserMgmtDeleteDialogComponent } from './user-management-delete-dialog.c
 export class UserDepartComponent implements OnInit, OnDestroy {
   currentAccount: any;
   users: User[];
-  service: string;
+  departement: string;
   error: any;
   success: any;
   userListSubscription: Subscription;
@@ -87,7 +87,7 @@ export class UserDepartComponent implements OnInit, OnDestroy {
 
   loadAll() {
     this.userService
-      .findUsersService(this.service)
+      .findByDepartement(this.departement)
       .subscribe((res: HttpResponse<User[]>) => this.onSuccess(res.body, res.headers), (res: HttpResponse<any>) => this.onError(res.body));
   }
 

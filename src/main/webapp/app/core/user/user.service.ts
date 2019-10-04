@@ -9,6 +9,9 @@ import { IUser } from './user.model';
 @Injectable({ providedIn: 'root' })
 export class UserService {
   public resourceUrl = SERVER_API_URL + 'api/users';
+  public resourcesByServiceUrl = SERVER_API_URL + 'api/users/service';
+  public resourcesByDepartementUrl = SERVER_API_URL + 'api/users/departement';
+  public resourcesByPlateauUrl = SERVER_API_URL + 'api/users/plateau';
 
   constructor(private http: HttpClient) {}
 
@@ -49,7 +52,15 @@ export class UserService {
     return this.http.get<string[]>(SERVER_API_URL + 'api/users/departements');
   }
 
-  findUsersService(service: string): Observable<HttpResponse<IUser[]>> {
-    return this.http.get<IUser[]>(`${this.resourceUrl}/${service}`, { observe: 'response' });
+  findByService(service: string): Observable<HttpResponse<IUser[]>> {
+    return this.http.get<IUser[]>(`${this.resourcesByServiceUrl}/${service}`, { observe: 'response' });
+  }
+
+  findByDepartement(departement: string): Observable<HttpResponse<IUser[]>> {
+    return this.http.get<IUser[]>(`${this.resourcesByDepartementUrl}/${departement}`, { observe: 'response' });
+  }
+
+  findByPlateau(plateau: string): Observable<HttpResponse<IUser[]>> {
+    return this.http.get<IUser[]>(`${this.resourcesByPlateauUrl}/${plateau}`, { observe: 'response' });
   }
 }

@@ -10,6 +10,10 @@ import { userManagementRoute } from './user-management.route';
 import { UserServComponent } from './user-management.service.component';
 import { UserDepartComponent } from './user-management.departement.component';
 import { UserPlateauComponent } from './user-management.plateaux.component';
+import { MgmtAllplateauxComponent } from './user-management.Allplateaux.component';
+import { MgmtAllservicesComponent } from './user-management.Allservices.component';
+import { MgmtAlldepartementsComponent } from './user-management.Alldepartement.component';
+
 @NgModule({
   imports: [Moodface1SharedModule, RouterModule.forChild(userManagementRoute)],
   declarations: [
@@ -19,7 +23,10 @@ import { UserPlateauComponent } from './user-management.plateaux.component';
     UserMgmtDeleteDialogComponent,
     UserServComponent,
     UserDepartComponent,
-    UserPlateauComponent
+    UserPlateauComponent,
+    MgmtAllplateauxComponent,
+    MgmtAllservicesComponent,
+    MgmtAlldepartementsComponent
   ],
   entryComponents: [UserMgmtDeleteDialogComponent]
 })

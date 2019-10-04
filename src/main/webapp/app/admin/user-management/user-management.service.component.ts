@@ -87,7 +87,7 @@ export class UserServComponent implements OnInit, OnDestroy {
 
   loadAll() {
     this.userService
-      .findUsersService(this.service)
+      .findByService(this.service)
       .subscribe((res: HttpResponse<User[]>) => this.onSuccess(res.body, res.headers), (res: HttpResponse<any>) => this.onError(res.body));
   }
 
