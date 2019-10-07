@@ -71,7 +71,7 @@ public class MoodQueryService extends QueryService<Mood> {
     @Transactional(readOnly = true)
     public Page<MoodDTO> findByCriteria(MoodCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){
         final Specification<Mood> specification = createSpecification(criteria);
         return moodRepository.findAll(specification, page)
             .map(moodMapper::toDto);

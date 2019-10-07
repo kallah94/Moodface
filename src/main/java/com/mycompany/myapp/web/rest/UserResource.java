@@ -184,15 +184,15 @@ public class UserResource {
      */
     @GetMapping("/users/departement/{departementName}")
     public ResponseEntity<List<UserDTO>> getUsersByDepartement(Pageable pageable, @PathVariable String departementName ) {
-        log.debug("REST request to get Users of the given service Name {}", departementName);
+        log.debug("REST request to get Users of the given departement Name {}", departementName);
         final Page<UserDTO> page = userService.getUsersByDepartement(pageable, departementName);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    @GetMapping("/users/departement/{plateauName}")
+    @GetMapping("/users/plateauName/{plateauName}")
     public ResponseEntity<List<UserDTO>> getUsersByPlateauName(Pageable pageable, @PathVariable String plateauName) {
-        log.debug("REST request to get Users of the given service Name {}", plateauName);
+        log.debug("REST request to get Users of the given plateau Name {}", plateauName);
         final Page<UserDTO> page = userService.getAllUserByPlateauName(pageable, plateauName);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
@@ -205,11 +205,26 @@ public class UserResource {
     public List<String> getAllPlateaux() {
         log.debug("return a list of all differentes plateaux");
         List<String> list = new ArrayList<>();
-        for (String plateau : userService.getAllPlateau())
-                list.add(plateau);
+        list.addAll(userService.getAllPlateau());
         return list;
     }
 
+    @GetMapping("/users/{departementName}/services")
+    public List<String> getAllservicesByDepartement(@PathVariable String departementName) {
+        log.debug("return all services of a department :{}", departementName);
+        List<String> list = new ArrayList<>();
+        list.addAll(userService.getAllServicesByDepartement(departementName));
+        return list;
+    }
+
+
+    @GetMapping("/users/{serviceName}/plateaux")
+    public List<String> getAllPlateauxByService(@PathVariable String serviceName) {
+        log.debug("return all services of a service :{}", serviceName);
+        List<String> list = new ArrayList<>();
+        list.addAll(userService.getAllPlateauxByService(serviceName));
+        return list;
+    }
     /**
      *
      * @return
@@ -218,8 +233,7 @@ public class UserResource {
     public List<String> getAllServices() {
         log.debug("return a list of all differentes services");
         List<String> list = new ArrayList<>();
-        for (String service : userService.getAllService())
-                list.add(service);
+        list.addAll(userService.getAllService());
         return list;
     }
 
@@ -231,8 +245,7 @@ public class UserResource {
     public List<String> getAllDepartements() {
         log.debug("return a list of all differentes departements");
         List<String> list = new ArrayList<>();
-        for (String departement : userService.getAllDepartement())
-                list.add(departement);
+        list.addAll(userService.getAllDepartement());
         return list;
     }
 

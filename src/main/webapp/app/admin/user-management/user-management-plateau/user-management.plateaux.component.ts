@@ -10,7 +10,7 @@ import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { AccountService } from 'app/core/auth/account.service';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/core/user/user.model';
-import { UserMgmtDeleteDialogComponent } from './user-management-delete-dialog.component';
+import { UserMgmtDeleteDialogComponent } from '../user-management-delete-dialog.component';
 
 @Component({
   selector: 'jhi-user-mgmt-plateaux',

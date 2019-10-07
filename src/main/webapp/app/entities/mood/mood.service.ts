@@ -80,4 +80,18 @@ export class MoodService {
     }
     return res;
   }
+
+  public getMoodByDepartement(departementName: String): Observable<EntityArrayResponseType> {
+    return this.http.get<IMood[]>(`${this.resourceUrl}/departement/${departementName}`, { observe: 'response' });
+  }
+
+  public getMoodByService(serviceName: String): Observable<EntityArrayResponseType> {
+    return this.http.get<IMood[]>(`${this.resourceUrl}/service/${serviceName}`, { observe: 'response' });
+  }
+
+  public getMoodByPlateau(plateauName: String): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<IMood[]>(`${this.resourceUrl}/plateau/${plateauName}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
 }

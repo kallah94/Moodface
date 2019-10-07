@@ -354,6 +354,23 @@ public class UserService {
             .stream(userRepository.findAllDepartementName().spliterator(), false)
             .collect(Collectors.toUnmodifiableSet());
     }
+
+    @Transactional(readOnly = true)
+    public Set<String> getAllServicesByDepartement(String departementName) {
+        log.debug("find all service by their departement : {}", departementName);
+        return StreamSupport
+            .stream(userRepository.findAllServicesByDepartementName(departementName).spliterator(), false)
+            .collect(Collectors.toUnmodifiableSet());
+    }
+
+
+    @Transactional(readOnly = true)
+    public Set<String> getAllPlateauxByService(String serviceName) {
+        log.debug("find all service by their service : {}", serviceName);
+        return StreamSupport
+            .stream(userRepository.findAllPlateauxByServiceName(serviceName).spliterator(), false)
+            .collect(Collectors.toUnmodifiableSet());
+    }
     /**
      * Not activated users should be automatically deleted after 3 days.
      * <p>

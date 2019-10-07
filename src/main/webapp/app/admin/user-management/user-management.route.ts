@@ -9,11 +9,11 @@ import { UserMgmtComponent } from './user-management.component';
 import { UserMgmtDetailComponent } from './user-management-detail.component';
 import { UserMgmtUpdateComponent } from './user-management-update.component';
 import { UserServComponent } from './user-management.service.component';
-import { UserDepartComponent } from './user-management.departement.component';
-import { UserPlateauComponent } from './user-management.plateaux.component';
-import { MgmtAllplateauxComponent } from './user-management.Allplateaux.component';
-import { MgmtAllservicesComponent } from './user-management.Allservices.component';
-import { MgmtAlldepartementsComponent } from './user-management.Alldepartement.component';
+import { UserDepartComponent } from './user-management-departement/user-management.departement.component';
+import { UserPlateauComponent } from './user-management-plateau/user-management.plateaux.component';
+import { MgmtAllplateauxComponent } from './user-management-plateau/user-management.Allplateaux.component';
+import { MgmtAllservicesComponent } from './user-management-service/user-management.Allservices.component';
+import { MgmtAlldepartementsComponent } from './user-management-departement/user-management.Alldepartement.component';
 
 @Injectable({ providedIn: 'root' })
 export class UserMgmtResolve implements Resolve<any> {
