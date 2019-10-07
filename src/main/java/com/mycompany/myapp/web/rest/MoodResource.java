@@ -107,9 +107,9 @@ public class MoodResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of moods in body.
      */
     @GetMapping("/moods")
-    public ResponseEntity<List<MoodDTO>> getAllMoods(Pageable pageable) {
+    public ResponseEntity<List<MoodDTO>> getAllMoods(MoodCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Moods");
-        Page<MoodDTO> page = moodQueryService.findByRole(pageable);
+        Page<MoodDTO> page = moodQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -124,6 +124,31 @@ public class MoodResource {
         log.debug("REST request to count Moods by criteria: {}" , criteria);
         return ResponseEntity.ok().body(moodQueryService.countByCriteria(criteria));
     }
+
+    @GetMapping("/moods/countListByValue/")
+    public ResponseEntity<List<Long>> countMoods() {
+        List<Long> list = moodQueryService.moodcounList();
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/moods/countListByValue/plateau/{plateauName}")
+    public ResponseEntity<List<Long>> countMoodsByPlateau(@PathVariable String plateauName) {
+        List<Long> list = moodQueryService.moodcountListByPlateau(plateauName);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/moods/countListByValue/service/{serviceName}")
+    public ResponseEntity<List<Long>> countMoodsByService(@PathVariable String serviceName) {
+        List<Long> list = moodQueryService.moodcountListByService(serviceName);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/moods/countListByValue/departement/{departementName}")
+    public ResponseEntity<List<Long>> countMoodsByDepartement(@PathVariable String departementName) {
+        List<Long> list = moodQueryService.moodcountListByDepartement(departementName);
+        return ResponseEntity.ok().body(list);
+    }
+
     /**
      * {@code GET /moods/:plateauName} : get allmoods for a the given plateauName
      *
@@ -133,9 +158,9 @@ public class MoodResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} a
      */
     @GetMapping("/moods/plateau/{plateauName}")
-    public ResponseEntity<List<MoodDTO>> getMoodsByPlateau(Pageable pageable, @PathVariable String plateauName) {
+    public ResponseEntity<List<MoodDTO>> getMoodsByPlateau(MoodCriteria criteria, Pageable pageable, @PathVariable String plateauName) {
         log.debug("REST request to get Moods by Plateau: {}", plateauName);
-        Page<MoodDTO> page = moodQueryService.findByPlateau( pageable, plateauName);
+        Page<MoodDTO> page = moodQueryService.findByPlateau(pageable, plateauName);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -165,6 +190,7 @@ public class MoodResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+
     @GetMapping("/moods/value/{mood}")
     public ResponseEntity<List<MoodDTO>> getMoodsByvalue(Pageable pageable, @PathVariable Moods mood) {
         log.debug("REST requet to get Moods by mood value {}", mood);
@@ -172,6 +198,8 @@ public class MoodResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+
     /**
      * {@code GET  /moods/:id} : get the "id" mood.
      *

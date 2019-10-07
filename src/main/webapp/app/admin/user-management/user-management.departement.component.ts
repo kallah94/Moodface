@@ -10,7 +10,6 @@ import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { AccountService } from 'app/core/auth/account.service';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/core/user/user.model';
-import { UserMgmtDeleteDialogComponent } from './user-management-delete-dialog.component';
 
 @Component({
   selector: 'jhi-user-mgmt-departement',
@@ -49,6 +48,7 @@ export class UserDepartComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
+    this.departement = 'DSI';
   }
 
   ngOnInit() {
@@ -84,7 +84,6 @@ export class UserDepartComponent implements OnInit, OnDestroy {
       }
     });
   }
-
   loadAll() {
     this.userService
       .findByDepartement(this.departement)
@@ -119,19 +118,6 @@ export class UserDepartComponent implements OnInit, OnDestroy {
       }
     });
     this.loadAll();
-  }
-
-  deleteUser(user: User) {
-    const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.user = user;
-    modalRef.result.then(
-      result => {
-        // Left blank intentionally, nothing to do here
-      },
-      reason => {
-        // Left blank intentionally, nothing to do here
-      }
-    );
   }
 
   private onSuccess(data, headers) {

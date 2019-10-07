@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.criteria.JoinType;
@@ -70,27 +71,16 @@ public class MoodQueryService extends QueryService<Mood> {
     @Transactional(readOnly = true)
     public Page<MoodDTO> findByCriteria(MoodCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
         final Specification<Mood> specification = createSpecification(criteria);
         return moodRepository.findAll(specification, page)
             .map(moodMapper::toDto);
-    }
-
-    /**
-     *
-     * @param pageable
-     * @return
-     */
-    @Transactional(readOnly = true)
-    public Page<MoodDTO> findByRole(Pageable pageable) {
-        log.debug("find by the currentuser role");
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            return moodRepository.findAll(pageable)
-                .map(moodMapper::toDto);
         } else {
-            return moodRepository.findByUserIsCurrentUser(pageable)
+            return moodRepository.findByUserIsCurrentUser(page)
                 .map(moodMapper::toDto);
         }
     }
+
     /**
      *
      * @param plateauName
@@ -116,9 +106,10 @@ public class MoodQueryService extends QueryService<Mood> {
     @Transactional(readOnly = true)
     public Page<MoodDTO> findByService(Pageable pageable, String serviceName) {
         log.debug("find by a service Name");
-        return  moodRepository.findByserviceName(serviceName, pageable)
+        return  moodRepository.findByServiceName(serviceName, pageable)
                     .map(moodMapper::toDto);
     }
+
 
     @Transactional(readOnly = true)
     public Page<MoodDTO> findBymood(Pageable pageable, Moods mood) {
@@ -136,6 +127,70 @@ public class MoodQueryService extends QueryService<Mood> {
         log.debug("count by criteria : {}", criteria);
         final Specification<Mood> specification = createSpecification(criteria);
         return moodRepository.count(specification);
+    }
+
+    @Transactional(readOnly = true)
+        public List<Long> moodcounList() {
+            Long som = 0L;
+            List<Long> list = new ArrayList<>();
+            for (Moods mood : Moods.values()) {
+                list.add((long) moodRepository.findByMoodValue(mood).size());
+                som += (long) moodRepository.findByMoodValue(mood).size();
+            }
+            list.add(som);
+        return list;
+        }
+
+    @Transactional(readOnly = true)
+        public List<Long> moodcountListByPlateau(String plateauName) {
+            Long som = 0L;
+            List<Long> list = new ArrayList<>();
+            List<Mood> moods = new ArrayList<>();
+            List<Mood> listtampon = new ArrayList<>();
+            moods.addAll(moodRepository.findByPlateauName(plateauName));
+            for(Moods Mood : Moods.values()) {
+                listtampon.addAll(moods);
+                listtampon.removeIf(mood -> mood.getMood() != Mood);
+                list.add((long) listtampon.size());
+                som += (long) listtampon.size();
+            }
+            list.add(som);
+        return list;
+        }
+
+
+    @Transactional(readOnly = true)
+    public List<Long> moodcountListByService(String serviceName) {
+        Long som = 0L;
+        List<Long> list = new ArrayList<>();
+        List<Mood> moods = new ArrayList<>();
+        List<Mood> listtampon = new ArrayList<>();
+        moods.addAll(moodRepository.findByServiceName(serviceName));
+        for(Moods Mood : Moods.values()) {
+            listtampon.addAll(moods);
+            listtampon.removeIf(mood -> mood.getMood() != Mood);
+            list.add((long) listtampon.size());
+            som += (long) listtampon.size();
+        }
+        list.add(som);
+    return list;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Long> moodcountListByDepartement(String departementName) {
+        Long som = 0L;
+        List<Long> list = new ArrayList<>();
+        List<Mood> moods = new ArrayList<>();
+        List<Mood> listtampon = new ArrayList<>();
+        moods.addAll(moodRepository.findByDepartementName(departementName));
+        for(Moods Mood : Moods.values()) {
+            listtampon.addAll(moods);
+            listtampon.removeIf(mood -> mood.getMood() != Mood);
+            list.add((long) listtampon.size());
+            som += (long) listtampon.size();
+        }
+        list.add(som);
+    return list;
     }
 
     /**
