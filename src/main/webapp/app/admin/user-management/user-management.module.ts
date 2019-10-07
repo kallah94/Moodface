@@ -8,11 +8,11 @@ import { UserMgmtUpdateComponent } from './user-management-update.component';
 import { UserMgmtDeleteDialogComponent } from './user-management-delete-dialog.component';
 import { userManagementRoute } from './user-management.route';
 import { UserServComponent } from './user-management.service.component';
-import { UserDepartComponent } from './user-management.departement.component';
-import { UserPlateauComponent } from './user-management.plateaux.component';
-import { MgmtAllplateauxComponent } from './user-management.Allplateaux.component';
-import { MgmtAllservicesComponent } from './user-management.Allservices.component';
-import { MgmtAlldepartementsComponent } from './user-management.Alldepartement.component';
+import { UserDepartComponent } from './user-management-departement/user-management.departement.component';
+import { UserPlateauComponent } from './user-management-plateau/user-management.plateaux.component';
+import { MgmtAllplateauxComponent } from './user-management-plateau/user-management.Allplateaux.component';
+import { MgmtAllservicesComponent } from './user-management-service/user-management.Allservices.component';
+import { MgmtAlldepartementsComponent } from './user-management-departement/user-management.Alldepartement.component';
 
 @NgModule({
   imports: [Moodface1SharedModule, RouterModule.forChild(userManagementRoute)],

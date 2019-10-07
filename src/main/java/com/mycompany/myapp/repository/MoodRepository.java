@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.lang.Nullable;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public interface MoodRepository extends JpaRepository<Mood, Long>, JpaSpecificat
 /* cette requette permettent de recuperer toutes les moods via la valeur */
    @Query(value = "select mood from Mood mood WHERE mood.mood = :mood")
    Page<Mood> findByMoodValue(@Param("mood") Moods mood, Pageable pageable);
-   
+
    @Query(value = "select mood from Mood mood WHERE mood.mood = :mood")
    List<Mood> findByMoodValue(@Param("mood") Moods mood);
 
@@ -41,7 +42,7 @@ public interface MoodRepository extends JpaRepository<Mood, Long>, JpaSpecificat
 
     @Query("select mood from Mood mood where mood.user.departementName = :departementName")
     Page<Mood> findByDepartementName(@Param("departementName") String departementName, Pageable arg0);
-   
+
     @Query("select mood from Mood mood where mood.user.departementName = :departementName")
     List<Mood> findByDepartementName(@Param("departementName") String departementName);
 

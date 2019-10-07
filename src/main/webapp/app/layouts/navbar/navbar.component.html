@@ -92,6 +92,24 @@
                             <span jhiTranslate="global.menu.admin.apidocs">API</span>
                         </a>
                     </li>
+                        <li>
+                        <a class="dropdown-item" routerLink="admin/user-management/Alldepartements" routerLinkActive="activate" (click)="collapseNavbar()">
+                            <fa-icon icon="th-list" fixedWidth="true"></fa-icon>
+                            <span >Departements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="admin/user-management/Allservices" routerLinkActive="activate" (click)="collapseNavbar()">
+                            <fa-icon icon="list-ul" fixedWidth="true"></fa-icon>
+                            <span >Services</span>
+                        </a>
+                    </li>
+                      <li>
+                        <a class="dropdown-item" routerLink="admin/user-management/Allplateaux" routerLinkActive="activate" (click)="collapseNavbar()">
+                            <fa-icon icon="list-ol" fixedWidth="true"></fa-icon>
+                            <span >Plateaux</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
                 </ul>
             </li>
