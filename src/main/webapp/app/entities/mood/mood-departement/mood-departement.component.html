@@ -1,0 +1,7 @@
+<p>mood-departement works!</p>
+ <div class="form-group">
+    <label>Plateau</label>
+        <ul>
+            <li *ngFor="let mood of moods" [value]="authority">{{ mood.mood }} {{mood.date}}</li>
+        </ul>
+ </div>

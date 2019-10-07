@@ -12,6 +12,9 @@ import { MoodDetailComponent } from './mood-detail.component';
 import { MoodUpdateComponent } from './mood-update.component';
 import { MoodDeletePopupComponent } from './mood-delete-dialog.component';
 import { IMood } from 'app/shared/model/mood.model';
+import { MoodDepartementComponent } from './mood-departement/mood-departement.component';
+import { MoodServiceComponent } from './mood-service/mood-service.component';
+import { MoodPlateauComponent } from './mood-plateau/mood-plateau.component';
 
 @Injectable({ providedIn: 'root' })
 export class MoodResolve implements Resolve<IMood> {
@@ -75,6 +78,33 @@ export const moodRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
+      pageTitle: 'moodface1App.mood.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'departement/:name',
+    component: MoodDepartementComponent,
+    data: {
+      authorities: ['ROLE_ADMIN'],
+      pageTitle: 'moodface1App.mood.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'service/:name',
+    component: MoodServiceComponent,
+    data: {
+      authorities: ['ROLE_ADMIN'],
+      pageTitle: 'moodface1App.mood.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'plateau/:name',
+    component: MoodPlateauComponent,
+    data: {
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'moodface1App.mood.home.title'
     },
     canActivate: [UserRouteAccessService]
