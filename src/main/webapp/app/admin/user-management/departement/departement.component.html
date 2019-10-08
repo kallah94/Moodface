@@ -1,4 +1,6 @@
 <p>departement works!</p>
 <ul>
-	<li *ngFor="let departement of departements"> {{ departement }} </li>
-	</ul>
+	<li *ngFor="let departement of departements">
+		<a    [routerLink]="['./', departement, 'services']"> {{ departement }} </a>
+	</li>
+</ul>
