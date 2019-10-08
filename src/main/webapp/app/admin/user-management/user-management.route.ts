@@ -8,12 +8,11 @@ import { UserService } from 'app/core/user/user.service';
 import { UserMgmtComponent } from './user-management.component';
 import { UserMgmtDetailComponent } from './user-management-detail.component';
 import { UserMgmtUpdateComponent } from './user-management-update.component';
-import { UserServComponent } from './user-management.service.component';
-import { UserDepartComponent } from './user-management-departement/user-management.departement.component';
-import { UserPlateauComponent } from './user-management-plateau/user-management.plateaux.component';
-import { MgmtAllplateauxComponent } from './user-management-plateau/user-management.Allplateaux.component';
-import { MgmtAllservicesComponent } from './user-management-service/user-management.Allservices.component';
-import { MgmtAlldepartementsComponent } from './user-management-departement/user-management.Alldepartement.component';
+import { DepartementComponent } from './departement/departement.component';
+import { ServiceComponent } from './service/service.component';
+import { PlateauComponent } from './plateau/plateau.component';
+import { DServicesComponent } from './departement/d-services/d-services.component';
+import { DPlateauxComponent } from './service/d-plateaux/d-plateaux.component';
 
 @Injectable({ providedIn: 'root' })
 export class UserMgmtResolve implements Resolve<any> {
@@ -69,53 +68,47 @@ export const userManagementRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: ':service/users_by_service',
-    component: UserServComponent,
-    resolve: {
-      user: UserMgmtResolve
-    },
-    canActivate: [UserRouteAccessService]
-  },
-  {
-    path: ':departement/users_by_departement',
-    component: UserDepartComponent,
-    resolve: {
-      user: UserMgmtResolve
-    },
-    canActivate: [UserRouteAccessService]
-  },
-  {
-    path: ':plateau/users_by_plateau',
-    component: UserPlateauComponent,
-    resolve: {
-      user: UserMgmtResolve
-    },
-    canActivate: [UserRouteAccessService]
-  },
+    path: 'departements',
+    component: DepartementComponent,
 
-  {
-    path: 'Allplateaux',
-    component: MgmtAllplateauxComponent,
-    resolve: {
-      user: UserMgmtResolve
+    data: {
+      pageTitle: 'userManagement.home.title'
     },
     canActivate: [UserRouteAccessService]
   },
-
   {
-    path: 'Allservices',
-    component: MgmtAllservicesComponent,
-    resolve: {
-      user: UserMgmtResolve
+    path: 'services',
+    component: ServiceComponent,
+
+    data: {
+      pageTitle: 'userManagement.home.title'
     },
     canActivate: [UserRouteAccessService]
   },
-
   {
-    path: 'Alldepartements',
-    component: MgmtAlldepartementsComponent,
-    resolve: {
-      user: UserMgmtResolve
+    path: 'plateaux',
+    component: PlateauComponent,
+
+    data: {
+      pageTitle: 'userManagement.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'departement/:name/services',
+    component: DServicesComponent,
+
+    data: {
+      pageTitle: 'userManagement.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'service/:name/plateaux',
+    component: DPlateauxComponent,
+
+    data: {
+      pageTitle: 'userManagement.home.title'
     },
     canActivate: [UserRouteAccessService]
   }

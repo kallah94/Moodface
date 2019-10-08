@@ -63,4 +63,12 @@ export class UserService {
   findByPlateau(plateau: string): Observable<HttpResponse<IUser[]>> {
     return this.http.get<IUser[]>(`${this.resourcesByPlateauUrl}/${plateau}`, { observe: 'response' });
   }
+
+  findServicesByDepartement(departement: string): Observable<HttpResponse<String[]>> {
+    return this.http.get<String[]>(`${this.resourceUrl}/${departement}/services`, { observe: 'response' });
+  }
+
+  findPlateauxByService(service: string): Observable<HttpResponse<String[]>> {
+    return this.http.get<String[]>(`${this.resourceUrl}/${service}/plateaux`, { observe: 'response' });
+  }
 }
