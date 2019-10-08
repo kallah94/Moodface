@@ -68,7 +68,7 @@ export const userManagementRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: 'departements',
+    path: 'departement',
     component: DepartementComponent,
 
     data: {
@@ -77,7 +77,7 @@ export const userManagementRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: 'services',
+    path: 'service',
     component: ServiceComponent,
 
     data: {

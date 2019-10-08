@@ -1,4 +1,6 @@
 <p>service works!</p>
 <ul>
-	<li *ngFor="let service of services"> {{ service }} </li>
+	<li *ngFor="let service of services">
+	<a  [routerLink]="['./', service, 'plateaux']" > {{ service }} </a>
+	</li>
 </ul>
