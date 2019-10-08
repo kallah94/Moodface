@@ -94,4 +94,8 @@ export class MoodService {
       .get<IMood[]>(`${this.resourceUrl}/plateau/${plateauName}`, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
+
+  public getMoodValuePlateau(plateauName: String): Observable<HttpResponse<Number[]>> {
+    return this.http.get<Number[]>(`${this.resourceUrl}/countListByValue/plateau/${plateauName}`, { observe: 'response' });
+  }
 }

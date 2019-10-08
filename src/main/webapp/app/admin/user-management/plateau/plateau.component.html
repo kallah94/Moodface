@@ -1,4 +1,6 @@
-<p>plateau works!</p>
-<ul>
-	<li *ngFor="let plateau of plateaux"> {{ plateau }} </li>
-</ul>
+<tbody *ngIf ="plateaux">
+	<tr *ngFor="let plateau of plateaux">
+		<td> 	 {{ plateau }}  </td>
+		<td *ngFor="let moodvalue of moodvalues"> {{moodvalue}} </td>
+	</tr>
+</tbody>
