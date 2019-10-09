@@ -1,6 +1,6 @@
-<tbody *ngIf ="plateaux">
-	<tr *ngFor="let plateau of plateaux">
-		<td> 	 {{ plateau }}  </td>
-		<td *ngFor="let moodvalue of moodvalues"> {{moodvalue}} </td>
+<tbody *ngIf ="ListmoodModel">
+	<tr *ngFor ="let moodvalue of ListmoodModel">
+		<td> 	{{ moodvalue.name }} </td>
+		<td *ngFor="let moodval of moodvalue.moodvalue"> 	{{ moodval }} </td>
 	</tr>
 </tbody>

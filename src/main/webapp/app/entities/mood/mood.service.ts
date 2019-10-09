@@ -98,4 +98,12 @@ export class MoodService {
   public getMoodValuePlateau(plateauName: String): Observable<HttpResponse<Number[]>> {
     return this.http.get<Number[]>(`${this.resourceUrl}/countListByValue/plateau/${plateauName}`, { observe: 'response' });
   }
+
+  public getMoodValueService(serviceName: String): Observable<HttpResponse<Number[]>> {
+    return this.http.get<Number[]>(`${this.resourceUrl}/countListByValue/service/${serviceName}`, { observe: 'response' });
+  }
+
+  public getMoodValueDepartement(departementName: String): Observable<HttpResponse<Number[]>> {
+    return this.http.get<Number[]>(`${this.resourceUrl}/countListByValue/departement/${departementName}`, { observe: 'response' });
+  }
 }

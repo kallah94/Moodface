@@ -1,6 +1,6 @@
-<p>service works!</p>
-<ul>
-	<li *ngFor="let service of services">
-	<a  [routerLink]="['./', service, 'plateaux']" > {{ service }} </a>
-	</li>
-</ul>
+<tbody *ngIf ="Listmoodvalue">
+	<tr *ngFor ="let moodvalue of   Listmoodvalue">
+		<td> 	{{ moodvalue.name }} </td>
+		<td *ngFor="let moodval of moodvalue.moodvalue"> 	{{ moodval }} </td>
+	</tr>
+</tbody>

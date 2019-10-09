@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'app/core/user/user.service';
 import { MoodService } from 'app/entities/mood/mood.service';
+import { MoodPlatValModel } from './moodPlatValModel';
 
 @Component({
   selector: 'jhi-plateau',
@@ -9,14 +10,19 @@ import { MoodService } from 'app/entities/mood/mood.service';
 })
 export class PlateauComponent implements OnInit {
   plateaux: String[] = [];
-  moodvalues: Number[] = [];
   name: String;
+  ListmoodModel: MoodPlatValModel[] = [];
 
   constructor(private userService: UserService, private moodService: MoodService) {}
 
   ngOnInit() {
-    this.userService.plateaux().subscribe(res => (this.plateaux = res));
-    const name = 'Administrator';
-    this.moodService.getMoodValuePlateau(name).subscribe(list => (this.moodvalues = list.body));
+    this.userService.plateaux().subscribe(res => {
+      this.plateaux = res;
+      res.forEach(name => {
+        this.moodService.getMoodValuePlateau(name).subscribe(list => {
+          this.ListmoodModel.push(new MoodPlatValModel(name, list.body));
+        });
+      });
+    });
   }
 }

@@ -1,6 +1,6 @@
-<p>departement works!</p>
-<ul>
-	<li *ngFor="let departement of departements">
-		<a    [routerLink]="['./', departement, 'services']"> {{ departement }} </a>
-	</li>
-</ul>
+<tbody *ngIf ="ListmoodModel">
+	<tr *ngFor =" let mood of ListmoodModel">
+		<td> 	{{ mood.name }} </td>
+		<td *ngFor="let moodval of moodvalue.moodvalue"> 	{{ moodval }} </td>
+	</tr>
+</tbody>
