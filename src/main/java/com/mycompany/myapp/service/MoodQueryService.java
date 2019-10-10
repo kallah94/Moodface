@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import com.mycompany.myapp.service.dto.MoodCriteria;
 import com.mycompany.myapp.service.dto.MoodDTO;
 import com.mycompany.myapp.service.mapper.MoodMapper;
 
+import org.aspectj.weaver.ast.Not;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -152,6 +154,7 @@ public class MoodQueryService extends QueryService<Mood> {
             List<Mood> moods = new ArrayList<>();
             List<Mood> listtampon = new ArrayList<>();
             moods.addAll(moodRepository.findByPlateauName(plateauName));
+            moods.removeIf(mood -> !mood.getDate().isEqual(LocalDate.now()));
             for(Moods Mood : Moods.values()) {
                 listtampon.addAll(moods);
                 listtampon.removeIf(mood -> mood.getMood() != Mood);
@@ -172,6 +175,7 @@ public class MoodQueryService extends QueryService<Mood> {
         List<Mood> moods = new ArrayList<>();
         List<Mood> listtampon = new ArrayList<>();
         moods.addAll(moodRepository.findByServiceName(serviceName));
+        moods.removeIf(mood -> !mood.getDate().isEqual(LocalDate.now()));
         for(Moods Mood : Moods.values()) {
             listtampon.addAll(moods);
             listtampon.removeIf(mood -> mood.getMood() != Mood);
@@ -191,6 +195,7 @@ public class MoodQueryService extends QueryService<Mood> {
         List<Mood> moods = new ArrayList<>();
         List<Mood> listtampon = new ArrayList<>();
         moods.addAll(moodRepository.findByDepartementName(departementName));
+        moods.removeIf(mood -> !mood.getDate().isEqual(LocalDate.now()));
         for(Moods Mood : Moods.values()) {
             listtampon.addAll(moods);
             listtampon.removeIf(mood -> mood.getMood() != Mood);

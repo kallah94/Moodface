@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.mycompany.myapp.domain.Mood;
 import com.mycompany.myapp.domain.enumeration.Moods;
 import com.mycompany.myapp.service.MoodQueryService;
 import com.mycompany.myapp.service.MoodService;
