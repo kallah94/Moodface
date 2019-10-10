@@ -141,7 +141,7 @@ public class UserDTO {
         return departementName;
     }
 
-    public void setDepartementame(String departementName){
+    public void setDepartementName(String departementName){
         this.departementName = departementName;
     }
 

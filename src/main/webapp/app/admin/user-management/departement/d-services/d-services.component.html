@@ -1,4 +1,6 @@
 <p>d-services works!</p>
 <ul> 
-	<li *ngFor="let service of services"> {{ service }} </li>
+	<li *ngFor="let service of services">
+	<a [routerLink]="['user-management']"> {{ service }} </a>
+	</li>
 	</ul>

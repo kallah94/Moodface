@@ -53,11 +53,20 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select user from User user where user.serviceName = :serviceName")
     Page<UserDTO> findAllByServiceName(@Param("serviceName") String serviceName, Pageable pageable);
 
+    @Query("select user from User user where user.serviceName = :serviceName")
+    List<UserDTO>  findAllByServiceName(@Param("serviceName") String serviceName);
+
     @Query("select user from User user where user.departementName = :departementName")
     Page<UserDTO> findAllByDepartementName(@Param("departementName") String departementName, Pageable pageable);
 
+    @Query("select user from User user where user.departementName = :departementName")
+    List<UserDTO>  findAllByDepartementName(@Param("departementName") String departementName);
+
     @Query("select user from User user where user.plateauName = :plateauName")
     Page<UserDTO> findAllByPlateauName(@Param("plateauName") String plateauName, Pageable pageable);
+
+    @Query("select user from User user where user.plateauName = :plateauName")
+    List<UserDTO> findAllByPlateauName(@Param("plateauName") String plateauName);
 
     @Query("select user.plateauName from User user")
     List<String> findAllPlateauName();
@@ -73,4 +82,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select user.plateauName from User user where user.serviceName = :serviceName")
     List<String> findAllPlateauxByServiceName(@Param("serviceName") String serviceName);
+
+
+	
 }

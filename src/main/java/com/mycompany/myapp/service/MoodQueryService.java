@@ -11,6 +11,7 @@ import com.mycompany.myapp.domain.Mood_;
 import com.mycompany.myapp.domain.User_;
 import com.mycompany.myapp.domain.enumeration.Moods;
 import com.mycompany.myapp.repository.MoodRepository;
+import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.repository.search.MoodSearchRepository;
 import com.mycompany.myapp.security.AuthoritiesConstants;
 import com.mycompany.myapp.security.SecurityUtils;
@@ -42,12 +43,15 @@ public class MoodQueryService extends QueryService<Mood> {
 
     private final MoodRepository moodRepository;
 
+    private final UserRepository userRepository;
+
     private final MoodMapper moodMapper;
 
-    public MoodQueryService(MoodRepository moodRepository, MoodMapper moodMapper,
+    public MoodQueryService(MoodRepository moodRepository, MoodMapper moodMapper, UserRepository userRepository,
             MoodSearchRepository moodSearchRepository) {
         this.moodRepository = moodRepository;
         this.moodMapper = moodMapper;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -155,6 +159,8 @@ public class MoodQueryService extends QueryService<Mood> {
                 som += (long) listtampon.size();
             }
             list.add(som);
+            /* ajout du nombre total d utilisateurs relatifs a cet plateau */
+            list.add((long) userRepository.findAllByPlateauName(plateauName).size());
         return list;
         }
 
@@ -173,6 +179,8 @@ public class MoodQueryService extends QueryService<Mood> {
             som += (long) listtampon.size();
         }
         list.add(som);
+        /* ajout du nombre total d utilisateurs relatifs a cette Service */
+        list.add((long) userRepository.findAllByServiceName(serviceName).size());
     return list;
     }
 
@@ -190,6 +198,8 @@ public class MoodQueryService extends QueryService<Mood> {
             som += (long) listtampon.size();
         }
         list.add(som);
+        /* ajout du nombre total d utilisateurs relatifs a cet departement */
+        list.add((long) userRepository.findAllByDepartementName(departementName).size());
     return list;
     }
 
