@@ -13,6 +13,7 @@ import { ServiceComponent } from './service/service.component';
 import { PlateauComponent } from './plateau/plateau.component';
 import { DServicesComponent } from './departement/d-services/d-services.component';
 import { DPlateauxComponent } from './service/d-plateaux/d-plateaux.component';
+import { UserPlateauComponent } from 'app/admin/user-management/user-plateau/user-plateau.component';
 
 @Injectable({ providedIn: 'root' })
 export class UserMgmtResolve implements Resolve<any> {
@@ -108,6 +109,16 @@ export const userManagementRoute: Routes = [
     component: DPlateauxComponent,
 
     data: {
+      pageTitle: 'userManagement.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'plateau/:name/users',
+    component: UserPlateauComponent,
+
+    data: {
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'userManagement.home.title'
     },
     canActivate: [UserRouteAccessService]
