@@ -20,12 +20,20 @@ import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 
+// importation des modules de primeNG
+import { ButtonModule } from 'primeng/button';
+import { ChartModule } from 'primeng/chart';
+import { TableModule } from 'primeng/table'
+
 @NgModule({
   imports: [
     BrowserModule,
     Moodface1SharedModule,
     Moodface1CoreModule,
     Moodface1HomeModule,
+    ChartModule,
+    ButtonModule,
+    TableModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     Moodface1EntityModule,
     Moodface1AppRoutingModule
