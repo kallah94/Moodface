@@ -31,6 +31,6 @@
   },
   "defaultProject": "moodface-1",
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "yarn"
   }
 }

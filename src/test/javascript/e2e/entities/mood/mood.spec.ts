@@ -48,6 +48,14 @@ describe('Mood e2e test', () => {
         ]);
         expect(await moodUpdatePage.getCommentInput()).to.eq('comment', 'Expected Comment value to be equals to comment');
         expect(await moodUpdatePage.getDateInput()).to.eq('2000-12-31', 'Expected date value to be equals to 2000-12-31');
+        const selectedAnonymous = moodUpdatePage.getAnonymousInput();
+        if (await selectedAnonymous.isSelected()) {
+            await moodUpdatePage.getAnonymousInput().click();
+            expect(await moodUpdatePage.getAnonymousInput().isSelected(), 'Expected anonymous not to be selected').to.be.false;
+        } else {
+            await moodUpdatePage.getAnonymousInput().click();
+            expect(await moodUpdatePage.getAnonymousInput().isSelected(), 'Expected anonymous to be selected').to.be.true;
+        }
         await moodUpdatePage.save();
         expect(await moodUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

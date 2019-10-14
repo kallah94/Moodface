@@ -58,6 +58,15 @@ public class UserResourceIT {
     private static final String DEFAULT_LASTNAME = "doe";
     private static final String UPDATED_LASTNAME = "jhipsterLastName";
 
+    private static String DEFAULT_SERVICENAME = "DAC";
+    private static String UPDATED_SERVICENAME = "DAC";
+
+    private static String DEFAULT_DEPARTEMENTNAME = "DSI";
+    private static String UPDATED_DEPARTEMENTNAME = "DSI";
+
+    private static String DEFAULT_PLATEAUNAME = "RADAR";
+    private static String UPDATED__PLATEAUNAME = "RADAR";
+
     private static final String DEFAULT_IMAGEURL = "http://placehold.it/50x50";
     private static final String UPDATED_IMAGEURL = "http://placehold.it/40x40";
 
@@ -130,6 +139,9 @@ public class UserResourceIT {
         user.setEmail(RandomStringUtils.randomAlphabetic(5) + DEFAULT_EMAIL);
         user.setFirstName(DEFAULT_FIRSTNAME);
         user.setLastName(DEFAULT_LASTNAME);
+        user.setDepartementName(DEFAULT_DEPARTEMENTNAME);
+        user.setServiceName(DEFAULT_SERVICENAME);
+        user.setPlateauName(DEFAULT_PLATEAUNAME);
         user.setImageUrl(DEFAULT_IMAGEURL);
         user.setLangKey(DEFAULT_LANGKEY);
         return user;
@@ -153,6 +165,9 @@ public class UserResourceIT {
         managedUserVM.setPassword(DEFAULT_PASSWORD);
         managedUserVM.setFirstName(DEFAULT_FIRSTNAME);
         managedUserVM.setLastName(DEFAULT_LASTNAME);
+        managedUserVM.setDepartementName(DEFAULT_DEPARTEMENTNAME);
+        managedUserVM.setServiceName(DEFAULT_SERVICENAME);
+        managedUserVM.setPlateauName(DEFAULT_PLATEAUNAME);
         managedUserVM.setEmail(DEFAULT_EMAIL);
         managedUserVM.setActivated(true);
         managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
@@ -187,6 +202,9 @@ public class UserResourceIT {
         managedUserVM.setPassword(DEFAULT_PASSWORD);
         managedUserVM.setFirstName(DEFAULT_FIRSTNAME);
         managedUserVM.setLastName(DEFAULT_LASTNAME);
+        managedUserVM.setDepartementName(DEFAULT_DEPARTEMENTNAME);
+        managedUserVM.setServiceName(DEFAULT_SERVICENAME);
+        managedUserVM.setPlateauName(DEFAULT_PLATEAUNAME);
         managedUserVM.setEmail(DEFAULT_EMAIL);
         managedUserVM.setActivated(true);
         managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
@@ -217,6 +235,9 @@ public class UserResourceIT {
         managedUserVM.setPassword(DEFAULT_PASSWORD);
         managedUserVM.setFirstName(DEFAULT_FIRSTNAME);
         managedUserVM.setLastName(DEFAULT_LASTNAME);
+        managedUserVM.setDepartementName(DEFAULT_DEPARTEMENTNAME);
+        managedUserVM.setServiceName(DEFAULT_SERVICENAME);
+        managedUserVM.setPlateauName(DEFAULT_PLATEAUNAME);
         managedUserVM.setEmail("anothermail@localhost");
         managedUserVM.setActivated(true);
         managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
@@ -247,6 +268,9 @@ public class UserResourceIT {
         managedUserVM.setPassword(DEFAULT_PASSWORD);
         managedUserVM.setFirstName(DEFAULT_FIRSTNAME);
         managedUserVM.setLastName(DEFAULT_LASTNAME);
+        managedUserVM.setDepartementName(DEFAULT_DEPARTEMENTNAME);
+        managedUserVM.setServiceName(DEFAULT_SERVICENAME);
+        managedUserVM.setPlateauName(DEFAULT_PLATEAUNAME);
         managedUserVM.setEmail(DEFAULT_EMAIL);// this email should already be used
         managedUserVM.setActivated(true);
         managedUserVM.setImageUrl(DEFAULT_IMAGEURL);
@@ -331,6 +355,10 @@ public class UserResourceIT {
         managedUserVM.setPassword(UPDATED_PASSWORD);
         managedUserVM.setFirstName(UPDATED_FIRSTNAME);
         managedUserVM.setLastName(UPDATED_LASTNAME);
+        managedUserVM.setDepartementName(UPDATED_DEPARTEMENTNAME);
+        managedUserVM.setServiceName(UPDATED__SERVICENAME);
+        managedUserVM.setPlateauName(DEFAULT_PLATEAUNAME);
+
         managedUserVM.setEmail(UPDATED_EMAIL);
         managedUserVM.setActivated(updatedUser.getActivated());
         managedUserVM.setImageUrl(UPDATED_IMAGEURL);
