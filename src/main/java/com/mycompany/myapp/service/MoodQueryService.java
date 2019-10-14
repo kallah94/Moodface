@@ -1,9 +1,26 @@
 package com.mycompany.myapp.service;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 import java.util.List;
 
 import javax.persistence.criteria.JoinType;
 
+// for static metamodels
+import com.mycompany.myapp.domain.Mood;
+import com.mycompany.myapp.domain.Mood_;
+import com.mycompany.myapp.domain.User_;
+import com.mycompany.myapp.domain.enumeration.Moods;
+import com.mycompany.myapp.repository.MoodRepository;
+import com.mycompany.myapp.repository.UserRepository;
+import com.mycompany.myapp.repository.search.MoodSearchRepository;
+import com.mycompany.myapp.security.AuthoritiesConstants;
+import com.mycompany.myapp.security.SecurityUtils;
+import com.mycompany.myapp.service.dto.MoodCriteria;
+import com.mycompany.myapp.service.dto.MoodDTO;
+import com.mycompany.myapp.service.mapper.MoodMapper;
+
+import org.aspectj.weaver.ast.Not;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -83,6 +100,80 @@ public class MoodQueryService extends QueryService<Mood> {
         final Specification<Mood> specification = createSpecification(criteria);
         return moodRepository.count(specification);
     }
+
+    @Transactional(readOnly = true)
+        public List<Long> moodcounList() {
+            Long som = 0L;
+            List<Long> list = new ArrayList<>();
+            for (Moods mood : Moods.values()) {
+                list.add((long) moodRepository.findByMoodValue(mood).size());
+                som += (long) moodRepository.findByMoodValue(mood).size();
+            }
+            list.add(som);
+        return list;
+        }
+
+    @Transactional(readOnly = true)
+        public List<Long> moodcountListByPlateau(String plateauName) {
+            Long som = 0L;
+            List<Long> list = new ArrayList<>();
+            List<Mood> moods = new ArrayList<>();
+            List<Mood> listtampon = new ArrayList<>();
+            moods.addAll(moodRepository.findByPlateauName(plateauName));
+            moods.removeIf(mood -> !mood.getDate().isEqual(LocalDate.now()));
+            for(Moods Mood : Moods.values()) {
+                listtampon.addAll(moods);
+                listtampon.removeIf(mood -> mood.getMood() != Mood);
+                list.add((long) listtampon.size());
+                som += (long) listtampon.size();
+            }
+            list.add(som);
+            /* ajout du nombre total d utilisateurs relatifs a cet plateau */
+            list.add((long) userRepository.findAllByPlateauName(plateauName).size());
+        return list;
+        }
+
+
+    @Transactional(readOnly = true)
+    public List<Long> moodcountListByService(String serviceName) {
+        Long som = 0L;
+        List<Long> list = new ArrayList<>();
+        List<Mood> moods = new ArrayList<>();
+        List<Mood> listtampon = new ArrayList<>();
+        moods.addAll(moodRepository.findByServiceName(serviceName));
+        moods.removeIf(mood -> !mood.getDate().isEqual(LocalDate.now()));
+        for(Moods Mood : Moods.values()) {
+            listtampon.addAll(moods);
+            listtampon.removeIf(mood -> mood.getMood() != Mood);
+            list.add((long) listtampon.size());
+            som += (long) listtampon.size();
+        }
+        list.add(som);
+        /* ajout du nombre total d utilisateurs relatifs a cette Service */
+        list.add((long) userRepository.findAllByServiceName(serviceName).size());
+    return list;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Long> moodcountListByDepartement(String departementName) {
+        Long som = 0L;
+        List<Long> list = new ArrayList<>();
+        List<Mood> moods = new ArrayList<>();
+        List<Mood> listtampon = new ArrayList<>();
+        moods.addAll(moodRepository.findByDepartementName(departementName));
+        moods.removeIf(mood -> !mood.getDate().isEqual(LocalDate.now()));
+        for(Moods Mood : Moods.values()) {
+            listtampon.addAll(moods);
+            listtampon.removeIf(mood -> mood.getMood() != Mood);
+            list.add((long) listtampon.size());
+            som += (long) listtampon.size();
+        }
+        list.add(som);
+        /* ajout du nombre total d utilisateurs relatifs a cet departement */
+        list.add((long) userRepository.findAllByDepartementName(departementName).size());
+    return list;
+    }
+
 
     /**
      * Function to convert {@link MoodCriteria} to a {@link Specification}

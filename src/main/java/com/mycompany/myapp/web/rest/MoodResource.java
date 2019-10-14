@@ -1,5 +1,16 @@
 package com.mycompany.myapp.web.rest;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import com.mycompany.myapp.domain.Mood;
+import com.mycompany.myapp.domain.enumeration.Moods;
+import com.mycompany.myapp.service.MoodQueryService;
+
 import com.mycompany.myapp.service.MoodService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import com.mycompany.myapp.service.dto.MoodDTO;
