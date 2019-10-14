@@ -9,6 +9,7 @@ import { MoodService } from 'app/entities/mood/mood.service';
   styleUrls: ['./departement.component.scss']
 })
 export class DepartementComponent implements OnInit {
+
   departements: String[] = [];
   name: String;
   ListmoodModel: MoodPlatValModel[] = [];
@@ -25,4 +26,5 @@ export class DepartementComponent implements OnInit {
       });
     });
   }
+
 }

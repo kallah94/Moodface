@@ -37,6 +37,9 @@ public class Mood implements Serializable {
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
+    @Column(name = "anonymous")
+    private Boolean anonymous;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("moods")
@@ -90,6 +93,19 @@ public class Mood implements Serializable {
         this.date = date;
     }
 
+    public Boolean isAnonymous() {
+        return anonymous;
+    }
+
+    public Mood anonymous(Boolean anonymous) {
+        this.anonymous = anonymous;
+        return this;
+    }
+
+    public void setAnonymous(Boolean anonymous) {
+        this.anonymous = anonymous;
+    }
+
     public User getUser() {
         return user;
     }
@@ -127,6 +143,7 @@ public class Mood implements Serializable {
             ", mood='" + getMood() + "'" +
             ", comment='" + getComment() + "'" +
             ", date='" + getDate() + "'" +
+            ", anonymous='" + isAnonymous() + "'" +
             "}";
     }
 }

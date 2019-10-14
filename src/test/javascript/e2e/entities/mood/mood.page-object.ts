@@ -29,6 +29,7 @@ export class MoodUpdatePage {
   moodSelect = element(by.id('field_mood'));
   commentInput = element(by.id('field_comment'));
   dateInput = element(by.id('field_date'));
+  anonymousInput = element(by.id('field_anonymous'));
   userSelect = element(by.id('field_user'));
 
   async getPageTitle() {
@@ -64,6 +65,10 @@ export class MoodUpdatePage {
 
   async getDateInput() {
     return await this.dateInput.getAttribute('value');
+  }
+
+  getAnonymousInput(timeout?: number) {
+    return this.anonymousInput;
   }
 
   async userSelectLastOption(timeout?: number) {

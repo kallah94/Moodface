@@ -28,6 +28,7 @@ export class MoodUpdateComponent implements OnInit {
     mood: [null, [Validators.required]],
     comment: [],
     date: [null, [Validators.required]],
+    anonymous: [],
     userId: [null, Validators.required]
   });
 
@@ -59,6 +60,7 @@ export class MoodUpdateComponent implements OnInit {
       mood: mood.mood,
       comment: mood.comment,
       date: mood.date,
+      anonymous: mood.anonymous,
       userId: mood.userId
     });
   }
@@ -84,6 +86,7 @@ export class MoodUpdateComponent implements OnInit {
       mood: this.editForm.get(['mood']).value,
       comment: this.editForm.get(['comment']).value,
       date: this.editForm.get(['date']).value,
+      anonymous: this.editForm.get(['anonymous']).value,
       userId: this.editForm.get(['userId']).value
     };
   }

@@ -75,6 +75,7 @@ class MoodGatlingTest extends Simulation {
                 , "mood":"VERY_HAPPY"
                 , "comment":"SAMPLE_TEXT"
                 , "date":"2020-01-01T00:00:00.000Z"
+                , "anonymous":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_mood_url"))).exitHereIfFailed

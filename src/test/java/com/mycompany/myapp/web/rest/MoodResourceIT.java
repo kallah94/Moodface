@@ -1,38 +1,16 @@
 package com.mycompany.myapp.web.rest;
 
-import static com.mycompany.myapp.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Collections;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
 import com.mycompany.myapp.Moodface1App;
 import com.mycompany.myapp.domain.Mood;
 import com.mycompany.myapp.domain.User;
-import com.mycompany.myapp.domain.enumeration.Moods;
 import com.mycompany.myapp.repository.MoodRepository;
 import com.mycompany.myapp.repository.search.MoodSearchRepository;
-import com.mycompany.myapp.service.MoodQueryService;
 import com.mycompany.myapp.service.MoodService;
 import com.mycompany.myapp.service.dto.MoodDTO;
 import com.mycompany.myapp.service.mapper.MoodMapper;
 import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
+import com.mycompany.myapp.service.dto.MoodCriteria;
+import com.mycompany.myapp.service.MoodQueryService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,6 +26,22 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
+
+import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Collections;
+import java.util.List;
+
+import static com.mycompany.myapp.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import com.mycompany.myapp.domain.enumeration.Moods;
 /**
  * Integration tests for the {@link MoodResource} REST controller.
  */
@@ -63,6 +57,9 @@ public class MoodResourceIT {
     private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
     private static final LocalDate SMALLER_DATE = LocalDate.ofEpochDay(-1L);
+
+    private static final Boolean DEFAULT_ANONYMOUS = false;
+    private static final Boolean UPDATED_ANONYMOUS = true;
 
     @Autowired
     private MoodRepository moodRepository;
@@ -125,7 +122,8 @@ public class MoodResourceIT {
         Mood mood = new Mood()
             .mood(DEFAULT_MOOD)
             .comment(DEFAULT_COMMENT)
-            .date(DEFAULT_DATE);
+            .date(DEFAULT_DATE)
+            .anonymous(DEFAULT_ANONYMOUS);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -143,7 +141,8 @@ public class MoodResourceIT {
         Mood mood = new Mood()
             .mood(UPDATED_MOOD)
             .comment(UPDATED_COMMENT)
-            .date(UPDATED_DATE);
+            .date(UPDATED_DATE)
+            .anonymous(UPDATED_ANONYMOUS);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -176,6 +175,7 @@ public class MoodResourceIT {
         assertThat(testMood.getMood()).isEqualTo(DEFAULT_MOOD);
         assertThat(testMood.getComment()).isEqualTo(DEFAULT_COMMENT);
         assertThat(testMood.getDate()).isEqualTo(DEFAULT_DATE);
+        assertThat(testMood.isAnonymous()).isEqualTo(DEFAULT_ANONYMOUS);
 
         // Validate the Mood in Elasticsearch
         verify(mockMoodSearchRepository, times(1)).save(testMood);
@@ -256,7 +256,8 @@ public class MoodResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(mood.getId().intValue())))
             .andExpect(jsonPath("$.[*].mood").value(hasItem(DEFAULT_MOOD.toString())))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT.toString())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].anonymous").value(hasItem(DEFAULT_ANONYMOUS.booleanValue())));
     }
     
     @Test
@@ -272,7 +273,8 @@ public class MoodResourceIT {
             .andExpect(jsonPath("$.id").value(mood.getId().intValue()))
             .andExpect(jsonPath("$.mood").value(DEFAULT_MOOD.toString()))
             .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT.toString()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()));
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.anonymous").value(DEFAULT_ANONYMOUS.booleanValue()));
     }
 
     @Test
@@ -447,6 +449,45 @@ public class MoodResourceIT {
 
     @Test
     @Transactional
+    public void getAllMoodsByAnonymousIsEqualToSomething() throws Exception {
+        // Initialize the database
+        moodRepository.saveAndFlush(mood);
+
+        // Get all the moodList where anonymous equals to DEFAULT_ANONYMOUS
+        defaultMoodShouldBeFound("anonymous.equals=" + DEFAULT_ANONYMOUS);
+
+        // Get all the moodList where anonymous equals to UPDATED_ANONYMOUS
+        defaultMoodShouldNotBeFound("anonymous.equals=" + UPDATED_ANONYMOUS);
+    }
+
+    @Test
+    @Transactional
+    public void getAllMoodsByAnonymousIsInShouldWork() throws Exception {
+        // Initialize the database
+        moodRepository.saveAndFlush(mood);
+
+        // Get all the moodList where anonymous in DEFAULT_ANONYMOUS or UPDATED_ANONYMOUS
+        defaultMoodShouldBeFound("anonymous.in=" + DEFAULT_ANONYMOUS + "," + UPDATED_ANONYMOUS);
+
+        // Get all the moodList where anonymous equals to UPDATED_ANONYMOUS
+        defaultMoodShouldNotBeFound("anonymous.in=" + UPDATED_ANONYMOUS);
+    }
+
+    @Test
+    @Transactional
+    public void getAllMoodsByAnonymousIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        moodRepository.saveAndFlush(mood);
+
+        // Get all the moodList where anonymous is not null
+        defaultMoodShouldBeFound("anonymous.specified=true");
+
+        // Get all the moodList where anonymous is null
+        defaultMoodShouldNotBeFound("anonymous.specified=false");
+    }
+
+    @Test
+    @Transactional
     public void getAllMoodsByUserIsEqualToSomething() throws Exception {
         // Get already existing entity
         User user = mood.getUser();
@@ -470,7 +511,8 @@ public class MoodResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(mood.getId().intValue())))
             .andExpect(jsonPath("$.[*].mood").value(hasItem(DEFAULT_MOOD.toString())))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].anonymous").value(hasItem(DEFAULT_ANONYMOUS.booleanValue())));
 
         // Check, that the count call also returns 1
         restMoodMockMvc.perform(get("/api/moods/count?sort=id,desc&" + filter))
@@ -520,7 +562,8 @@ public class MoodResourceIT {
         updatedMood
             .mood(UPDATED_MOOD)
             .comment(UPDATED_COMMENT)
-            .date(UPDATED_DATE);
+            .date(UPDATED_DATE)
+            .anonymous(UPDATED_ANONYMOUS);
         MoodDTO moodDTO = moodMapper.toDto(updatedMood);
 
         restMoodMockMvc.perform(put("/api/moods")
@@ -535,6 +578,7 @@ public class MoodResourceIT {
         assertThat(testMood.getMood()).isEqualTo(UPDATED_MOOD);
         assertThat(testMood.getComment()).isEqualTo(UPDATED_COMMENT);
         assertThat(testMood.getDate()).isEqualTo(UPDATED_DATE);
+        assertThat(testMood.isAnonymous()).isEqualTo(UPDATED_ANONYMOUS);
 
         // Validate the Mood in Elasticsearch
         verify(mockMoodSearchRepository, times(1)).save(testMood);
@@ -597,7 +641,8 @@ public class MoodResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(mood.getId().intValue())))
             .andExpect(jsonPath("$.[*].mood").value(hasItem(DEFAULT_MOOD.toString())))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].anonymous").value(hasItem(DEFAULT_ANONYMOUS.booleanValue())));
     }
 
     @Test

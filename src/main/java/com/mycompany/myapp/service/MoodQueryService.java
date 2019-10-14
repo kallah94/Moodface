@@ -1,7 +1,7 @@
 package com.mycompany.myapp.service;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.persistence.criteria.JoinType;
@@ -31,6 +31,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.github.jhipster.service.QueryService;
 
+import com.mycompany.myapp.domain.Mood;
+import com.mycompany.myapp.domain.*; // for static metamodels
+import com.mycompany.myapp.repository.MoodRepository;
+import com.mycompany.myapp.repository.search.MoodSearchRepository;
+import com.mycompany.myapp.service.dto.MoodCriteria;
+import com.mycompany.myapp.service.dto.MoodDTO;
+import com.mycompany.myapp.service.mapper.MoodMapper;
+
 /**
  * Service for executing complex queries for {@link Mood} entities in the database.
  * The main input is a {@link MoodCriteria} which gets converted to {@link Specification},
@@ -45,15 +53,14 @@ public class MoodQueryService extends QueryService<Mood> {
 
     private final MoodRepository moodRepository;
 
-    private final UserRepository userRepository;
-
     private final MoodMapper moodMapper;
 
-    public MoodQueryService(MoodRepository moodRepository, MoodMapper moodMapper, UserRepository userRepository,
-            MoodSearchRepository moodSearchRepository) {
+    private final MoodSearchRepository moodSearchRepository;
+
+    public MoodQueryService(MoodRepository moodRepository, MoodMapper moodMapper, MoodSearchRepository moodSearchRepository) {
         this.moodRepository = moodRepository;
         this.moodMapper = moodMapper;
-        this.userRepository = userRepository;
+        this.moodSearchRepository = moodSearchRepository;
     }
 
     /**
@@ -77,52 +84,11 @@ public class MoodQueryService extends QueryService<Mood> {
     @Transactional(readOnly = true)
     public Page<MoodDTO> findByCriteria(MoodCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){
         final Specification<Mood> specification = createSpecification(criteria);
         return moodRepository.findAll(specification, page)
             .map(moodMapper::toDto);
-        } else {
-            return moodRepository.findByUserIsCurrentUser(page)
-                .map(moodMapper::toDto);
-        }
     }
 
-    /**
-     *
-     * @param plateauName
-     * @param pageable
-     */
-    @Transactional(readOnly = true)
-    public Page<MoodDTO> findByPlateau(Pageable pageable, String plateauName) {
-        log.debug("find by a speciique plateau Name");
-        return moodRepository.findByPlateauName(plateauName, pageable)
-                .map(moodMapper::toDto);
-    }
-    /*
-     * @param departementName
-     * @param pageable
-     */
-    @Transactional(readOnly = true)
-    public Page<MoodDTO> findByDepartement(Pageable pageable, String departementName) {
-        log.debug("find by a specifique departement Name");
-        return moodRepository.findByDepartementName(departementName, pageable)
-                .map(moodMapper::toDto);
-    }
-
-    @Transactional(readOnly = true)
-    public Page<MoodDTO> findByService(Pageable pageable, String serviceName) {
-        log.debug("find by a service Name");
-        return  moodRepository.findByServiceName(serviceName, pageable)
-                    .map(moodMapper::toDto);
-    }
-
-
-    @Transactional(readOnly = true)
-    public Page<MoodDTO> findBymood(Pageable pageable, Moods mood) {
-        log.debug("find Moods by mood value");
-        return moodRepository.findByMoodValue(mood, pageable)
-                .map(moodMapper::toDto);
-    }
     /**
      * Return the number of matching entities in the database.
      * @param criteria The object which holds all the filters, which the entities should match.
@@ -208,6 +174,7 @@ public class MoodQueryService extends QueryService<Mood> {
     return list;
     }
 
+
     /**
      * Function to convert {@link MoodCriteria} to a {@link Specification}
      * @param criteria The object which holds all the filters, which the entities should match.
@@ -227,6 +194,9 @@ public class MoodQueryService extends QueryService<Mood> {
             }
             if (criteria.getDate() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDate(), Mood_.date));
+            }
+            if (criteria.getAnonymous() != null) {
+                specification = specification.and(buildSpecification(criteria.getAnonymous(), Mood_.anonymous));
             }
             if (criteria.getUserId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUserId(),

@@ -10,11 +10,6 @@ import com.mycompany.myapp.domain.enumeration.Moods;
  */
 public class MoodDTO implements Serializable {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
     private Long id;
 
     @NotNull
@@ -24,6 +19,8 @@ public class MoodDTO implements Serializable {
 
     @NotNull
     private LocalDate date;
+
+    private Boolean anonymous;
 
 
     private Long userId;
@@ -60,6 +57,14 @@ public class MoodDTO implements Serializable {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public Boolean isAnonymous() {
+        return anonymous;
+    }
+
+    public void setAnonymous(Boolean anonymous) {
+        this.anonymous = anonymous;
     }
 
     public Long getUserId() {
@@ -106,6 +111,7 @@ public class MoodDTO implements Serializable {
             ", mood='" + getMood() + "'" +
             ", comment='" + getComment() + "'" +
             ", date='" + getDate() + "'" +
+            ", anonymous='" + isAnonymous() + "'" +
             ", user=" + getUserId() +
             ", user='" + getUserLogin() + "'" +
             "}";
