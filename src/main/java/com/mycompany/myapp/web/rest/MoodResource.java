@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.mycompany.myapp.domain.Mood;
 import com.mycompany.myapp.domain.enumeration.Moods;
 import com.mycompany.myapp.service.MoodQueryService;
 import com.mycompany.myapp.service.MoodService;
@@ -114,11 +115,11 @@ public class MoodResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
     /**
-    * {@code GET  /moods/count} : count all the moods.
-    *
-    * @param criteria the criteria which the requested entities should match.
-    * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-    */
+     * {@code GET  /moods/count} : count all the moods.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
     @GetMapping("/moods/count")
     public ResponseEntity<Long> countMoods(MoodCriteria criteria) {
         log.debug("REST request to count Moods by criteria: {}" , criteria);
@@ -154,7 +155,6 @@ public class MoodResource {
      *
      * @param plateauName
      *
-     * @param id
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} a
      */
     @GetMapping("/moods/plateau/{plateauName}")

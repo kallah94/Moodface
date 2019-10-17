@@ -116,10 +116,13 @@ export const userManagementRoute: Routes = [
   {
     path: 'plateau/:name/users',
     component: UserPlateauComponent,
-
+    resolve: {
+      pagingParams: JhiResolvePagingParams
+    },
     data: {
       authorities: ['ROLE_ADMIN'],
-      pageTitle: 'userManagement.home.title'
+      pageTitle: 'userManagement.home.title',
+      defaultSort: 'id,asc'
     },
     canActivate: [UserRouteAccessService]
   }

@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
 import { IMood, Mood } from 'app/shared/model/mood.model';
 import { MoodService } from './mood.service';
@@ -21,7 +18,6 @@ export class MoodUpdateComponent implements OnInit {
   isSaving: boolean;
 
   users: IUser[];
-  dateDp: any;
 
   editForm = this.fb.group({
     id: [],

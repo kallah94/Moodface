@@ -190,12 +190,12 @@ public class UserResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    @GetMapping("/users/plateauName/{plateauName}")
-    public ResponseEntity<List<UserDTO>> getUsersByPlateauName(Pageable pageable, @PathVariable String plateauName) {
-        log.debug("REST request to get Users of the given plateau Name {}", plateauName);
-        final Page<UserDTO> page = userService.getAllUserByPlateauName(pageable, plateauName);
+    @GetMapping("/users/plateau/{name}")
+    public ResponseEntity<List<UserDTO>> getUsersByPlateauName(@PathVariable String name, Pageable pageable) {
+        log.debug("REST request to get Users of the given plateau Name {}", name);
+        Page<UserDTO> page = userService.getAllUserByPlateauName(pageable, name);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
     /**
      *

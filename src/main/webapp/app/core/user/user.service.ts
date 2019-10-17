@@ -6,6 +6,8 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IUser } from './user.model';
 
+type EntityResponseType = HttpResponse<IUser>;
+type EntityArrayResponseType = HttpResponse<IUser[]>;
 @Injectable({ providedIn: 'root' })
 export class UserService {
   public resourceUrl = SERVER_API_URL + 'api/users';
@@ -66,6 +68,11 @@ export class UserService {
 
   findServicesByDepartement(departement: string): Observable<HttpResponse<String[]>> {
     return this.http.get<String[]>(`${this.resourceUrl}/${departement}/services`, { observe: 'response' });
+  }
+
+  getUsersByPlateauName(plateauName: String, req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IUser[]>(`${this.resourceUrl}/plateau/${plateauName}`, { params: options, observe: 'response' });
   }
 
   findPlateauxByService(service: string): Observable<HttpResponse<String[]>> {

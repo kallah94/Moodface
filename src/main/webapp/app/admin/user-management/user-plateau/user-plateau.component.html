@@ -1,2 +1,7 @@
 <p>user-plateau works!</p>
-<p *ngIf="users">{{users}}</p>
+<ul>
+    <li *ngFor="let user of users">
+        {{ users }}
+    </li>
+</ul>
+<p *ngIf="users">test</p>

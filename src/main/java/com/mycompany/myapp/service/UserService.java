@@ -187,8 +187,6 @@ public class UserService {
      * @param firstName   first name of user.
      * @param lastName    last name of user.
      * @param serviceName service name of user.
-     * @param departement departement Name
-     * @param plateau     name
      * @param email       email id of user.
      * @param langKey     language key.
      * @param imageUrl    image URL of user.
@@ -328,7 +326,7 @@ public class UserService {
         log.debug("find all plateau");
         return  StreamSupport
             .stream(userRepository.findAllPlateauName().spliterator(), false)
-            .collect(Collectors.toUnmodifiableSet());
+            .collect(Collectors.toSet());
     }
 
        /**
@@ -340,7 +338,7 @@ public class UserService {
         log.debug("find all plateau");
         return  StreamSupport
             .stream(userRepository.findAllServiceName().spliterator(), false)
-            .collect(Collectors.toUnmodifiableSet());
+            .collect(Collectors.toSet());
     }
 
        /**
@@ -352,7 +350,7 @@ public class UserService {
         log.debug("find all plateau");
         return StreamSupport
             .stream(userRepository.findAllDepartementName().spliterator(), false)
-            .collect(Collectors.toUnmodifiableSet());
+            .collect(Collectors.toSet());
     }
 
     @Transactional(readOnly = true)
@@ -360,7 +358,7 @@ public class UserService {
         log.debug("find all service by their departement : {}", departementName);
         return StreamSupport
             .stream(userRepository.findAllServicesByDepartementName(departementName).spliterator(), false)
-            .collect(Collectors.toUnmodifiableSet());
+            .collect(Collectors.toSet());
     }
 
 
@@ -369,7 +367,7 @@ public class UserService {
         log.debug("find all service by their service : {}", serviceName);
         return StreamSupport
             .stream(userRepository.findAllPlateauxByServiceName(serviceName).spliterator(), false)
-            .collect(Collectors.toUnmodifiableSet());
+            .collect(Collectors.toSet());
     }
     /**
      * Not activated users should be automatically deleted after 3 days.

@@ -1,4 +1,24 @@
-<p>plateau works!</p>
-<ul>
-	<li *ngFor="let plateau of plateaux"> {{ plateau }} </li>
-</ul>
+<div class="card-deck">
+    <div class="card" *ngFor="let moodval of ListmoodModel">
+        <div class="card-header text-center text-dark bg-warning mb-1 border-dark">	{{ moodval.name }}</div>
+        <div class="card-body text-white  bg-dark">
+            <h5> Very Happy
+                <span class="badge badge-success">{{ moodval.moodvalue[0] }}</span>
+            </h5>
+            <h5> Happy
+                <span class="badge badge-warning">{{ moodval.moodvalue[1] }}</span>
+            </h5>
+            <h5> Sad
+                <span class="badge badge-warning">{{ moodval.moodvalue[2] }}</span>
+            </h5>
+            <h5> Angry
+                <span class="badge badge-danger">{{ moodval.moodvalue[3] }}</span>
+            </h5>
+        </div>
+        <div class="card-footer text-dark bg-warning mt-1">
+            <h5 class="card-title"> moods total
+                <span class="badge badge-dark">{{ moodval.moodvalue[4] }}/{{ moodval.moodvalue[5] }}</span>
+            </h5>
+        </div>
+    </div>
+</div>
