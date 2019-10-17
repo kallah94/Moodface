@@ -2,16 +2,15 @@ package com.mycompany.myapp.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
-import io.github.jhipster.service.Criteria;
+
 import com.mycompany.myapp.domain.enumeration.Moods;
+
+import io.github.jhipster.service.Criteria;
 import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.FloatFilter;
-import io.github.jhipster.service.filter.IntegerFilter;
+import io.github.jhipster.service.filter.LocalDateFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
-import io.github.jhipster.service.filter.LocalDateFilter;
 
 /**
  * Criteria class for the {@link com.mycompany.myapp.domain.Mood} entity. This class is used
@@ -27,6 +26,10 @@ public class MoodCriteria implements Serializable, Criteria {
      * Class for filtering Moods
      */
     public static class MoodsFilter extends Filter<Moods> {
+        /**
+         *
+         */
+        private static final long serialVersionUID = 1L;
 
         public MoodsFilter() {
         }

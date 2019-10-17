@@ -2,6 +2,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 import './vendor';
 import { AuthInterceptor } from './blocks/interceptor/auth.interceptor';
 import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
@@ -19,11 +21,15 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleButtonModule } from 'primeng/primeng';
+import { FormsModule } from '@angular/forms';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 // importation des modules de primeNG
 import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
-import { TableModule } from 'primeng/table'
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   imports: [
@@ -34,6 +40,11 @@ import { TableModule } from 'primeng/table'
     ChartModule,
     ButtonModule,
     TableModule,
+    InputSwitchModule,
+    ToggleButtonModule,
+    FormsModule,
+    RadioButtonModule,
+    MDBBootstrapModule.forRoot(),
     // jhipster-needle-angular-add-module JHipster will add new module here
     Moodface1EntityModule,
     Moodface1AppRoutingModule

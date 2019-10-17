@@ -65,7 +65,7 @@ public class UserResourceIT {
     private static String UPDATED_DEPARTEMENTNAME = "DSI";
 
     private static String DEFAULT_PLATEAUNAME = "RADAR";
-    private static String UPDATED__PLATEAUNAME = "RADAR";
+    private static String UPDATED_PLATEAUNAME = "RADAR";
 
     private static final String DEFAULT_IMAGEURL = "http://placehold.it/50x50";
     private static final String UPDATED_IMAGEURL = "http://placehold.it/40x40";
@@ -356,8 +356,8 @@ public class UserResourceIT {
         managedUserVM.setFirstName(UPDATED_FIRSTNAME);
         managedUserVM.setLastName(UPDATED_LASTNAME);
         managedUserVM.setDepartementName(UPDATED_DEPARTEMENTNAME);
-        managedUserVM.setServiceName(UPDATED__SERVICENAME);
-        managedUserVM.setPlateauName(DEFAULT_PLATEAUNAME);
+        managedUserVM.setServiceName(UPDATED_SERVICENAME);
+        managedUserVM.setPlateauName(UPDATED_PLATEAUNAME);
 
         managedUserVM.setEmail(UPDATED_EMAIL);
         managedUserVM.setActivated(updatedUser.getActivated());

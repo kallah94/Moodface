@@ -273,6 +273,11 @@ public class UserResource {
                 .map(UserDTO::new));
     }
 
+    @GetMapping("users/currentUser")
+    public Optional<User> getCurrentUser() {
+        log.debug("REST request to get the current User");
+        return userService.getUserWithAuthorities();
+    }
     /**
      * {@code DELETE /users/:login} : delete the "login" User.
      *

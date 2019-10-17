@@ -6,11 +6,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
 import { IMood, Mood } from 'app/shared/model/mood.model';
 import { MoodService } from './mood.service';
-import { IUser } from 'app/core/user/user.model';
+import { IUser, User } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
 
 @Component({
@@ -19,17 +18,18 @@ import { UserService } from 'app/core/user/user.service';
 })
 export class MoodUpdateComponent implements OnInit {
   isSaving: boolean;
-
   users: IUser[];
+  user: User;
   dateDp: any;
+  value: any;
 
   editForm = this.fb.group({
     id: [],
     mood: [null, [Validators.required]],
     comment: [],
     date: [null, [Validators.required]],
-    anonymous: [],
-    userId: [null, Validators.required]
+    anonymous: []
+    // userId: [null, Validators.required]
   });
 
   constructor(
@@ -45,13 +45,14 @@ export class MoodUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ mood }) => {
       this.updateForm(mood);
     });
+
     this.userService
-      .query()
+      .findCurrentUser()
       .pipe(
-        filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IUser[]>) => response.body)
+        filter((mayBeOk: HttpResponse<IUser>) => mayBeOk.ok),
+        map((response: HttpResponse<IUser>) => response.body)
       )
-      .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: IUser) => (this.user = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(mood: IMood) {
@@ -60,8 +61,8 @@ export class MoodUpdateComponent implements OnInit {
       mood: mood.mood,
       comment: mood.comment,
       date: mood.date,
-      anonymous: mood.anonymous,
-      userId: mood.userId
+      anonymous: mood.anonymous
+      //   userId: mood.userId
     });
   }
 
@@ -87,7 +88,8 @@ export class MoodUpdateComponent implements OnInit {
       comment: this.editForm.get(['comment']).value,
       date: this.editForm.get(['date']).value,
       anonymous: this.editForm.get(['anonymous']).value,
-      userId: this.editForm.get(['userId']).value
+      //  userId: this.editForm.get(['userId']).value
+      userId: this.user.id
     };
   }
 

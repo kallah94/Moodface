@@ -12,11 +12,10 @@ import { PlateauComponent } from './plateau/plateau.component';
 import { ServiceComponent } from './service/service.component';
 import { DServicesComponent } from './departement/d-services/d-services.component';
 import { DPlateauxComponent } from './service/d-plateaux/d-plateaux.component';
-import { DoughnutChartDemoComponent } from './departement/departStat.component';
-import { ChartModule } from 'primeng/chart'
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
-  imports: [Moodface1SharedModule,  ChartModule, RouterModule.forChild(userManagementRoute)],
+  imports: [Moodface1SharedModule, ChartModule, RouterModule.forChild(userManagementRoute)],
   declarations: [
     UserMgmtComponent,
     UserMgmtDetailComponent,
@@ -26,10 +25,7 @@ import { ChartModule } from 'primeng/chart'
     PlateauComponent,
     ServiceComponent,
     DServicesComponent,
-    DPlateauxComponent,
-    DoughnutChartDemoComponent,
-  
- 
+    DPlateauxComponent
   ],
   entryComponents: [UserMgmtDeleteDialogComponent]
 })

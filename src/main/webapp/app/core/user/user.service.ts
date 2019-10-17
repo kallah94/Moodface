@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
-import { IUser } from './user.model';
+import { IUser, User } from './user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -70,5 +70,9 @@ export class UserService {
 
   findPlateauxByService(service: string): Observable<HttpResponse<String[]>> {
     return this.http.get<String[]>(`${this.resourceUrl}/${service}/plateaux`, { observe: 'response' });
+  }
+
+  findCurrentUser(): Observable<HttpResponse<IUser>> {
+    return this.http.get<IUser>(`${this.resourceUrl}/currentUser`, { observe: 'response' });
   }
 }
