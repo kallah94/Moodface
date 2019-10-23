@@ -1,9 +1,29 @@
 package com.mycompany.myapp.service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.criteria.JoinType;
+
+// for static metamodels
+import com.mycompany.myapp.domain.Mood;
+import com.mycompany.myapp.domain.Mood_;
+import com.mycompany.myapp.domain.User_;
+import com.mycompany.myapp.domain.enumeration.Moods;
+import com.mycompany.myapp.domain.myclass.MoodBoard;
+import com.mycompany.myapp.repository.MoodRepository;
+import com.mycompany.myapp.repository.UserRepository;
+import com.mycompany.myapp.repository.search.MoodSearchRepository;
+import com.mycompany.myapp.security.AuthoritiesConstants;
+import com.mycompany.myapp.security.SecurityUtils;
+import com.mycompany.myapp.service.dto.MoodCriteria;
+import com.mycompany.myapp.service.dto.MoodDTO;
+import com.mycompany.myapp.service.mapper.MoodMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,18 +34,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.jhipster.service.QueryService;
-
-import com.mycompany.myapp.domain.Mood;
-import com.mycompany.myapp.domain.enumeration.Moods;
-import com.mycompany.myapp.domain.*; // for static metamodels
-import com.mycompany.myapp.repository.MoodRepository;
-import com.mycompany.myapp.repository.UserRepository;
-import com.mycompany.myapp.repository.search.MoodSearchRepository;
-import com.mycompany.myapp.security.AuthoritiesConstants;
-import com.mycompany.myapp.security.SecurityUtils;
-import com.mycompany.myapp.service.dto.MoodCriteria;
-import com.mycompany.myapp.service.dto.MoodDTO;
-import com.mycompany.myapp.service.mapper.MoodMapper;
 
 /**
  * Service for executing complex queries for {@link Mood} entities in the database.
@@ -183,12 +191,13 @@ public class MoodQueryService extends QueryService<Mood> {
     }
 
     @Transactional(readOnly = true)
-    public List<Long> moodcountListByDepartement(String departementName) {
+    public List<Long> moodcountListByDepartement(String departementName, LocalDate date) {
         Long som = 0L;
         List<Long> list = new ArrayList<>();
         List<Mood> moods = new ArrayList<>();
         List<Mood> listtampon = new ArrayList<>();
         moods.addAll(moodRepository.findByDepartementName(departementName));
+        moods.removeIf(mood -> !mood.getDate().isEqual(date));
         for(Moods Mood : Moods.values()) {
             listtampon.addAll(moods);
             listtampon.removeIf(mood -> mood.getMood() != Mood);
@@ -199,6 +208,29 @@ public class MoodQueryService extends QueryService<Mood> {
         /* ajout du nombre total d utilisateurs relatifs a cet departement */
         list.add((long) userRepository.findAllByDepartementName(departementName).size());
     return list;
+    }
+
+    @Transactional(readOnly = true)
+    public List<MoodBoard> MoodboardDepartement(String departementName){
+        /*Constructions des dates a utiliser */
+        List<LocalDate> listdates = new ArrayList<>();
+        List<MoodBoard> Moodweek = new ArrayList<>();
+        LocalDate currentdate = LocalDate.now();
+        while ((currentdate.getDayOfWeek() != DayOfWeek.SATURDAY) && (currentdate.getDayOfWeek() !=DayOfWeek.SUNDAY))
+            {
+            listdates.add(currentdate);
+            currentdate = currentdate.minusDays(1);
+        };
+        Collections.reverse(listdates);
+
+        /* Fin recuperation des dates de la semaine */
+        listdates.forEach(mooddate -> {
+            String day = mooddate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.CANADA_FRENCH);
+            List<Long> moodliste = moodcountListByDepartement(departementName, mooddate); // retourne liste des valeurs des moods
+            List<String> commentliste = moodRepository.findCommentsByDepartementName(departementName, mooddate);
+            Moodweek.add(new MoodBoard(day, moodliste, commentliste));
+        });
+        return Moodweek;
     }
 
     /**

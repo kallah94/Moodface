@@ -1,0 +1,22 @@
+<p>moodboarddepartement works!</p>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Semaine</th>
+      <th scope="col">Very Happy</th>
+      <th scope="col">Happy</th>
+      <th scope="col">Sad</th>
+			 <th scope="col">Angry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let moodbyDay of moodboard">
+      <th scope="row">{{ moodbyDay.currentday }}</th>
+      <td>{{ moodbyDay.listmood[0] }}</td>
+      <td> {{ moodbyDay.listmood[1] }}</td>
+      <td> {{ moodbyDay.listmood[2] }}</td>
+			 <td> {{ moodbyDay.listmood[3] }}</td>
+    </tr>
+  </tbody>
+</table>
