@@ -17,6 +17,7 @@ export class DepartementComponent implements OnInit {
   departements: String[] = [];
   name: String;
   ListmoodModel: MoodPlatValModel[] = [];
+
   constructor(private userService: UserService, private moodService: MoodService) {}
 
   ChartFunction(dat: any, index: number, texte: String) {

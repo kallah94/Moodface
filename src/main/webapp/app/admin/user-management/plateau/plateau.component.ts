@@ -12,6 +12,7 @@ import { LineChartDemo } from 'app/admin/Chatrs/LineChart';
   styleUrls: ['./plateau.component.scss']
 })
 export class PlateauComponent implements OnInit {
+
   departements: String[] = [];
   name: String;
   charpies: any[] = [];
@@ -24,6 +25,7 @@ export class PlateauComponent implements OnInit {
 
   ngOnInit() {
     this.userService.plateaux().subscribe(res => {
+
       this.departements = res;
       res.forEach(name => {
         this.moodService.getMoodValuePlateau(name).subscribe(list => {

@@ -12,6 +12,9 @@ import { PlateauComponent } from './plateau/plateau.component';
 import { ServiceComponent } from './service/service.component';
 import { DServicesComponent } from './departement/d-services/d-services.component';
 import { DPlateauxComponent } from './service/d-plateaux/d-plateaux.component';
+import { UserPlateauComponent } from 'app/admin/user-management/user-plateau/user-plateau.component';
+import { UserServiceComponent } from 'app/admin/user-management/user-service/user-service.component';
+import { UserDepartementComponent } from 'app/admin/user-management/user-departement/user-departement.component';
 import { ChartModule } from 'primeng/chart';
 
 @NgModule({
@@ -25,7 +28,10 @@ import { ChartModule } from 'primeng/chart';
     PlateauComponent,
     ServiceComponent,
     DServicesComponent,
-    DPlateauxComponent
+    DPlateauxComponent,
+    UserPlateauComponent,
+    UserServiceComponent,
+    UserDepartementComponent
   ],
   entryComponents: [UserMgmtDeleteDialogComponent]
 })
