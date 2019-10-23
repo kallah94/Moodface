@@ -1,22 +1,23 @@
 package com.mycompany.myapp.repository;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import com.mycompany.myapp.domain.Mood;
 import com.mycompany.myapp.domain.enumeration.Moods;
-import com.mycompany.myapp.service.dto.MoodDTO;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.lang.Nullable;
-
-import java.util.List;
 
 /**
  * Spring Data  repository for the Mood entity.
  */
-@SuppressWarnings("unused")
+
 @Repository
 public interface MoodRepository extends JpaRepository<Mood, Long>, JpaSpecificationExecutor<Mood> {
 
@@ -51,5 +52,8 @@ public interface MoodRepository extends JpaRepository<Mood, Long>, JpaSpecificat
 
     @Query("select mood from Mood mood where mood.user.serviceName = :serviceName")
     List<Mood> findByServiceName(@Param("serviceName") String serviceName);
+
+    @Query("select mood.comment from Mood mood where mood.user.departementName = :departementName and mood.date = :date")
+    List<String> findCommentsByDepartementName(@Param("departementName") String departementName, @Param("date") LocalDate date);
 
 }

@@ -6,6 +6,7 @@ import java.util.Objects;
 import com.mycompany.myapp.domain.enumeration.Moods;
 
 import io.github.jhipster.service.Criteria;
+import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.LocalDateFilter;
 import io.github.jhipster.service.filter.LongFilter;
@@ -25,7 +26,6 @@ public class MoodCriteria implements Serializable, Criteria {
      * Class for filtering Moods
      */
     public static class MoodsFilter extends Filter<Moods> {
-
         /**
          *
          */
@@ -55,6 +55,8 @@ public class MoodCriteria implements Serializable, Criteria {
 
     private LocalDateFilter date;
 
+    private BooleanFilter anonymous;
+
     private LongFilter userId;
 
     public MoodCriteria(){
@@ -65,6 +67,7 @@ public class MoodCriteria implements Serializable, Criteria {
         this.mood = other.mood == null ? null : other.mood.copy();
         this.comment = other.comment == null ? null : other.comment.copy();
         this.date = other.date == null ? null : other.date.copy();
+        this.anonymous = other.anonymous == null ? null : other.anonymous.copy();
         this.userId = other.userId == null ? null : other.userId.copy();
     }
 
@@ -105,6 +108,14 @@ public class MoodCriteria implements Serializable, Criteria {
         this.date = date;
     }
 
+    public BooleanFilter getAnonymous() {
+        return anonymous;
+    }
+
+    public void setAnonymous(BooleanFilter anonymous) {
+        this.anonymous = anonymous;
+    }
+
     public LongFilter getUserId() {
         return userId;
     }
@@ -112,6 +123,7 @@ public class MoodCriteria implements Serializable, Criteria {
     public void setUserId(LongFilter userId) {
         this.userId = userId;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -127,6 +139,7 @@ public class MoodCriteria implements Serializable, Criteria {
             Objects.equals(mood, that.mood) &&
             Objects.equals(comment, that.comment) &&
             Objects.equals(date, that.date) &&
+            Objects.equals(anonymous, that.anonymous) &&
             Objects.equals(userId, that.userId);
     }
 
@@ -137,6 +150,7 @@ public class MoodCriteria implements Serializable, Criteria {
         mood,
         comment,
         date,
+        anonymous,
         userId
         );
     }
@@ -148,6 +162,7 @@ public class MoodCriteria implements Serializable, Criteria {
                 (mood != null ? "mood=" + mood + ", " : "") +
                 (comment != null ? "comment=" + comment + ", " : "") +
                 (date != null ? "date=" + date + ", " : "") +
+                (anonymous != null ? "anonymous=" + anonymous + ", " : "") +
                 (userId != null ? "userId=" + userId + ", " : "") +
             "}";
     }

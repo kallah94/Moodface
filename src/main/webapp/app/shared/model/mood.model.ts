@@ -6,6 +6,7 @@ export interface IMood {
   mood?: Moods;
   comment?: string;
   date?: Moment;
+  anonymous?: boolean;
   userLogin?: string;
   userId?: number;
 }
@@ -16,7 +17,10 @@ export class Mood implements IMood {
     public mood?: Moods,
     public comment?: string,
     public date?: Moment,
+    public anonymous?: boolean,
     public userLogin?: string,
     public userId?: number
-  ) {}
+  ) {
+    this.anonymous = this.anonymous || false;
+  }
 }

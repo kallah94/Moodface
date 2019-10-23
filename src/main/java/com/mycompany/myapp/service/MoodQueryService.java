@@ -1,7 +1,12 @@
 package com.mycompany.myapp.service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.criteria.JoinType;
 
@@ -10,7 +15,9 @@ import com.mycompany.myapp.domain.Mood;
 import com.mycompany.myapp.domain.Mood_;
 import com.mycompany.myapp.domain.User_;
 import com.mycompany.myapp.domain.enumeration.Moods;
+import com.mycompany.myapp.domain.myclass.MoodBoard;
 import com.mycompany.myapp.repository.MoodRepository;
+import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.repository.search.MoodSearchRepository;
 import com.mycompany.myapp.security.AuthoritiesConstants;
 import com.mycompany.myapp.security.SecurityUtils;
@@ -42,12 +49,15 @@ public class MoodQueryService extends QueryService<Mood> {
 
     private final MoodRepository moodRepository;
 
+    private final UserRepository userRepository;
+
     private final MoodMapper moodMapper;
 
-    public MoodQueryService(MoodRepository moodRepository, MoodMapper moodMapper,
+    public MoodQueryService(MoodRepository moodRepository, MoodMapper moodMapper, UserRepository userRepository,
             MoodSearchRepository moodSearchRepository) {
         this.moodRepository = moodRepository;
         this.moodMapper = moodMapper;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -89,8 +99,8 @@ public class MoodQueryService extends QueryService<Mood> {
     @Transactional(readOnly = true)
     public Page<MoodDTO> findByPlateau(Pageable pageable, String plateauName) {
         log.debug("find by a speciique plateau Name");
-        return moodRepository.findByPlateauName(plateauName, pageable)
-                .map(moodMapper::toDto);
+        return  moodRepository.findByPlateauName(plateauName, pageable)
+                .map(moodMapper::toDto); 
     }
     /*
      * @param departementName
@@ -155,6 +165,8 @@ public class MoodQueryService extends QueryService<Mood> {
                 som += (long) listtampon.size();
             }
             list.add(som);
+            /* ajout du nombre total d utilisateurs relatifs a cet plateau */
+            list.add((long) userRepository.findAllByPlateauName(plateauName).size());
         return list;
         }
 
@@ -173,16 +185,19 @@ public class MoodQueryService extends QueryService<Mood> {
             som += (long) listtampon.size();
         }
         list.add(som);
+        /* ajout du nombre total d utilisateurs relatifs a cette Service */
+        list.add((long) userRepository.findAllByServiceName(serviceName).size());
     return list;
     }
 
     @Transactional(readOnly = true)
-    public List<Long> moodcountListByDepartement(String departementName) {
+    public List<Long> moodcountListByDepartement(String departementName, LocalDate date) {
         Long som = 0L;
         List<Long> list = new ArrayList<>();
         List<Mood> moods = new ArrayList<>();
         List<Mood> listtampon = new ArrayList<>();
         moods.addAll(moodRepository.findByDepartementName(departementName));
+        moods.removeIf(mood -> !mood.getDate().isEqual(date));
         for(Moods Mood : Moods.values()) {
             listtampon.addAll(moods);
             listtampon.removeIf(mood -> mood.getMood() != Mood);
@@ -190,7 +205,32 @@ public class MoodQueryService extends QueryService<Mood> {
             som += (long) listtampon.size();
         }
         list.add(som);
+        /* ajout du nombre total d utilisateurs relatifs a cet departement */
+        list.add((long) userRepository.findAllByDepartementName(departementName).size());
     return list;
+    }
+
+    @Transactional(readOnly = true)
+    public List<MoodBoard> MoodboardDepartement(String departementName){
+        /*Constructions des dates a utiliser */
+        List<LocalDate> listdates = new ArrayList<>();
+        List<MoodBoard> Moodweek = new ArrayList<>();
+        LocalDate currentdate = LocalDate.now();
+        while ((currentdate.getDayOfWeek() != DayOfWeek.SATURDAY) && (currentdate.getDayOfWeek() !=DayOfWeek.SUNDAY))
+            {
+            listdates.add(currentdate);
+            currentdate = currentdate.minusDays(1);
+        };
+        Collections.reverse(listdates);
+
+        /* Fin recuperation des dates de la semaine */
+        listdates.forEach(mooddate -> {
+            String day = mooddate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.CANADA_FRENCH);
+            List<Long> moodliste = moodcountListByDepartement(departementName, mooddate); // retourne liste des valeurs des moods
+            List<String> commentliste = moodRepository.findCommentsByDepartementName(departementName, mooddate);
+            Moodweek.add(new MoodBoard(day, moodliste, commentliste));
+        });
+        return Moodweek;
     }
 
     /**
@@ -212,6 +252,9 @@ public class MoodQueryService extends QueryService<Mood> {
             }
             if (criteria.getDate() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDate(), Mood_.date));
+            }
+            if (criteria.getAnonymous() != null) {
+                specification = specification.and(buildSpecification(criteria.getAnonymous(), Mood_.anonymous));
             }
             if (criteria.getUserId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUserId(),

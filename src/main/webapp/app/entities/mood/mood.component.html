@@ -36,18 +36,25 @@
             <th jhiSortBy="mood"><span jhiTranslate="moodface1App.mood.mood">Mood</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="comment"><span jhiTranslate="moodface1App.mood.comment">Comment</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="date"><span jhiTranslate="moodface1App.mood.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="anonymous"><span jhiTranslate="moodface1App.mood.anonymous">Anonymous</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="userLogin"><span jhiTranslate="moodface1App.mood.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let mood of moods ;trackBy: trackId">
-                <td><a [routerLink]="['/mood', mood.id, 'view' ]">{{mood.id}}</a></td>
+                <td  *ngIf="mood.anonymous == false"><a [routerLink]="['/mood', mood.id, 'view' ]"
+                hidden>{{mood.id}}</a></td>
+                 <td  *ngIf="mood.anonymous == true"><a [routerLink]="['/mood', mood.id, 'view' ]">{{mood.id}}</a></td>
                 <td jhiTranslate="{{'moodface1App.Moods.' + mood.mood}}">{{mood.mood}}</td>
                 <td>{{mood.comment}}</td>
                 <td>{{mood.date | date:'mediumDate'}}</td>
-                <td>
+                <td>{{mood.anonymous}}</td>
+                <td *ngIf="mood.anonymous == true">
                     {{mood.userLogin}}
+                </td>
+                <td *ngIf="mood.anonymous == false">
+                   <p hidden> {{mood.userLogin}} </p>
                 </td>
                 <td class="text-right">
                     <div class="btn-group">

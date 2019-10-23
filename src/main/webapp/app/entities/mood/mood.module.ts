@@ -10,11 +10,16 @@ import { moodRoute, moodPopupRoute } from './mood.route';
 import { MoodDepartementComponent } from './mood-departement/mood-departement.component';
 import { MoodServiceComponent } from './mood-service/mood-service.component';
 import { MoodPlateauComponent } from './mood-plateau/mood-plateau.component';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { MoodboarddepartementComponent } from './moodboarddepartement/moodboarddepartement.component';
+import { MoodboardserviceComponent } from './moodboardservice/moodboardservice.component';
+import { MoodboardplateauComponent } from './moodboardplateau/moodboardplateau.component';
 
 const ENTITY_STATES = [...moodRoute, ...moodPopupRoute];
 
 @NgModule({
-  imports: [Moodface1SharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [Moodface1SharedModule, InputSwitchModule, ToggleButtonModule, RouterModule.forChild(ENTITY_STATES)],
   declarations: [
     MoodComponent,
     MoodDetailComponent,
@@ -23,7 +28,10 @@ const ENTITY_STATES = [...moodRoute, ...moodPopupRoute];
     MoodDeletePopupComponent,
     MoodDepartementComponent,
     MoodServiceComponent,
-    MoodPlateauComponent
+    MoodPlateauComponent,
+    MoodboarddepartementComponent,
+    MoodboardserviceComponent,
+    MoodboardplateauComponent
   ],
   entryComponents: [MoodDeleteDialogComponent]
 })

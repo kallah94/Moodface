@@ -15,9 +15,10 @@ import { DPlateauxComponent } from './service/d-plateaux/d-plateaux.component';
 import { UserPlateauComponent } from 'app/admin/user-management/user-plateau/user-plateau.component';
 import { UserServiceComponent } from 'app/admin/user-management/user-service/user-service.component';
 import { UserDepartementComponent } from 'app/admin/user-management/user-departement/user-departement.component';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
-  imports: [Moodface1SharedModule, RouterModule.forChild(userManagementRoute)],
+  imports: [Moodface1SharedModule, ChartModule, RouterModule.forChild(userManagementRoute)],
   declarations: [
     UserMgmtComponent,
     UserMgmtDetailComponent,

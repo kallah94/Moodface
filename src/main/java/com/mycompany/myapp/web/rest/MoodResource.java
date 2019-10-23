@@ -2,6 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import javax.validation.Valid;
 
 import com.mycompany.myapp.domain.Mood;
 import com.mycompany.myapp.domain.enumeration.Moods;
+import com.mycompany.myapp.domain.myclass.MoodBoard;
 import com.mycompany.myapp.service.MoodQueryService;
 import com.mycompany.myapp.service.MoodService;
 import com.mycompany.myapp.service.dto.MoodCriteria;
@@ -47,7 +49,6 @@ public class MoodResource {
     private final Logger log = LoggerFactory.getLogger(MoodResource.class);
 
     private static final String ENTITY_NAME = "mood";
-
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
@@ -103,17 +104,20 @@ public class MoodResource {
     /**
      * {@code GET  /moods} : get all the moods.
      *
+
      * @param pageable the pagination information.
-     *
+
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of moods in body.
      */
     @GetMapping("/moods")
     public ResponseEntity<List<MoodDTO>> getAllMoods(MoodCriteria criteria, Pageable pageable) {
-        log.debug("REST request to get Moods");
+        log.debug("REST request to get Moods by criteria: {}", criteria);
         Page<MoodDTO> page = moodQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
     /**
      * {@code GET  /moods/count} : count all the moods.
      *
@@ -122,7 +126,7 @@ public class MoodResource {
      */
     @GetMapping("/moods/count")
     public ResponseEntity<Long> countMoods(MoodCriteria criteria) {
-        log.debug("REST request to count Moods by criteria: {}" , criteria);
+        log.debug("REST request to count Moods by criteria: {}", criteria);
         return ResponseEntity.ok().body(moodQueryService.countByCriteria(criteria));
     }
 
@@ -131,6 +135,7 @@ public class MoodResource {
         List<Long> list = moodQueryService.moodcounList();
         return ResponseEntity.ok().body(list);
     }
+
 
     @GetMapping("/moods/countListByValue/plateau/{plateauName}")
     public ResponseEntity<List<Long>> countMoodsByPlateau(@PathVariable String plateauName) {
@@ -145,8 +150,9 @@ public class MoodResource {
     }
 
     @GetMapping("/moods/countListByValue/departement/{departementName}")
-    public ResponseEntity<List<Long>> countMoodsByDepartement(@PathVariable String departementName) {
-        List<Long> list = moodQueryService.moodcountListByDepartement(departementName);
+    public ResponseEntity<List<Long>> countMoodsByDepartement(@PathVariable String departementName,
+        @RequestParam(required = true) LocalDate date) {
+        List<Long> list = moodQueryService.moodcountListByDepartement(departementName, date);
         return ResponseEntity.ok().body(list);
     }
 
@@ -158,12 +164,25 @@ public class MoodResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} a
      */
     @GetMapping("/moods/plateau/{plateauName}")
-    public ResponseEntity<List<MoodDTO>> getMoodsByPlateau(MoodCriteria criteria, Pageable pageable, @PathVariable String plateauName) {
+    public ResponseEntity<List<MoodDTO>> getMoodsByPlateau(Pageable pageable, @PathVariable String plateauName) {
         log.debug("REST request to get Moods by Plateau: {}", plateauName);
         Page<MoodDTO> page = moodQueryService.findByPlateau(pageable, plateauName);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+    /**
+     * Test pour les jours de la semaine 
+     * 
+     * @param pageable
+     * @param departementName
+     * @return
+     */
+    @GetMapping("/moods/Moodweekdepartement/{departementName}")
+    public List<MoodBoard> Moodweekdepartement(@PathVariable String departementName){
+        return moodQueryService.MoodboardDepartement(departementName);
+    }
+  
     /**
      * @param departementName
      * @param pageable
@@ -198,7 +217,6 @@ public class MoodResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
-
 
     /**
      * {@code GET  /moods/:id} : get the "id" mood.

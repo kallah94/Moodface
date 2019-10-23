@@ -33,6 +33,10 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "anonymous",
+            "fieldType": "Boolean"
         }
     ],
     "changelogDate": "20190926161613",

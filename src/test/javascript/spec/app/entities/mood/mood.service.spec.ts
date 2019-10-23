@@ -25,7 +25,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Mood(0, Moods.VERY_HAPPY, 'AAAAAAA', currentDate);
+      elemDefault = new Mood(0, Moods.VERY_HAPPY, 'AAAAAAA', currentDate, false);
     });
 
     describe('Service methods', () => {
@@ -74,7 +74,8 @@ describe('Service Tests', () => {
           {
             mood: 'BBBBBB',
             comment: 'BBBBBB',
-            date: currentDate.format(DATE_FORMAT)
+            date: currentDate.format(DATE_FORMAT),
+            anonymous: true
           },
           elemDefault
         );
@@ -99,7 +100,8 @@ describe('Service Tests', () => {
           {
             mood: 'BBBBBB',
             comment: 'BBBBBB',
-            date: currentDate.format(DATE_FORMAT)
+            date: currentDate.format(DATE_FORMAT),
+            anonymous: true
           },
           elemDefault
         );

@@ -20,6 +20,7 @@
       "mood": "Mood",
       "comment": "Comment",
       "date": "Date",
+      "anonymous": "Anonymous",
       "user": "User"
     }
   }
