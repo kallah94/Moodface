@@ -89,6 +89,10 @@ export class MoodService {
     return this.http.get<IMood[]>(`${this.resourceUrl}/departement/${departementName}`, { observe: 'response' });
   }
 
+  public getMoodValueService(serviceName: String): Observable<HttpResponse<Number[]>> {
+    return this.http.get<Number[]>(`${this.resourceUrl}/countListByValue/service/${serviceName}`, { observe: 'response' });
+  }
+
   public getMoodByService(serviceName: String): Observable<EntityArrayResponseType> {
     return this.http.get<IMood[]>(`${this.resourceUrl}/service/${serviceName}`, { observe: 'response' });
   }
@@ -97,5 +101,9 @@ export class MoodService {
     return this.http
       .get<IMood[]>(`${this.resourceUrl}/plateau/${plateauName}`, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  public getMoodValueDepartement(departementName: String): Observable<HttpResponse<Number[]>> {
+    return this.http.get<Number[]>(`${this.resourceUrl}/countListByValue/departement/${departementName}`, { observe: 'response' });
   }
 }

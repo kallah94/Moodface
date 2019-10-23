@@ -12,7 +12,9 @@ import { PlateauComponent } from './plateau/plateau.component';
 import { ServiceComponent } from './service/service.component';
 import { DServicesComponent } from './departement/d-services/d-services.component';
 import { DPlateauxComponent } from './service/d-plateaux/d-plateaux.component';
-import { UserPlateauComponent } from './user-plateau/user-plateau.component';
+import { UserPlateauComponent } from 'app/admin/user-management/user-plateau/user-plateau.component';
+import { UserServiceComponent } from 'app/admin/user-management/user-service/user-service.component';
+import { UserDepartementComponent } from 'app/admin/user-management/user-departement/user-departement.component';
 
 @NgModule({
   imports: [Moodface1SharedModule, RouterModule.forChild(userManagementRoute)],
@@ -26,7 +28,9 @@ import { UserPlateauComponent } from './user-plateau/user-plateau.component';
     ServiceComponent,
     DServicesComponent,
     DPlateauxComponent,
-    UserPlateauComponent
+    UserPlateauComponent,
+    UserServiceComponent,
+    UserDepartementComponent
   ],
   entryComponents: [UserMgmtDeleteDialogComponent]
 })

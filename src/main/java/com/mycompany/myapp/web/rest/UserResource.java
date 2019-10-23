@@ -169,7 +169,7 @@ public class UserResource {
      * @param serviceName
      * @return
      */
-    @GetMapping("/users/service/{serviceName}")
+    @GetMapping("/users/service/{serviceName}/users")
     public ResponseEntity<List<UserDTO>> getAllUsersByService(Pageable pageable, @PathVariable String serviceName) {
         log.debug("REST request to get Users of the given service Name {}", serviceName);
         final Page<UserDTO> page = userService.getUsersByService(pageable, serviceName);
@@ -182,7 +182,7 @@ public class UserResource {
      * @param departementName
      * @return
      */
-    @GetMapping("/users/departement/{departementName}")
+    @GetMapping("/users/departement/{departementName}/users")
     public ResponseEntity<List<UserDTO>> getUsersByDepartement(Pageable pageable, @PathVariable String departementName ) {
         log.debug("REST request to get Users of the given departement Name {}", departementName);
         final Page<UserDTO> page = userService.getUsersByDepartement(pageable, departementName);
@@ -190,7 +190,7 @@ public class UserResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    @GetMapping("/users/plateau/{name}")
+    @GetMapping("/users/plateau/{name}/users")
     public ResponseEntity<List<UserDTO>> getUsersByPlateauName(@PathVariable String name, Pageable pageable) {
         log.debug("REST request to get Users of the given plateau Name {}", name);
         Page<UserDTO> page = userService.getAllUserByPlateauName(pageable, name);
@@ -273,6 +273,11 @@ public class UserResource {
                 .map(UserDTO::new));
     }
 
+    @GetMapping("users/currentUser")
+    public Optional<User> getCurrentUser() {
+        log.debug("REST request to get the current User");
+        return userService.getUserWithAuthorities();
+    }
     /**
      * {@code DELETE /users/:login} : delete the "login" User.
      *

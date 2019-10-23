@@ -8,11 +8,11 @@ import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'jhi-user-plateau',
-  templateUrl: './user-plateau.component.html',
-  styleUrls: ['./user-plateau.component.scss']
+  selector: 'jhi-user-departement',
+  templateUrl: './user-departement.component.html',
+  styleUrls: ['./user-departement.component.scss']
 })
-export class UserPlateauComponent implements OnInit {
+export class UserDepartementComponent implements OnInit {
   users: User[] = [];
   links: any;
   totalItems: any;
@@ -22,7 +22,8 @@ export class UserPlateauComponent implements OnInit {
   previousPage: any;
   reverse: any;
   routeData: Subscription;
-  name;
+  name: String;
+  departements: String[] = [];
 
   constructor(
     private userService: UserService,
@@ -39,18 +40,24 @@ export class UserPlateauComponent implements OnInit {
     });
   }
 
-  loadAll(name: string) {
-    this.userService
-      .getUsersByPlateauName(name, {
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
-      .subscribe(
-        (res: HttpResponse<IUser[]>) => this.paginateUsers(res.body, res.headers),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
-  }
+  ngOnInit() {
+      this.userService.departements().subscribe(res => {
+            this.departements = res;
+            res.forEach(name => {
+              this.userService
+                .getUsersByDepartement(name, {
+                  page: this.page - 1,
+                  size: this.itemsPerPage,
+                  sort: this.sort()
+                })
+                .subscribe(
+                  (rep: HttpResponse<IUser[]>) => this.paginateUsers(rep.body, rep.headers),
+                  (rep: HttpErrorResponse) => this.onError(rep.message)
+                );
+              });
+            });
+    }
+
 
   sort() {
     const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
@@ -66,10 +73,6 @@ export class UserPlateauComponent implements OnInit {
     this.users = data;
   }
 
-  ngOnInit() {
-    this.name = this.activatedRoute.snapshot.paramMap.get('name');
-    this.loadAll(this.name);
-  }
 
   private onError(error) {
     this.alertService.error(error.error, error.message, null);
@@ -86,11 +89,11 @@ import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'jhi-user-plateau',
-  templateUrl: './user-plateau.component.html',
-  styleUrls: ['./user-plateau.component.scss']
+  selector: 'jhi-user-departement',
+  templateUrl: './user-departement.component.html',
+  styleUrls: ['./user-departement.component.scss']
 })
-export class UserPlateauComponent implements OnInit {
+export class UserDepartementComponent implements OnInit {
   users: User[] = [];
   links: any;
   totalItems: any;
@@ -100,8 +103,8 @@ export class UserPlateauComponent implements OnInit {
   previousPage: any;
   reverse: any;
   routeData: Subscription;
-  name;
-  plateaux: String[] = [];
+  name: String;
+  departements: String[] = [];
 
   constructor(
     private userService: UserService,
@@ -119,23 +122,20 @@ export class UserPlateauComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.name = this.activatedRoute.snapshot.paramMap.get('name');
-    this.userService.plateaux().subscribe(res => {
-      this.plateaux = res;
+    this.userService.departements().subscribe(res => {
+      this.departements = res;
       res.forEach(name => {
-        this.userService.getUsersByPlateauName(name).subscribe(
+        this.userService.getUsersByDepartement(name).subscribe(
           //(rep: HttpResponse<User[]>) => this.paginateUsers(rep.body, rep.headers),
           //(rep: HttpErrorResponse) => this.onError(rep.message),
           (rep: HttpResponse<IUser[]>) => {
             this.users.push(new User(name, rep.body));
           },
-          (rep: HttpErrorResponse) => this.onError(rep.message),
-          (rep: HttpResponse<User[]>) => this.paginateUsers(rep.body, rep.headers)
+          (rep: HttpErrorResponse) => this.onError(rep.message)
         );
       });
     });
   }
-
   sort() {
     const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {

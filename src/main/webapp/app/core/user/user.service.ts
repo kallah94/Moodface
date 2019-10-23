@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
-import { IUser } from './user.model';
+import { IUser, User } from './user.model';
 
 type EntityResponseType = HttpResponse<IUser>;
 type EntityArrayResponseType = HttpResponse<IUser[]>;
@@ -54,16 +54,12 @@ export class UserService {
     return this.http.get<string[]>(SERVER_API_URL + 'api/users/departements');
   }
 
-  findByService(service: string): Observable<HttpResponse<IUser[]>> {
-    return this.http.get<IUser[]>(`${this.resourcesByServiceUrl}/${service}`, { observe: 'response' });
+  getAllUsersByService(service: string): Observable<HttpResponse<IUser[]>> {
+    return this.http.get<IUser[]>(`${this.resourcesByServiceUrl}/${service}/users`, { observe: 'response' });
   }
 
-  findByDepartement(departement: string): Observable<HttpResponse<IUser[]>> {
-    return this.http.get<IUser[]>(`${this.resourcesByDepartementUrl}/${departement}`, { observe: 'response' });
-  }
-
-  findByPlateau(plateau: string): Observable<HttpResponse<IUser[]>> {
-    return this.http.get<IUser[]>(`${this.resourcesByPlateauUrl}/${plateau}`, { observe: 'response' });
+  getUsersByDepartement(departement: string): Observable<HttpResponse<IUser[]>> {
+    return this.http.get<IUser[]>(`${this.resourcesByDepartementUrl}/${departement}/users`, { observe: 'response' });
   }
 
   findServicesByDepartement(departement: string): Observable<HttpResponse<String[]>> {
@@ -72,10 +68,14 @@ export class UserService {
 
   getUsersByPlateauName(plateauName: String, req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IUser[]>(`${this.resourceUrl}/plateau/${plateauName}`, { params: options, observe: 'response' });
+    return this.http.get<IUser[]>(`${this.resourceUrl}/plateau/${plateauName}/users`, { params: options, observe: 'response' });
   }
 
   findPlateauxByService(service: string): Observable<HttpResponse<String[]>> {
     return this.http.get<String[]>(`${this.resourceUrl}/${service}/plateaux`, { observe: 'response' });
+  }
+
+  findCurrentUser(): Observable<HttpResponse<IUser>> {
+    return this.http.get<IUser>(`${this.resourceUrl}/currentUser`, { observe: 'response' });
   }
 }
