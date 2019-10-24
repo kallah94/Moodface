@@ -1,6 +1,10 @@
 package com.mycompany.myapp.domain.myclass;
 
 import java.io.Serializable;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MoodBoard implements Serializable {
@@ -41,5 +45,17 @@ public class MoodBoard implements Serializable {
 
     public void setlistcomment(List<String> listcomment){
         this.listcomment = listcomment;
+    }
+
+    static public List<LocalDate> listedate(){
+        List<LocalDate> listdates = new ArrayList<>();
+        LocalDate currentdate = LocalDate.now();
+        while ((currentdate.getDayOfWeek() != DayOfWeek.SATURDAY) && (currentdate.getDayOfWeek() !=DayOfWeek.SUNDAY))
+            {
+            listdates.add(currentdate);
+            currentdate = currentdate.minusDays(1);
+        };
+        Collections.reverse(listdates);
+        return listdates;
     }
 }

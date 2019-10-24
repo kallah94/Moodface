@@ -137,14 +137,16 @@ public class MoodResource {
 
 
     @GetMapping("/moods/countListByValue/plateau/{plateauName}")
-    public ResponseEntity<List<Long>> countMoodsByPlateau(@PathVariable String plateauName) {
-        List<Long> list = moodQueryService.moodcountListByPlateau(plateauName);
+    public ResponseEntity<List<Long>> countMoodsByPlateau(@PathVariable String plateauName,
+        @RequestParam(required = true) LocalDate date ) {
+        List<Long> list = moodQueryService.moodcountListByPlateau(plateauName, date);
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/moods/countListByValue/service/{serviceName}")
-    public ResponseEntity<List<Long>> countMoodsByService(@PathVariable String serviceName) {
-        List<Long> list = moodQueryService.moodcountListByService(serviceName);
+    public ResponseEntity<List<Long>> countMoodsByService(@PathVariable String serviceName,
+            @RequestParam(required = true) LocalDate date) {
+        List<Long> list = moodQueryService.moodcountListByService(serviceName, date);
         return ResponseEntity.ok().body(list);
     }
 
@@ -172,17 +174,27 @@ public class MoodResource {
     }
 
     /**
-     * Test pour les jours de la semaine 
-     * 
+     * Test pour les jours de la semaine
+     *
      * @param pageable
      * @param departementName
      * @return
      */
     @GetMapping("/moods/Moodweekdepartement/{departementName}")
-    public List<MoodBoard> Moodweekdepartement(@PathVariable String departementName){
+    public List<MoodBoard> Moodweekdepartement(@PathVariable String departementName) {
         return moodQueryService.MoodboardDepartement(departementName);
     }
-  
+
+    @GetMapping("/moods/Moodweekservice/{serviceName}")
+    public List<MoodBoard> Moodweekservice(@PathVariable String serviceName) {
+        return moodQueryService.MoodboardService(serviceName);
+    }
+
+    @GetMapping("/moods/Moodweekplateau/{plateauName}")
+    public List<MoodBoard> Moodweekplateau(@PathVariable String plateauName) {
+        return moodQueryService.MoodboardPlateau(plateauName);
+    }
+
     /**
      * @param departementName
      * @param pageable
