@@ -10,8 +10,9 @@ import { IMoodboard } from 'app/shared/model/moodboard.model';
   styleUrls: ['./moodboarddepartement.component.scss']
 })
 export class MoodboarddepartementComponent implements OnInit {
-  moodboard: IMoodboard;
+  moodboard: IMoodboard[];
   departementName: String;
+
   constructor(private moodService: MoodService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {

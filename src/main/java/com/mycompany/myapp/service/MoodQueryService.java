@@ -148,66 +148,115 @@ public class MoodQueryService extends QueryService<Mood> {
             list.add(som);
         return list;
         }
-
+    /**
+     * Cette methode permet de retourner les moods pour une date specifique 
+     * Pas encore utilise 
+     * @param plateauName
+     * @param date
+     * @return
+     */
     @Transactional(readOnly = true)
         public List<Long> moodcountListByPlateau(String plateauName, LocalDate date) {
-            Long som = 0L;
             List<Long> list = new ArrayList<>();
             List<Mood> moods = new ArrayList<>();
-            List<Mood> listtampon = new ArrayList<>();
             moods.addAll(moodRepository.findByPlateauName(plateauName));
             moods.removeIf(mood -> !mood.getDate().isEqual(date));
-            for(Moods Mood : Moods.values()) {
-                listtampon.addAll(moods);
-                listtampon.removeIf(mood -> mood.getMood() != Mood);
-                list.add((long) listtampon.size());
-                som += (long) listtampon.size();
-            }
-            list.add(som);
+            list = MoodBoard.Filtermood(moods);
             /* ajout du nombre total d utilisateurs relatifs a cet plateau */
             list.add((long) userRepository.findAllByPlateauName(plateauName).size());
-        return list;
+            return list;
         }
 
+    /**
+     * Cette methode permet de retourner les stades sur les moods de la semaine 
+     * pour une plateau donnée
+     * @param plateauName
+     * @return
+     */
+    @Transactional(readOnly = true)
+        public List<Long> moodcountListByPlateauWeek(String plateauName) {
+            List<Long> list = new ArrayList<>();
+            List<Mood> moods = new ArrayList<>();
+            moods.addAll(moodRepository.findByPlateauName(plateauName));
+            moods.removeIf(mood -> mood.getDate().isBefore(MoodBoard.DateLines().get(0)));
+            moods.removeIf(mood -> mood.getDate().isAfter(MoodBoard.DateLines().get(1)));
+            list = MoodBoard.Filtermood(moods);
+            list.add((long) userRepository.findAllByPlateauName(plateauName).size());
+            return list;
+        }
 
+    /**
+     * Cette methode permet de retourner les stades des moods d un service donné
+     * pour une date specifique
+     * pas encore utiliser
+     * @param serviceName
+     * @param date
+     * @return
+     */
     @Transactional(readOnly = true)
     public List<Long> moodcountListByService(String serviceName, LocalDate date) {
-        Long som = 0L;
         List<Long> list = new ArrayList<>();
         List<Mood> moods = new ArrayList<>();
-        List<Mood> listtampon = new ArrayList<>();
         moods.addAll(moodRepository.findByServiceName(serviceName));
         moods.removeIf(mood -> !mood.getDate().isEqual(date));
-        for(Moods Mood : Moods.values()) {
-            listtampon.addAll(moods);
-            listtampon.removeIf(mood -> mood.getMood() != Mood);
-            list.add((long) listtampon.size());
-            som += (long) listtampon.size();
-        }
-        list.add(som);
+        list = MoodBoard.Filtermood(moods);
         /* ajout du nombre total d utilisateurs relatifs a cette Service */
         list.add((long) userRepository.findAllByServiceName(serviceName).size());
     return list;
     }
 
+    /**
+     * Cette methode permet de retourner les stades sur les moods
+     * de la semaine pour un service donné
+     * @param serviceName
+     * @return
+     */
     @Transactional(readOnly = true)
-    public List<Long> moodcountListByDepartement(String departementName, LocalDate date) {
-        Long som = 0L;
+    public List<Long> moodcountListByServiceWeek(String serviceName) {
         List<Long> list = new ArrayList<>();
         List<Mood> moods = new ArrayList<>();
-        List<Mood> listtampon = new ArrayList<>();
+        moods.addAll(moodRepository.findByServiceName(serviceName));
+        moods.removeIf(mood -> mood.getDate().isBefore(MoodBoard.DateLines().get(0)));
+        moods.removeIf(mood -> mood.getDate().isAfter(MoodBoard.DateLines().get(1)));
+        list = MoodBoard.Filtermood(moods);
+        list.add((long) userRepository.findAllByServiceName(serviceName).size());
+        return list;
+    }
+
+    /**
+     * Cette methode permet de retourner des stades sur les moods pour une date specifé
+     *et un departement donné
+     * @param departementName
+     * @param date
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public List<Long> moodcountListByDepartement(String departementName, LocalDate date) {
+        List<Mood> moods = new ArrayList<>();
+        List<Long> list;
         moods.addAll(moodRepository.findByDepartementName(departementName));
         moods.removeIf(mood -> !mood.getDate().isEqual(date));
-        for(Moods Mood : Moods.values()) {
-            listtampon.addAll(moods);
-            listtampon.removeIf(mood -> mood.getMood() != Mood);
-            list.add((long) listtampon.size());
-            som += (long) listtampon.size();
-        }
-        list.add(som);
-        /* ajout du nombre total d utilisateurs relatifs a cet departement */
+        list = MoodBoard.Filtermood(moods);
         list.add((long) userRepository.findAllByDepartementName(departementName).size());
-    return list;
+        return list;
+    }
+
+        /**
+     * Cette methode permet de retourner les stades sur les moods
+     * de la semaine pour un departement donné
+     * @param DepartementName
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public List<Long> moodcountListByDepartementWeek(String departementName) {
+        List<Long> list = new ArrayList<>();
+        List<Mood> moods = new ArrayList<>();
+        moods.addAll(moodRepository.findByDepartementName(departementName));
+        moods.removeIf(mood -> mood.getDate().isBefore(MoodBoard.DateLines().get(0)));
+        moods.removeIf(mood -> mood.getDate().isAfter(MoodBoard.DateLines().get(1)));
+        list = MoodBoard.Filtermood(moods);
+        list.add((long) userRepository.findAllByDepartementName(departementName).size());
+        return list;
     }
 
     @Transactional(readOnly = true)

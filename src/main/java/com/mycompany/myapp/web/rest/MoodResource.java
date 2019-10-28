@@ -137,23 +137,20 @@ public class MoodResource {
 
 
     @GetMapping("/moods/countListByValue/plateau/{plateauName}")
-    public ResponseEntity<List<Long>> countMoodsByPlateau(@PathVariable String plateauName,
-        @RequestParam(required = true) LocalDate date ) {
-        List<Long> list = moodQueryService.moodcountListByPlateau(plateauName, date);
+    public ResponseEntity<List<Long>> countMoodsByPlateau(@PathVariable String plateauName) {
+        List<Long> list = moodQueryService.moodcountListByPlateauWeek(plateauName);
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/moods/countListByValue/service/{serviceName}")
-    public ResponseEntity<List<Long>> countMoodsByService(@PathVariable String serviceName,
-            @RequestParam(required = true) LocalDate date) {
-        List<Long> list = moodQueryService.moodcountListByService(serviceName, date);
+    public ResponseEntity<List<Long>> countMoodsByService(@PathVariable String serviceName) {
+        List<Long> list = moodQueryService.moodcountListByServiceWeek(serviceName);
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/moods/countListByValue/departement/{departementName}")
-    public ResponseEntity<List<Long>> countMoodsByDepartement(@PathVariable String departementName,
-        @RequestParam(required = true) LocalDate date) {
-        List<Long> list = moodQueryService.moodcountListByDepartement(departementName, date);
+    public ResponseEntity<List<Long>> countMoodsByDepartement(@PathVariable String departementName) {
+        List<Long> list = moodQueryService. moodcountListByDepartementWeek(departementName);
         return ResponseEntity.ok().body(list);
     }
 
@@ -241,6 +238,11 @@ public class MoodResource {
         log.debug("REST request to get Mood : {}", id);
         Optional<MoodDTO> moodDTO = moodService.findOne(id);
         return ResponseUtil.wrapOrNotFound(moodDTO);
+    }
+
+    @GetMapping("/moods/testdate")
+    public List<LocalDate> tesdate() {
+        return MoodBoard.DateLines();
     }
 
     /**

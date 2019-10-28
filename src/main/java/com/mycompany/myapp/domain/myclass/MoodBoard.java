@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.mycompany.myapp.domain.Mood;
+import com.mycompany.myapp.domain.enumeration.Moods;
+
 public class MoodBoard implements Serializable {
 
     /**
@@ -16,6 +19,7 @@ public class MoodBoard implements Serializable {
     private String currentday;
     private List<Long> listmood;
     private List<String> listcomment;
+
 
     public MoodBoard(String currentday, List<Long> listmood, List<String> listcomment){
         this.currentday = currentday;
@@ -47,7 +51,7 @@ public class MoodBoard implements Serializable {
         this.listcomment = listcomment;
     }
 
-    static public List<LocalDate> listedate(){
+    public static List<LocalDate> listedate(){
         List<LocalDate> listdates = new ArrayList<>();
         LocalDate currentdate = LocalDate.now();
         while ((currentdate.getDayOfWeek() != DayOfWeek.SATURDAY) && (currentdate.getDayOfWeek() !=DayOfWeek.SUNDAY))
@@ -57,5 +61,28 @@ public class MoodBoard implements Serializable {
         };
         Collections.reverse(listdates);
         return listdates;
+    }
+
+    public static List<LocalDate> DateLines() {
+        List<LocalDate> datelines = new ArrayList<>();
+        LocalDate datfirst = listedate().get(0);
+        LocalDate datelast = listedate().get(1);
+        datelines.add(datfirst);
+        datelines.add(datelast);
+        return datelines;
+    }
+
+    public static List<Long> Filtermood(List<Mood> moods) {
+        Long som = 0L;
+        List<Long> list = new ArrayList<>();
+        List<Mood> listtampon = new ArrayList<>();
+        for(Moods Mood : Moods.values()) {
+            listtampon.addAll(moods);
+            listtampon.removeIf(mood -> mood.getMood() != Mood);
+            list.add((long) listtampon.size());
+            som += (long) listtampon.size();
+        }
+        list.add(som);
+        return list;
     }
 }

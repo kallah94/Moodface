@@ -1,1 +1,26 @@
-<p>moodboardservice works!</p>
+<p>moodboard du Service {{ serviceName }}</p>
+
+<table class="table table-striped table-bordered table-hover table-light ">
+  <thead class="thead-dark">
+    <tr>
+      <th class="text-center" scope="col">Semaine</th>
+      <th class="text-center"  scope="col">Very Happy</th>
+      <th class="text-center" scope="col">Happy</th>
+      <th class="text-center" scope="col">Sad</th>
+			<th class="text-center" scope="col">Angry</th>
+      <th class="text-center" scope="col">Commentaires</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let moodbyDay of moodboard">
+      <th class="text-center" scope="row">{{ moodbyDay.currentday }}</th>
+      <td class="text-center"><span class="badge badge-pill badge-success">{{ moodbyDay.listmood[0] }}</span></td>
+      <td class="text-center"> {{ moodbyDay.listmood[1] }}</td>
+      <td class="text-center"><span class="badge badge-pill badge-warning">{{ moodbyDay.listmood[2] }}</span></td>
+			<td class="text-center"><span class="badge badge-pill badge-danger">{{ moodbyDay.listmood[3] }}</span></td>
+      <td class="text-center">
+       <span class="badge badge-pill badge-secondary" data-toggle="tooltip" data-placement="top" title="{{ moodbyDay.listcomment }}">comment</span>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -108,7 +108,15 @@ export class MoodService {
     return this.http.get<Number[]>(`${this.resourceUrl}/countListByValue/departement/${departementName}`, { observe: 'response' });
   }
 
-  public getMoodBoardDepartement(departementName: String): Observable<HttpResponse<IMoodboard>> {
-    return this.http.get<IMoodboard>(`${this.resourceUrl}/Moodweekdepartement/${departementName}`, { observe: 'response' });
+  public getMoodBoardDepartement(departementName: String): Observable<HttpResponse<IMoodboard[]>> {
+    return this.http.get<IMoodboard[]>(`${this.resourceUrl}/Moodweekdepartement/${departementName}`, { observe: 'response' });
+  }
+
+  public getMoodBoardService(serviceName: String): Observable<HttpResponse<IMoodboard>> {
+    return this.http.get<IMoodboard>(`${this.resourceUrl}/Moodweekservice/${serviceName}`, { observe: 'response' });
+  }
+
+  public getMoodBoardPlateau(plateauName: String): Observable<HttpResponse<IMoodboard>> {
+    return this.http.get<IMoodboard>(`${this.resourceUrl}/Moodweekplateau/${plateauName}`, { observe: 'response' });
   }
 }
