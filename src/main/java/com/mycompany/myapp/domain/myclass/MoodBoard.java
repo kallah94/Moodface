@@ -65,10 +65,8 @@ public class MoodBoard implements Serializable {
 
     public static List<LocalDate> DateLines() {
         List<LocalDate> datelines = new ArrayList<>();
-        LocalDate datfirst = listedate().get(0);
-        LocalDate datelast = listedate().get(1);
-        datelines.add(datfirst);
-        datelines.add(datelast);
+        datelines.add(listedate().get(0));
+        datelines.add(listedate().get(listedate().size()-1));
         return datelines;
     }
 

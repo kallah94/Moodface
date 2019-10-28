@@ -3,25 +3,25 @@ export class PieChartDemo {
   Nbmoods: Number;
   Nbusers: Number;
   titre: String;
-  options: {
-    title: {
-      display: boolean;
-      text: String;
-      fontSize: number;
-      fontColor: string;
-    };
-    legend: {
-      position: string;
-      display: any;
-    };
-  };
+  options: any;
 
   constructor(dat: any, titre: String, Nbuser: Number, Nbmood: Number) {
     this.data = {
       labels: ['V_H', 'HAP', 'ANG', 'SAD'],
       datasets: [
         {
+          name: 'Countries',
+          type: 'pie',
+          radius: '80%',
+          center: ['50%', '50%'],
           data: dat,
+          itemStyle: {
+            emphasis: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: '#FFFFF'
+            }
+          },
           backgroundColor: [
             '#008000', // vert foncee
             '#B0F2B6', // vert d eau
@@ -44,9 +44,22 @@ export class PieChartDemo {
         fontSize: 20,
         fontColor: '#FFFFFF'
       },
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)'
+      },
       legend: {
-        position: 'left',
-        display: false
+        orient: 'vertical',
+        position: 'bottom',
+        display: true,
+        fontColor: '#FFFFFF'
+      },
+      labelLine: {
+        normal: {
+          lineStyle: {
+            color: '#FFFFF'
+          }
+        }
       }
     };
 

@@ -179,7 +179,7 @@ public class MoodQueryService extends QueryService<Mood> {
             List<Mood> moods = new ArrayList<>();
             moods.addAll(moodRepository.findByPlateauName(plateauName));
             moods.removeIf(mood -> mood.getDate().isBefore(MoodBoard.DateLines().get(0)));
-            moods.removeIf(mood -> mood.getDate().isAfter(MoodBoard.DateLines().get(1)));
+            moods.removeIf(mood -> mood.getDate().isAfter(MoodBoard.DateLines().get(MoodBoard.DateLines().size()-1)));
             list = MoodBoard.Filtermood(moods);
             list.add((long) userRepository.findAllByPlateauName(plateauName).size());
             return list;
@@ -217,7 +217,7 @@ public class MoodQueryService extends QueryService<Mood> {
         List<Mood> moods = new ArrayList<>();
         moods.addAll(moodRepository.findByServiceName(serviceName));
         moods.removeIf(mood -> mood.getDate().isBefore(MoodBoard.DateLines().get(0)));
-        moods.removeIf(mood -> mood.getDate().isAfter(MoodBoard.DateLines().get(1)));
+        moods.removeIf(mood -> mood.getDate().isAfter(MoodBoard.DateLines().get(MoodBoard.DateLines().size()-1)));
         list = MoodBoard.Filtermood(moods);
         list.add((long) userRepository.findAllByServiceName(serviceName).size());
         return list;
@@ -253,7 +253,7 @@ public class MoodQueryService extends QueryService<Mood> {
         List<Mood> moods = new ArrayList<>();
         moods.addAll(moodRepository.findByDepartementName(departementName));
         moods.removeIf(mood -> mood.getDate().isBefore(MoodBoard.DateLines().get(0)));
-        moods.removeIf(mood -> mood.getDate().isAfter(MoodBoard.DateLines().get(1)));
+        moods.removeIf(mood -> mood.getDate().isAfter(MoodBoard.DateLines().get(MoodBoard.DateLines().size()-1)));
         list = MoodBoard.Filtermood(moods);
         list.add((long) userRepository.findAllByDepartementName(departementName).size());
         return list;
