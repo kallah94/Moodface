@@ -16,6 +16,8 @@ import { MoodDepartementComponent } from './mood-departement/mood-departement.co
 import { MoodServiceComponent } from './mood-service/mood-service.component';
 import { MoodPlateauComponent } from './mood-plateau/mood-plateau.component';
 import { MoodboarddepartementComponent } from './moodboarddepartement/moodboarddepartement.component';
+import { MoodboardserviceComponent } from './moodboardservice/moodboardservice.component';
+import { MoodboardplateauComponent } from './moodboardplateau/moodboardplateau.component';
 
 @Injectable({ providedIn: 'root' })
 export class MoodResolve implements Resolve<IMood> {
@@ -113,6 +115,24 @@ export const moodRoute: Routes = [
   {
     path: 'moodBoardDepartement/:name',
     component: MoodboarddepartementComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'moodface1App.mood.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'moodBoardService/:name',
+    component: MoodboardserviceComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'moodface1App.mood.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'moodBoardPlateau/:name',
+    component: MoodboardplateauComponent,
     data: {
       authorities: ['ROLE_USER'],
       pageTitle: 'moodface1App.mood.home.title'

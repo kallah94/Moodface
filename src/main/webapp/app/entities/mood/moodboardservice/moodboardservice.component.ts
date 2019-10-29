@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { IMoodboard } from 'app/shared/model/moodboard.model';
+import { MoodService } from '../mood.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'jhi-moodboardservice',
@@ -6,7 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./moodboardservice.component.scss']
 })
 export class MoodboardserviceComponent implements OnInit {
-  constructor() {}
+  moodboard: IMoodboard;
+  serviceName: String;
 
-  ngOnInit() {}
+  constructor(private moodService: MoodService, private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit() {
+    const name = this.activatedRoute.snapshot.paramMap.get('name');
+    this.serviceName = name;
+    this.moodService.getMoodBoardService(name).subscribe(res => {
+      this.moodboard = res.body;
+    });
+  }
 }

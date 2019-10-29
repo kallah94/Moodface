@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MoodService } from '../mood.service';
 import { ActivatedRoute } from '@angular/router';
 import { IMoodboard } from 'app/shared/model/moodboard.model';
+// import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-moodboarddepartement',
@@ -9,17 +10,16 @@ import { IMoodboard } from 'app/shared/model/moodboard.model';
   styleUrls: ['./moodboarddepartement.component.scss']
 })
 export class MoodboarddepartementComponent implements OnInit {
-  moodboard: IMoodboard;
+  moodboard: IMoodboard[];
+  departementName: String;
 
   constructor(private moodService: MoodService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     const name = this.activatedRoute.snapshot.paramMap.get('name');
-    // console.log(name);
+    this.departementName = name;
     this.moodService.getMoodBoardDepartement(name).subscribe(res => {
       this.moodboard = res.body;
-      // this.moodboard.listmood.
-      // console.log("TEST TEST ",this.moodboard)
     });
   }
 }

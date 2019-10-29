@@ -56,4 +56,10 @@ public interface MoodRepository extends JpaRepository<Mood, Long>, JpaSpecificat
     @Query("select mood.comment from Mood mood where mood.user.departementName = :departementName and mood.date = :date")
     List<String> findCommentsByDepartementName(@Param("departementName") String departementName, @Param("date") LocalDate date);
 
+    @Query("select mood.comment from Mood mood where mood.user.serviceName = :serviceName and mood.date = :date")
+    List<String> findCommentsByServiceName(@Param("serviceName") String serviceName, @Param("date") LocalDate date);
+
+    @Query("select mood.comment from Mood mood where mood.user.plateauName = :plateauName and mood.date = :date")
+    List<String> findCommentsByPlateauName(@Param("plateauName") String plateauName, @Param("date") LocalDate date);
+
 }
