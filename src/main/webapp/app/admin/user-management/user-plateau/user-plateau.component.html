@@ -1,22 +1,21 @@
-<!--<div class="card">
+<div class="card" *ngFor="let users of ListUser">
     <h5 class="card-title"  *ngFor="let user of users">{{ user.plateauName }}</h5>
     <div>
         <ul class="list-group"  *ngFor="let user of users">
             <li class="list-group-item"> {{ user.lastName }} </li>
         </ul>
     </div>
-</div>-->
-
-<div class="card-deck">
+</div>
+<!-- <div class="card-deck" *ngFor="let users of ListUser">
     <div class="card" *ngFor="let user of users">
-        <div class="card-header text-center text-dark bg-warning mb-1 border-dark">	{{ user.plateauName }}</div>
-        <div class="card-body text-white  bg-dark">
-            <h5> {{ user.lastName }}
-            </h5>
+        <div class="card-header text-center text-dark bg-warning mb-1 border-dark"> {{ user.plateauName }} </div>
+        <div class="card-body  bg-dark">
+            <ul class="list-group">
+                <li class="list-group-item"> {{ user.lastName }} </li>
+            </ul>
         </div>
         <div class="card-footer text-dark bg-warning mt-1">
-
         </div>
-
     </div>
+</div> -->
 

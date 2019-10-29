@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'app/core/user/user.service';
 import { MoodService } from 'app/entities/mood/mood.service';
 import { MoodPlatValModel } from './moodPlatValModel';
-import { BarChartDemo } from '../../Chatrs/BarChart';
-import { PieChartDemo } from 'app/admin/Chatrs/PieChart';
-import { LineChartDemo } from 'app/admin/Chatrs/LineChart';
+// import { LineChartDemo } from 'app/admin/Chatrs/LineChart';
 
 @Component({
   selector: 'jhi-plateau',
@@ -12,7 +10,6 @@ import { LineChartDemo } from 'app/admin/Chatrs/LineChart';
   styleUrls: ['./plateau.component.scss']
 })
 export class PlateauComponent implements OnInit {
-
   departements: String[] = [];
   name: String;
   charpies: any[] = [];
@@ -24,7 +21,7 @@ export class PlateauComponent implements OnInit {
   constructor(private userService: UserService, private moodService: MoodService) {}
 
   ngOnInit() {
-    this.userService.plateaux().subscribe(res => {
+    /* this.userService.plateaux().subscribe(res => {
 
       this.departements = res;
       res.forEach(name => {
@@ -37,5 +34,6 @@ export class PlateauComponent implements OnInit {
         });
       });
     });
+  } */
   }
 }

@@ -1,4 +1,5 @@
-/*import { Component, OnInit } from '@angular/core';
+/*
+import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { UserService } from 'app/core/user/user.service';
@@ -74,7 +75,8 @@ export class UserPlateauComponent implements OnInit {
   private onError(error) {
     this.alertService.error(error.error, error.message, null);
   }
-}*/
+}
+*/
 
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
@@ -91,7 +93,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./user-plateau.component.scss']
 })
 export class UserPlateauComponent implements OnInit {
-  users: User[] = [];
+  ListUser: any[] = [];
   links: any;
   totalItems: any;
   itemsPerPage: any;
@@ -100,7 +102,7 @@ export class UserPlateauComponent implements OnInit {
   previousPage: any;
   reverse: any;
   routeData: Subscription;
-  name;
+  name: String;
   plateaux: String[] = [];
 
   constructor(
@@ -119,19 +121,12 @@ export class UserPlateauComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.name = this.activatedRoute.snapshot.paramMap.get('name');
     this.userService.plateaux().subscribe(res => {
       this.plateaux = res;
       res.forEach(name => {
-        this.userService.getUsersByPlateauName(name).subscribe(
-          //(rep: HttpResponse<User[]>) => this.paginateUsers(rep.body, rep.headers),
-          //(rep: HttpErrorResponse) => this.onError(rep.message),
-          (rep: HttpResponse<IUser[]>) => {
-            this.users.push(new User(name, rep.body));
-          },
-          (rep: HttpErrorResponse) => this.onError(rep.message),
-          (rep: HttpResponse<User[]>) => this.paginateUsers(rep.body, rep.headers)
-        );
+        this.userService.getUsersByPlateauName(name).subscribe(rep => {
+          this.ListUser.push(rep.body);
+        });
       });
     });
   }

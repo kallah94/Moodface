@@ -4,6 +4,7 @@ import { element, by, ElementFinder } from 'protractor';
 export class NavBarPage {
   entityMenu = element(by.id('entity-menu'));
   accountMenu = element(by.id('account-menu'));
+  usermngmntMenu = element(by.id('user-management-menu'));
   adminMenu: ElementFinder;
   signIn = element(by.id('login'));
   register = element(by.css('[routerLink="account/register"]'));
@@ -19,6 +20,10 @@ export class NavBarPage {
 
   async clickOnEntityMenu() {
     await this.entityMenu.click();
+  }
+
+  async clickOnUserManagementMenu() {
+    await this.usermngmntMenu.click();
   }
 
   async clickOnAccountMenu() {
