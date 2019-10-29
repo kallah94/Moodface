@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark navbar-expand-md bg-dark">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
         <span class="logo-img"></span>
-        <span jhiTranslate="global.title" class="navbar-title">Moodface1</span> <span class="navbar-version">{{version}}</span>
+        <span jhiTranslate="global.title" class="navbar-title">Moodface</span>
     </a>
     <a class="navbar-toggler d-lg-none" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
         <fa-icon icon="bars"></fa-icon>
@@ -44,11 +44,22 @@
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
-                    <li>
-                        <a class="dropdown-item" routerLink="admin/user-management" routerLinkActive="active" (click)="collapseNavbar()">
+                    <li class="dropdown-item">
+                        <a class="dropdown-toggle dropdown-submenu" ngbDropdownToggle routerLink="admin/user-management" routerLinkActive="active" (click)="collapseNavbar()" id="user-management-menu">
                             <fa-icon icon="user" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.admin.userManagement">User management</span>
                         </a>
+                        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="user-management-menu">
+                            <li>
+                                <a class="dropdown-item" routerLink="admin/user-management/departement/users" routerLinkActive="active" (click)="collapseNavbar()">Departements</a>
+                            </li>
+                            <li>
+                                <a  class="dropdown-item" routerLink="admin/user-management/service/users" routerLinkActive="active" (click)="collapseNavbar()">Services</a>
+                            </li>
+                            <li>
+                                <a  class="dropdown-item" routerLink="admin/user-management/plateau/users" routerLinkActive="active" (click)="collapseNavbar()">Plateaux</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="admin/tracker" routerLinkActive="active" (click)="collapseNavbar()">
@@ -92,7 +103,7 @@
                             <span jhiTranslate="global.menu.admin.apidocs">API</span>
                         </a>
                     </li>
-                        <li>
+                    <li>
                         <a class="dropdown-item" routerLink="admin/user-management/departement" routerLinkActive="activate" (click)="collapseNavbar()">
                             <fa-icon icon="th-list" fixedWidth="true"></fa-icon>
                             <span >Departements</span>

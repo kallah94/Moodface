@@ -16,6 +16,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import io.github.jhipster.service.filter.LongFilter;
+
 /**
  * Spring Data JPA repository for the {@link User} entity.
  */
@@ -82,4 +84,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select user.plateauName from User user where user.serviceName = :serviceName")
     List<String> findAllPlateauxByServiceName(@Param("serviceName") String serviceName);
+
+
+
 }

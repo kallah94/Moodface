@@ -13,6 +13,9 @@ import { ServiceComponent } from './service/service.component';
 import { PlateauComponent } from './plateau/plateau.component';
 import { DServicesComponent } from './departement/d-services/d-services.component';
 import { DPlateauxComponent } from './service/d-plateaux/d-plateaux.component';
+import { UserPlateauComponent } from 'app/admin/user-management/user-plateau/user-plateau.component';
+import { UserServiceComponent } from 'app/admin/user-management/user-service/user-service.component';
+import { UserDepartementComponent } from 'app/admin/user-management/user-departement/user-departement.component';
 
 @Injectable({ providedIn: 'root' })
 export class UserMgmtResolve implements Resolve<any> {
@@ -106,6 +109,44 @@ export const userManagementRoute: Routes = [
   {
     path: 'service/:name/plateaux',
     component: DPlateauxComponent,
+
+    data: {
+      pageTitle: 'userManagement.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'plateau/users',
+    component: UserPlateauComponent,
+    data: {
+      pageTitle: 'userManagement.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'service/users',
+    component: UserServiceComponent,
+    data: {
+      pageTitle: 'userManagement.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  /* {
+    path: 'departement/:name/users',
+    component: UserDepartementComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
+    },
+    data: {
+      authorities: ['ROLE_ADMIN'],
+      pageTitle: 'userManagement.home.title',
+      defaultSort: 'id,asc'
+    },
+    canActivate: [UserRouteAccessService]
+  }, */
+  {
+    path: 'departement/users',
+    component: UserDepartementComponent,
 
     data: {
       pageTitle: 'userManagement.home.title'

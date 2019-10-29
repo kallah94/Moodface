@@ -12,7 +12,6 @@ import { PieChartDemo } from 'app/admin/Chatrs/PieChart';
 export class PlateauComponent implements OnInit {
   charpies: any[] = [];
   ListmoodModel: MoodPlatValModel[] = [];
-  Legende: any;
 
   constructor(private userService: UserService, private moodService: MoodService) {}
 
@@ -27,5 +26,6 @@ export class PlateauComponent implements OnInit {
         });
       });
     });
+  } 
   }
 }

@@ -1,0 +1,22 @@
+<!--<div class="card" *ngFor="let user of users">
+    <h5 class="card-title">{{ user.departementName }}</h5>
+    <div>
+        <ul class="list-group">
+            <li class="list-group-item"> {{ user.lastName }} </li>
+        </ul>
+    </div>
+</div>-->
+
+<div class="card-deck" *ngFor="let users of ListUser">
+    <div class="card" *ngFor="let user of users">
+        <div class="card-header text-center text-dark bg-warning mb-1 border-dark"> {{ user.departementName }} </div>
+        <div class="card-body  bg-dark">
+                                       <ul class="list-group">
+                <li class="list-group-item"> {{ user.lastName }} </li>
+            </ul>
+        </div>
+        <div class="card-footer text-dark bg-warning mt-1">
+        </div>
+    </div>
+</div>
+

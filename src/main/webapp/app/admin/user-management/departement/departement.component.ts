@@ -16,7 +16,6 @@ export class DepartementComponent implements OnInit {
   barchart: any;
   dats: any[] = [];
   ListmoodModel: MoodPlatValModel[] = [];
-  Legende: any;
 
   constructor(private userService: UserService, private moodService: MoodService) {}
 
@@ -30,7 +29,6 @@ export class DepartementComponent implements OnInit {
           this.dats.push(dat);
           this.charpies.push(new PieChartDemo(dat, name, NbUser, Nbmood));
         });
-        console.log('TESTETETS', this.charpies);
       });
     });
   }

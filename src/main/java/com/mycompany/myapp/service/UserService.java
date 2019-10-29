@@ -51,8 +51,8 @@ public class UserService {
     private final CacheManager cacheManager;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-            UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository,
-            CacheManager cacheManager) {
+                       UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository,
+                       CacheManager cacheManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userSearchRepository = userSearchRepository;
@@ -76,13 +76,13 @@ public class UserService {
     public Optional<User> completePasswordReset(String newPassword, String key) {
         log.debug("Reset user password for reset key {}", key);
         return userRepository.findOneByResetKey(key)
-                .filter(user -> user.getResetDate().isAfter(Instant.now().minusSeconds(86400))).map(user -> {
-                    user.setPassword(passwordEncoder.encode(newPassword));
-                    user.setResetKey(null);
-                    user.setResetDate(null);
-                    this.clearUserCaches(user);
-                    return user;
-                });
+            .filter(user -> user.getResetDate().isAfter(Instant.now().minusSeconds(86400))).map(user -> {
+                user.setPassword(passwordEncoder.encode(newPassword));
+                user.setResetKey(null);
+                user.setResetDate(null);
+                this.clearUserCaches(user);
+                return user;
+            });
     }
 
     public Optional<User> requestPasswordReset(String mail) {
@@ -170,7 +170,7 @@ public class UserService {
         user.setActivated(true);
         if (userDTO.getAuthorities() != null) {
             Set<Authority> authorities = userDTO.getAuthorities().stream().map(authorityRepository::findById)
-                    .filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet());
+                .filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet());
             user.setAuthorities(authorities);
         }
         userRepository.save(user);
@@ -187,14 +187,12 @@ public class UserService {
      * @param firstName   first name of user.
      * @param lastName    last name of user.
      * @param serviceName service name of user.
-     * @param departement departement Name
-     * @param plateau     name
      * @param email       email id of user.
      * @param langKey     language key.
      * @param imageUrl    image URL of user.
      */
     public void updateUser(String firstName, String lastName, String serviceName, String departementName,
-            String plateauName, String email, String langKey, String imageUrl) {
+                           String plateauName, String email, String langKey, String imageUrl) {
         SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin).ifPresent(user -> {
             user.setFirstName(firstName);
             user.setLastName(lastName);
@@ -220,29 +218,29 @@ public class UserService {
      */
     public Optional<UserDTO> updateUser(UserDTO userDTO) {
         return Optional.of(userRepository.findById(userDTO.getId())).filter(Optional::isPresent).map(Optional::get)
-                .map(user -> {
-                    this.clearUserCaches(user);
-                    user.setLogin(userDTO.getLogin().toLowerCase());
-                    user.setFirstName(userDTO.getFirstName());
-                    user.setLastName(userDTO.getLastName());
-                    /* Ajout champs */
-                    user.setServiceName(userDTO.getServiceName());
-                    user.setDepartementName(userDTO.getDepartementName());
-                    user.setPlateauName(userDTO.getPlateauName());
-                    /* Fin champs */
-                    user.setEmail(userDTO.getEmail().toLowerCase());
-                    user.setImageUrl(userDTO.getImageUrl());
-                    user.setActivated(userDTO.isActivated());
-                    user.setLangKey(userDTO.getLangKey());
-                    Set<Authority> managedAuthorities = user.getAuthorities();
-                    managedAuthorities.clear();
-                    userDTO.getAuthorities().stream().map(authorityRepository::findById).filter(Optional::isPresent)
-                            .map(Optional::get).forEach(managedAuthorities::add);
-                    userSearchRepository.save(user);
-                    this.clearUserCaches(user);
-                    log.debug("Changed Information for User: {}", user);
-                    return user;
-                }).map(UserDTO::new);
+            .map(user -> {
+                this.clearUserCaches(user);
+                user.setLogin(userDTO.getLogin().toLowerCase());
+                user.setFirstName(userDTO.getFirstName());
+                user.setLastName(userDTO.getLastName());
+                /* Ajout champs */
+                user.setServiceName(userDTO.getServiceName());
+                user.setDepartementName(userDTO.getDepartementName());
+                user.setPlateauName(userDTO.getPlateauName());
+                /* Fin champs */
+                user.setEmail(userDTO.getEmail().toLowerCase());
+                user.setImageUrl(userDTO.getImageUrl());
+                user.setActivated(userDTO.isActivated());
+                user.setLangKey(userDTO.getLangKey());
+                Set<Authority> managedAuthorities = user.getAuthorities();
+                managedAuthorities.clear();
+                userDTO.getAuthorities().stream().map(authorityRepository::findById).filter(Optional::isPresent)
+                    .map(Optional::get).forEach(managedAuthorities::add);
+                userSearchRepository.save(user);
+                this.clearUserCaches(user);
+                log.debug("Changed Information for User: {}", user);
+                return user;
+            }).map(UserDTO::new);
     }
 
     public void deleteUser(String login) {
@@ -287,7 +285,6 @@ public class UserService {
         return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
     }
 
-   
     /**
      *
      * @param pageable
@@ -330,10 +327,10 @@ public class UserService {
         log.debug("find all plateau");
         return  StreamSupport
             .stream(userRepository.findAllPlateauName().spliterator(), false)
-            .collect(Collectors.toUnmodifiableSet());
+            .collect(Collectors.toSet());
     }
 
-       /**
+    /**
      *
      * @return
      */
@@ -342,10 +339,10 @@ public class UserService {
         log.debug("find all plateau");
         return  StreamSupport
             .stream(userRepository.findAllServiceName().spliterator(), false)
-            .collect(Collectors.toUnmodifiableSet());
+            .collect(Collectors.toSet());
     }
 
-       /**
+    /**
      *
      * @return
      */
@@ -354,7 +351,7 @@ public class UserService {
         log.debug("find all plateau");
         return StreamSupport
             .stream(userRepository.findAllDepartementName().spliterator(), false)
-            .collect(Collectors.toUnmodifiableSet());
+            .collect(Collectors.toSet());
     }
 
     @Transactional(readOnly = true)
@@ -362,7 +359,7 @@ public class UserService {
         log.debug("find all service by their departement : {}", departementName);
         return StreamSupport
             .stream(userRepository.findAllServicesByDepartementName(departementName).spliterator(), false)
-            .collect(Collectors.toUnmodifiableSet());
+            .collect(Collectors.toSet());
     }
 
 
@@ -371,7 +368,7 @@ public class UserService {
         log.debug("find all service by their service : {}", serviceName);
         return StreamSupport
             .stream(userRepository.findAllPlateauxByServiceName(serviceName).spliterator(), false)
-            .collect(Collectors.toUnmodifiableSet());
+            .collect(Collectors.toSet());
     }
     /**
      * Not activated users should be automatically deleted after 3 days.
