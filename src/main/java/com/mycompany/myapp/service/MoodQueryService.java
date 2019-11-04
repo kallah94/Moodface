@@ -1,10 +1,8 @@
 package com.mycompany.myapp.service;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -150,87 +148,156 @@ public class MoodQueryService extends QueryService<Mood> {
             list.add(som);
         return list;
         }
-
+    /**
+     * Cette methode permet de retourner les moods pour une date specifique 
+     * Pas encore utilise 
+     * @param plateauName
+     * @param date
+     * @return
+     */
     @Transactional(readOnly = true)
-        public List<Long> moodcountListByPlateau(String plateauName) {
-            Long som = 0L;
+        public List<Long> moodcountListByPlateau(String plateauName, LocalDate date) {
             List<Long> list = new ArrayList<>();
             List<Mood> moods = new ArrayList<>();
-            List<Mood> listtampon = new ArrayList<>();
             moods.addAll(moodRepository.findByPlateauName(plateauName));
-            for(Moods Mood : Moods.values()) {
-                listtampon.addAll(moods);
-                listtampon.removeIf(mood -> mood.getMood() != Mood);
-                list.add((long) listtampon.size());
-                som += (long) listtampon.size();
-            }
-            list.add(som);
+            moods.removeIf(mood -> !mood.getDate().isEqual(date));
+            list = MoodBoard.Filtermood(moods);
             /* ajout du nombre total d utilisateurs relatifs a cet plateau */
             list.add((long) userRepository.findAllByPlateauName(plateauName).size());
-        return list;
+            return list;
         }
 
-
+    /**
+     * Cette methode permet de retourner les stades sur les moods de la semaine 
+     * pour une plateau donnée
+     * @param plateauName
+     * @return
+     */
     @Transactional(readOnly = true)
-    public List<Long> moodcountListByService(String serviceName) {
-        Long som = 0L;
+        public List<Long> moodcountListByPlateauWeek(String plateauName) {
+            List<Long> list = new ArrayList<>();
+            List<Mood> moods = new ArrayList<>();
+            moods.addAll(moodRepository.findByPlateauName(plateauName));
+            moods.removeIf(mood -> mood.getDate().isBefore(MoodBoard.DateLines().get(0)));
+            moods.removeIf(mood -> mood.getDate().isAfter(MoodBoard.DateLines().get(MoodBoard.DateLines().size()-1)));
+            list = MoodBoard.Filtermood(moods);
+            list.add((long) userRepository.findAllByPlateauName(plateauName).size());
+            return list;
+        }
+
+    /**
+     * Cette methode permet de retourner les stades des moods d un service donné
+     * pour une date specifique
+     * pas encore utiliser
+     * @param serviceName
+     * @param date
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public List<Long> moodcountListByService(String serviceName, LocalDate date) {
         List<Long> list = new ArrayList<>();
         List<Mood> moods = new ArrayList<>();
-        List<Mood> listtampon = new ArrayList<>();
         moods.addAll(moodRepository.findByServiceName(serviceName));
-        for(Moods Mood : Moods.values()) {
-            listtampon.addAll(moods);
-            listtampon.removeIf(mood -> mood.getMood() != Mood);
-            list.add((long) listtampon.size());
-            som += (long) listtampon.size();
-        }
-        list.add(som);
+        moods.removeIf(mood -> !mood.getDate().isEqual(date));
+        list = MoodBoard.Filtermood(moods);
         /* ajout du nombre total d utilisateurs relatifs a cette Service */
         list.add((long) userRepository.findAllByServiceName(serviceName).size());
     return list;
     }
 
+    /**
+     * Cette methode permet de retourner les stades sur les moods
+     * de la semaine pour un service donné
+     * @param serviceName
+     * @return
+     */
     @Transactional(readOnly = true)
-    public List<Long> moodcountListByDepartement(String departementName, LocalDate date) {
-        Long som = 0L;
+    public List<Long> moodcountListByServiceWeek(String serviceName) {
         List<Long> list = new ArrayList<>();
         List<Mood> moods = new ArrayList<>();
-        List<Mood> listtampon = new ArrayList<>();
+        moods.addAll(moodRepository.findByServiceName(serviceName));
+        moods.removeIf(mood -> mood.getDate().isBefore(MoodBoard.DateLines().get(0)));
+        moods.removeIf(mood -> mood.getDate().isAfter(MoodBoard.DateLines().get(MoodBoard.DateLines().size()-1)));
+        list = MoodBoard.Filtermood(moods);
+        list.add((long) userRepository.findAllByServiceName(serviceName).size());
+        return list;
+    }
+
+    /**
+     * Cette methode permet de retourner des stades sur les moods pour une date specifé
+     *et un departement donné
+     * @param departementName
+     * @param date
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public List<Long> moodcountListByDepartement(String departementName, LocalDate date) {
+        List<Mood> moods = new ArrayList<>();
+        List<Long> list;
         moods.addAll(moodRepository.findByDepartementName(departementName));
         moods.removeIf(mood -> !mood.getDate().isEqual(date));
-        for(Moods Mood : Moods.values()) {
-            listtampon.addAll(moods);
-            listtampon.removeIf(mood -> mood.getMood() != Mood);
-            list.add((long) listtampon.size());
-            som += (long) listtampon.size();
-        }
-        list.add(som);
-        /* ajout du nombre total d utilisateurs relatifs a cet departement */
+        list = MoodBoard.Filtermood(moods);
         list.add((long) userRepository.findAllByDepartementName(departementName).size());
-    return list;
+        return list;
+    }
+
+        /**
+     * Cette methode permet de retourner les stades sur les moods
+     * de la semaine pour un departement donné
+     * @param DepartementName
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public List<Long> moodcountListByDepartementWeek(String departementName) {
+        List<Long> list = new ArrayList<>();
+        List<Mood> moods = new ArrayList<>();
+        moods.addAll(moodRepository.findByDepartementName(departementName));
+        moods.removeIf(mood -> mood.getDate().isBefore(MoodBoard.DateLines().get(0)));
+        moods.removeIf(mood -> mood.getDate().isAfter(MoodBoard.DateLines().get(MoodBoard.DateLines().size()-1)));
+        list = MoodBoard.Filtermood(moods);
+        list.add((long) userRepository.findAllByDepartementName(departementName).size());
+        return list;
     }
 
     @Transactional(readOnly = true)
-    public List<MoodBoard> MoodboardDepartement(String departementName){
-        /*Constructions des dates a utiliser */
-        List<LocalDate> listdates = new ArrayList<>();
-        List<MoodBoard> Moodweek = new ArrayList<>();
-        LocalDate currentdate = LocalDate.now();
-        while ((currentdate.getDayOfWeek() != DayOfWeek.SATURDAY) && (currentdate.getDayOfWeek() !=DayOfWeek.SUNDAY))
-            {
-            listdates.add(currentdate);
-            currentdate = currentdate.minusDays(1);
-        };
-        Collections.reverse(listdates);
-
-        /* Fin recuperation des dates de la semaine */
-        listdates.forEach(mooddate -> {
-            String day = mooddate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.CANADA_FRENCH);
-            List<Long> moodliste = moodcountListByDepartement(departementName, mooddate); // retourne liste des valeurs des moods
-            List<String> commentliste = moodRepository.findCommentsByDepartementName(departementName, mooddate);
-            Moodweek.add(new MoodBoard(day, moodliste, commentliste));
+    public List<MoodBoard> MoodboardDepartement(String departementName) {
+        List<MoodBoard> Moodweekdepartement = new ArrayList<>();
+        MoodBoard.listedate().forEach(mooddate -> {
+                            Moodweekdepartement.add(new MoodBoard(mooddate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.CANADA_FRENCH),
+                            moodcountListByDepartement(departementName, mooddate),
+                            moodRepository.findCommentsByDepartementName(departementName, mooddate)));
         });
-        return Moodweek;
+        return Moodweekdepartement;
+    }
+    /**
+     *
+     * @param serviceName
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public List<MoodBoard> MoodboardService(String serviceName) {
+        List<MoodBoard> Moodweekservice = new ArrayList<>();
+        MoodBoard.listedate().forEach(mooddate -> {
+                Moodweekservice.add(new MoodBoard(mooddate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.CANADA_FRENCH),
+                            moodcountListByService(serviceName, mooddate),
+                            moodRepository.findCommentsByServiceName(serviceName, mooddate)));
+        });
+        return Moodweekservice;
+    }
+    /**
+     *
+     * @param plateauName
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public List<MoodBoard> MoodboardPlateau(String plateauName) {
+        List<MoodBoard> Moodweekplateau = new ArrayList<>();
+        MoodBoard.listedate().forEach(mooddate -> {
+            Moodweekplateau.add(new MoodBoard(mooddate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.CANADA_FRENCH),
+                moodcountListByPlateau(plateauName, mooddate),
+                moodRepository.findCommentsByPlateauName(plateauName, mooddate)));
+        });
+        return Moodweekplateau;
     }
 
     /**

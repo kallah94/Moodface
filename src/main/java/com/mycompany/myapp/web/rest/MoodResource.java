@@ -139,20 +139,19 @@ public class MoodResource {
 
     @GetMapping("/moods/countListByValue/plateau/{plateauName}")
     public ResponseEntity<List<Long>> countMoodsByPlateau(@PathVariable String plateauName) {
-        List<Long> list = moodQueryService.moodcountListByPlateau(plateauName);
+        List<Long> list = moodQueryService.moodcountListByPlateauWeek(plateauName);
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/moods/countListByValue/service/{serviceName}")
     public ResponseEntity<List<Long>> countMoodsByService(@PathVariable String serviceName) {
-        List<Long> list = moodQueryService.moodcountListByService(serviceName);
+        List<Long> list = moodQueryService.moodcountListByServiceWeek(serviceName);
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/moods/countListByValue/departement/{departementName}")
-    public ResponseEntity<List<Long>> countMoodsByDepartement(@PathVariable String departementName,
-        @RequestParam(required = true) LocalDate date) {
-        List<Long> list = moodQueryService.moodcountListByDepartement(departementName, date);
+    public ResponseEntity<List<Long>> countMoodsByDepartement(@PathVariable String departementName) {
+        List<Long> list = moodQueryService. moodcountListByDepartementWeek(departementName);
         return ResponseEntity.ok().body(list);
     }
 
@@ -172,17 +171,27 @@ public class MoodResource {
     }
 
     /**
-     * Test pour les jours de la semaine 
-     * 
+     * Test pour les jours de la semaine
+     *
      * @param pageable
      * @param departementName
      * @return
      */
     @GetMapping("/moods/Moodweekdepartement/{departementName}")
-    public List<MoodBoard> Moodweekdepartement(@PathVariable String departementName){
+    public List<MoodBoard> Moodweekdepartement(@PathVariable String departementName) {
         return moodQueryService.MoodboardDepartement(departementName);
     }
-  
+
+    @GetMapping("/moods/Moodweekservice/{serviceName}")
+    public List<MoodBoard> Moodweekservice(@PathVariable String serviceName) {
+        return moodQueryService.MoodboardService(serviceName);
+    }
+
+    @GetMapping("/moods/Moodweekplateau/{plateauName}")
+    public List<MoodBoard> Moodweekplateau(@PathVariable String plateauName) {
+        return moodQueryService.MoodboardPlateau(plateauName);
+    }
+
     /**
      * @param departementName
      * @param pageable
@@ -229,6 +238,11 @@ public class MoodResource {
         log.debug("REST request to get Mood : {}", id);
         Optional<MoodDTO> moodDTO = moodService.findOne(id);
         return ResponseUtil.wrapOrNotFound(moodDTO);
+    }
+
+    @GetMapping("/moods/testdate")
+    public List<LocalDate> tesdate() {
+        return MoodBoard.DateLines();
     }
 
     /**

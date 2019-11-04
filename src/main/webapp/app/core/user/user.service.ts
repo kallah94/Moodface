@@ -66,9 +66,8 @@ export class UserService {
     return this.http.get<String[]>(`${this.resourceUrl}/${departement}/services`, { observe: 'response' });
   }
 
-  getUsersByPlateauName(plateauName: String, req?: any): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http.get<IUser[]>(`${this.resourceUrl}/plateau/${plateauName}/users`, { params: options, observe: 'response' });
+  getUsersByPlateauName(plateauName: String): Observable<EntityArrayResponseType> {
+    return this.http.get<IUser[]>(`${this.resourceUrl}/plateau/${plateauName}/users`, { observe: 'response' });
   }
 
   findPlateauxByService(service: string): Observable<HttpResponse<String[]>> {
