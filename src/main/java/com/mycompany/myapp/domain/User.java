@@ -54,12 +54,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private String lastName;
 
     /* Ajout des champs */
-    @NotNull
     @Size(max = 50)
     @Column(name = "departement_name", length = 50)
     private String departementName;
 
-    @NotNull
+
     @Size(max = 50)
     @Column(name = "plateau_name", length = 50)
     private String plateauName;
