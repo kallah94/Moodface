@@ -19,12 +19,17 @@ public class MoodBoard implements Serializable {
     private String currentday;
     private List<Long> listmood;
     private List<String> listcomment;
+    private String StructureName;
+    private LocalDate date;
+    private Double health;
 
 
-    public MoodBoard(String currentday, List<Long> listmood, List<String> listcomment){
+    public MoodBoard(String currentday,LocalDate date, String name, List<Long> listmood, List<String> listcomment){
         this.currentday = currentday;
         this.listmood = listmood;
         this.listcomment = listcomment;
+        this.StructureName = name;
+        this.date = date;
     }
 
     public void setcurrentday(String currentday){
@@ -33,6 +38,30 @@ public class MoodBoard implements Serializable {
 
     public String getcurrentday(){
         return this.currentday;
+    }
+
+    public void setDate(LocalDate date){
+        this.date = date;
+    }
+
+    public LocalDate getDate(){
+        return this.date;
+    }
+
+    public void setStructureName(String name){
+        this.StructureName = name;
+    }
+
+    public String getStructureName(){
+        return this.StructureName;
+    }
+
+    public void setHealth(Double health){
+        this.health = health;
+    }
+
+    public Double getHealth(){
+        return this.health;
     }
 
     public void setlistmood(List<Long> listmood){
@@ -54,6 +83,13 @@ public class MoodBoard implements Serializable {
     public static List<LocalDate> listedate(){
         List<LocalDate> listdates = new ArrayList<>();
         LocalDate currentdate = LocalDate.now();
+        if((currentdate.getDayOfWeek() == DayOfWeek.SATURDAY)){
+            currentdate = currentdate.minusDays(1);
+        }
+
+        if (currentdate.getDayOfWeek() == DayOfWeek.SUNDAY) {
+            currentdate = currentdate.minusDays(2);
+        }
         while ((currentdate.getDayOfWeek() != DayOfWeek.SATURDAY) && (currentdate.getDayOfWeek() !=DayOfWeek.SUNDAY))
             {
             listdates.add(currentdate);
@@ -82,5 +118,28 @@ public class MoodBoard implements Serializable {
         }
         list.add(som);
         return list;
+    }
+
+    public Double EvaluateHealth() {
+        long som = 0L;
+        long size = 0L;
+        int[] coef = { 2, 1, -1, -2 };
+        for(int i = 0; i < this.listmood.size()-2; i++ ) {
+            som += coef[i] * this.listmood.get(i);
+            size += this.listmood.get(i);
+        }
+        if( size != 0L){
+            return (double) ((som) / size)*50;
+
+        } else {
+            return null ;
+        }
+    }
+
+    public static List<MoodBoard> setHealthsWeek(List<MoodBoard> Moodweek ) {
+        Moodweek.forEach(moodDay -> {
+            moodDay.setHealth(moodDay.EvaluateHealth());
+        });
+        return Moodweek;
     }
 }

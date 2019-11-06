@@ -51,7 +51,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/Moodface1?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=falseserverTimezone=UTC
     username: root
-    password: passer
+    password: kallah
     hikari:
       poolName: Hikari
       auto-commit: false

@@ -7,21 +7,10 @@ export class PieChartDemo {
 
   constructor(dat: any, titre: String, Nbuser: Number, Nbmood: Number) {
     this.data = {
-      labels: ['V_H', 'HAP', 'ANG', 'SAD'],
+      labels: ['Very Happy', 'Happy', 'Angry', 'Sad'],
       datasets: [
         {
-          name: 'Countries',
-          type: 'pie',
-          radius: '80%',
-          center: ['50%', '50%'],
           data: dat,
-          itemStyle: {
-            emphasis: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: '#FFFFF'
-            }
-          },
           backgroundColor: [
             '#008000', // vert foncee
             '#B0F2B6', // vert d eau
@@ -50,9 +39,11 @@ export class PieChartDemo {
       },
       legend: {
         orient: 'vertical',
-        position: 'bottom',
+        position: 'left',
         display: true,
-        fontColor: '#FFFFFF'
+        labels: {
+          fontColor: '#FFFFFFF'
+        }
       },
       labelLine: {
         normal: {

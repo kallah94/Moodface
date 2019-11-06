@@ -264,10 +264,11 @@ public class MoodQueryService extends QueryService<Mood> {
         List<MoodBoard> Moodweekdepartement = new ArrayList<>();
         MoodBoard.listedate().forEach(mooddate -> {
                             Moodweekdepartement.add(new MoodBoard(mooddate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.CANADA_FRENCH),
+                            mooddate, departementName,
                             moodcountListByDepartement(departementName, mooddate),
                             moodRepository.findCommentsByDepartementName(departementName, mooddate)));
         });
-        return Moodweekdepartement;
+        return MoodBoard.setHealthsWeek(Moodweekdepartement);
     }
     /**
      *
@@ -277,13 +278,16 @@ public class MoodQueryService extends QueryService<Mood> {
     @Transactional(readOnly = true)
     public List<MoodBoard> MoodboardService(String serviceName) {
         List<MoodBoard> Moodweekservice = new ArrayList<>();
+
         MoodBoard.listedate().forEach(mooddate -> {
                 Moodweekservice.add(new MoodBoard(mooddate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.CANADA_FRENCH),
+                            mooddate, serviceName,
                             moodcountListByService(serviceName, mooddate),
                             moodRepository.findCommentsByServiceName(serviceName, mooddate)));
         });
-        return Moodweekservice;
+        return MoodBoard.setHealthsWeek(Moodweekservice);
     }
+
     /**
      *
      * @param plateauName
@@ -294,10 +298,11 @@ public class MoodQueryService extends QueryService<Mood> {
         List<MoodBoard> Moodweekplateau = new ArrayList<>();
         MoodBoard.listedate().forEach(mooddate -> {
             Moodweekplateau.add(new MoodBoard(mooddate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.CANADA_FRENCH),
+                mooddate, plateauName,
                 moodcountListByPlateau(plateauName, mooddate),
                 moodRepository.findCommentsByPlateauName(plateauName, mooddate)));
         });
-        return Moodweekplateau;
+        return   MoodBoard.setHealthsWeek(Moodweekplateau);
     }
 
     /**
