@@ -20,7 +20,7 @@ export class ServicePieChartComponent implements OnInit {
           const dat = list.body;
           const NbUser = dat.pop();
           const Nbmood = dat.pop();
-          this.charpies.push(new PieChartDemo(dat, name, NbUser, Nbmood));
+          this.charpies.push(new PieChartDemo(name, dat, NbUser, Nbmood));
         });
       });
     });

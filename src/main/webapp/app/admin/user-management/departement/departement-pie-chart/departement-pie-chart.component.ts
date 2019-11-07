@@ -10,7 +10,6 @@ import { PieChartDemo } from 'app/admin/Chatrs/PieChart';
 })
 export class DepartementPieChartComponent implements OnInit {
   charpies: any[] = [];
-
   constructor(private userService: UserService, private moodService: MoodService) {}
 
   ngOnInit() {
@@ -20,7 +19,7 @@ export class DepartementPieChartComponent implements OnInit {
           const dat = list.body;
           const NbUser = dat.pop();
           const Nbmood = dat.pop();
-          this.charpies.push(new PieChartDemo(dat, name, NbUser, Nbmood));
+          this.charpies.push(new PieChartDemo(name, dat, NbUser, Nbmood));
         });
       });
     });

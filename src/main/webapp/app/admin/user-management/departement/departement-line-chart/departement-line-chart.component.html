@@ -1,1 +1,5 @@
-<p>departement-line-chart works!</p>
+<div class="card-deck">
+	<div class="card col-sm-12" *ngFor="let Linechart of linechart">
+		<p-chart  width="550" heigh="550" type="line" [data]="Linechart"></p-chart>
+	</div>
+</div>

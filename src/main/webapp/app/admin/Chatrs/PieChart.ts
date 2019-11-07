@@ -5,7 +5,7 @@ export class PieChartDemo {
   titre: String;
   options: any;
 
-  constructor(dat: any, titre: String, Nbuser: Number, Nbmood: Number) {
+  constructor(titre: String, dat: any, Nbuser: Number, Nbmood: Number) {
     this.data = {
       labels: ['Very Happy', 'Happy', 'Angry', 'Sad'],
       datasets: [
@@ -33,9 +33,23 @@ export class PieChartDemo {
         fontSize: 20,
         fontColor: '#FFFFFF'
       },
-      tooltip: {
-        trigger: 'item',
-        formatter: '{a} <br/>{b} : {c} ({d}%)'
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            const allData = data.datasets[tooltipItem.datasetIndex].data;
+            const tooltipLabel = data.labels[tooltipItem.index];
+            const tooltipData = allData[tooltipItem.index];
+            let total = 0;
+            for (const i in allData) {
+              if (this[i] !== 0) {
+                total += allData[i];
+              }
+            }
+            const tooltipPercentage = Math.round((tooltipData / total) * 100);
+            return tooltipLabel + ': ' + tooltipData + ' (' + tooltipPercentage + '%)';
+          }
+        },
+        enabled: true
       },
       legend: {
         orient: 'vertical',

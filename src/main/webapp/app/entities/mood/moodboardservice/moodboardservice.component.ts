@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./moodboardservice.component.scss']
 })
 export class MoodboardserviceComponent implements OnInit {
-  moodboard: IMoodboard;
+  moodboard: IMoodboard[];
   serviceName: String;
 
   constructor(private moodService: MoodService, private activatedRoute: ActivatedRoute) {}
