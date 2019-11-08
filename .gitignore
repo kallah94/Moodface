@@ -5,9 +5,6 @@
 /target/classes/static/**
 /src/test/javascript/coverage/
 /src/main/resources
-/.package.json
-/pom.xml
-/angular.json
 ######################
 # Node
 ######################
