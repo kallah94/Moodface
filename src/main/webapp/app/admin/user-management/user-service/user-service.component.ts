@@ -26,20 +26,7 @@ export class UserServiceComponent implements OnInit {
   services: String[] = [];
   users: IUser[];
 
-  constructor(
-    private userService: UserService,
-    private activatedRoute: ActivatedRoute,
-    protected parseLinks: JhiParseLinks,
-    protected alertService: JhiAlertService
-  ) {
-    this.itemsPerPage = ITEMS_PER_PAGE;
-    this.routeData = this.activatedRoute.data.subscribe(data => {
-      this.page = data.pagingParams.page;
-      this.previousPage = data.pagingParams.page;
-      this.reverse = data.pagingParams.ascending;
-      this.predicate = data.pagingParams.predicate;
-    });
-  }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.userService.services().subscribe(res => {
@@ -50,23 +37,5 @@ export class UserServiceComponent implements OnInit {
         });
       });
     });
-  }
-
-  sort() {
-    const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
-    if (this.predicate !== 'id') {
-      result.push('id');
-    }
-    return result;
-  }
-
-  protected paginateUsers(data: IUser[], headers: HttpHeaders) {
-    this.links = this.parseLinks.parse(headers.get('link'));
-    this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    this.users = data;
-  }
-
-  private onError(error) {
-    this.alertService.error(error.error, error.message, null);
   }
 }

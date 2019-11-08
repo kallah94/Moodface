@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
 import { SessionStorageService } from 'ngx-webstorage';
+import { UserService } from 'app/core/user/user.service';
 
 import { VERSION } from 'app/app.constants';
 import { JhiLanguageHelper } from 'app/core/language/language.helper';
@@ -23,6 +24,9 @@ export class NavbarComponent implements OnInit {
   swaggerEnabled: boolean;
   modalRef: NgbModalRef;
   version: string;
+  departement: any[];
+  service: any[];
+  plateau: any[];
 
   constructor(
     private loginService: LoginService,
@@ -32,7 +36,8 @@ export class NavbarComponent implements OnInit {
     private accountService: AccountService,
     private loginModalService: LoginModalService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
     this.version = VERSION ? (VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION) : '';
     this.isNavbarCollapsed = true;
@@ -46,6 +51,18 @@ export class NavbarComponent implements OnInit {
     this.profileService.getProfileInfo().then(profileInfo => {
       this.inProduction = profileInfo.inProduction;
       this.swaggerEnabled = profileInfo.swaggerEnabled;
+    });
+
+    this.userService.departements().subscribe(depart => {
+      this.departement = depart;
+    });
+
+    this.userService.services().subscribe(serv => {
+      this.service = serv;
+    });
+
+    this.userService.plateaux().subscribe(plat => {
+      this.plateau = plat;
     });
   }
 
