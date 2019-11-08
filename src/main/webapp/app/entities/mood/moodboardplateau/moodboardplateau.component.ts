@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./moodboardplateau.component.scss']
 })
 export class MoodboardplateauComponent implements OnInit {
-  moodboard: IMoodboard;
+  moodboard: IMoodboard[];
   plateauName: String;
 
   constructor(private moodService: MoodService, private activatedRoute: ActivatedRoute) {}

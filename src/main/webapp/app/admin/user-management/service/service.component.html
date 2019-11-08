@@ -1,14 +1,6 @@
-
-<div class="card-deck">
- <div class="card col-sm-12" *ngFor="let charpie of charpies">
-	  <div class="card-body bg-dark">
-				<p-chart  width="550" heigh="550" type="pie"
- 				[data]="charpie.data" [options]="charpie.options"></p-chart>
-		</div>
-		<div class="card-footer text-light bg-warning ">
-				Moods <span class="badge badge-pill badge-primary">{{ charpie.Nbmoods }}</span>
-				Users <span class="badge badge-pill badge-secondary">{{ charpie.Nbusers }}</span>
-		</div>
- </div>
-</div>
-
+<div>
+	<jhi-departement-pie-chart></jhi-departement-pie-chart>
+<div>
+<br> <br>
+	<jhi-departement-line-chart></jhi-departement-line-chart>
+<div>

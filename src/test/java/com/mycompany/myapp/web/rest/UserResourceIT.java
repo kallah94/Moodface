@@ -614,6 +614,9 @@ public class UserResourceIT {
         assertThat(userDTO.getLogin()).isEqualTo(DEFAULT_LOGIN);
         assertThat(userDTO.getFirstName()).isEqualTo(DEFAULT_FIRSTNAME);
         assertThat(userDTO.getLastName()).isEqualTo(DEFAULT_LASTNAME);
+        assertThat(userDTO.getDepartementName()).isEqualTo(DEFAULT_DEPARTEMENTNAME);
+        assertThat(userDTO.getServiceName()).isEqualTo(DEFAULT_SERVICENAME);
+        assertThat(userDTO.getPlateauName()).isEqualTo(DEFAULT_PLATEAUNAME);
         assertThat(userDTO.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(userDTO.isActivated()).isEqualTo(true);
         assertThat(userDTO.getImageUrl()).isEqualTo(DEFAULT_IMAGEURL);

@@ -1,21 +1,17 @@
 export class LineChartDemo {
   data: any;
 
-  constructor() {
+  constructor(name: String, dat: any) {
     this.data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'],
       datasets: [
         {
-          label: 'First Dataset',
-          data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          borderColor: '#4bc0c0'
-        },
-        {
-          label: 'Second Dataset',
-          data: [28, 48, 40, 19, 86, 27, 90],
-          fill: false,
-          borderColor: '#565656'
+          label: name,
+          data: dat,
+          fill: true,
+          borderColor: '#4bc0c0',
+          borderWidth: 2,
+          radius: 0.9
         }
       ]
     };
