@@ -28,23 +28,49 @@
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
                     <li>
-                        <a class="dropdown-item" routerLink="mood" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                        <a class="" routerLink="mood" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.mood">Mood</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="true" class="dropdown-submenu" ngbDropdown display="dynamic">
-                        <span>
-                            <a class="dropdown-item dropdown-toggle" ngbDropdownToggle>
-                                <fa-icon icon="user" fixedWidth="true"></fa-icon>
+
+                        <fa-icon icon="user" fixedWidth="true"></fa-icon>
                                 <span>Departements</span>
-                            </a>
-                            <ul class="dropdown-menu" ngbDropdownMenu>
+                        <a class="dropdown-toggle" ngbDropdownToggle>
+                            <ul class="dropdown-menu" ngbDropdownMenu >
                                 <li *ngFor="let depart of departement">
                                     <a class="dropdown-item" routerLink="mood/moodBoardDepartement/{{depart}}">{{depart}}</a>
                                 </li>
                             </ul>
-                        </span>
+
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true" class="dropdown-submenu" ngbDropdown display="dynamic">
+
+                        <fa-icon icon="user" fixedWidth="true"></fa-icon>
+                        <span>Services</span>
+                        <a class="dropdown-toggle" ngbDropdownToggle>
+                            <ul class="dropdown-menu" ngbDropdownMenu >
+                                <li *ngFor="let serv of service">
+                                    <a class="dropdown-item" routerLink="mood/moodBoardService/{{serv}}">{{serv}}</a>
+                                </li>
+                            </ul>
+
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true" class="dropdown-submenu" ngbDropdown display="dynamic">
+
+                        <fa-icon icon="user" fixedWidth="true"></fa-icon>
+                        <span>Plateaux</span>
+                        <a class="dropdown-toggle" ngbDropdownToggle>
+                            <ul class="dropdown-menu" ngbDropdownMenu >
+                                <li *ngFor="let plat of plateau">
+                                    <a class="dropdown-item" routerLink="mood/moodBoardPlateau/{{plat}}">{{plat}}</a>
+                                </li>
+                            </ul>
+
+                        </a>
                     </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>

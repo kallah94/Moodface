@@ -25,6 +25,8 @@ export class NavbarComponent implements OnInit {
   modalRef: NgbModalRef;
   version: string;
   departement: any[];
+  service: any[];
+  plateau: any[];
 
   constructor(
     private loginService: LoginService,
@@ -53,6 +55,14 @@ export class NavbarComponent implements OnInit {
 
     this.userService.departements().subscribe(depart => {
       this.departement = depart;
+    });
+
+    this.userService.services().subscribe(serv => {
+      this.service = serv;
+    });
+
+    this.userService.plateaux().subscribe(plat => {
+      this.plateau = plat;
     });
   }
 
