@@ -16,6 +16,12 @@ import { DPlateauxComponent } from './service/d-plateaux/d-plateaux.component';
 import { UserPlateauComponent } from 'app/admin/user-management/user-plateau/user-plateau.component';
 import { UserServiceComponent } from 'app/admin/user-management/user-service/user-service.component';
 import { UserDepartementComponent } from 'app/admin/user-management/user-departement/user-departement.component';
+import { PlateauPieChartComponent } from './plateau/plateau-pie-chart/plateau-pie-chart.component';
+import { ServicePieChartComponent } from './service/service-pie-chart/service-pie-chart.component';
+import { DepartementPieChartComponent } from './departement/departement-pie-chart/departement-pie-chart.component';
+import { ServiceLineChartComponent } from './service/service-line-chart/service-line-chart.component';
+import { DepartementLineChartComponent } from './departement/departement-line-chart/departement-line-chart.component';
+import { PlateauLineChartComponent } from './plateau/plateau-line-chart/plateau-line-chart.component';
 
 @Injectable({ providedIn: 'root' })
 export class UserMgmtResolve implements Resolve<any> {
@@ -98,6 +104,40 @@ export const userManagementRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
+    path: 'plateaux/statistiques',
+    component: PlateauPieChartComponent,
+
+    data: {
+      pageTitle: 'userManagement.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'services/statistiques',
+    component: ServicePieChartComponent,
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'departements/statistiques',
+    component: DepartementPieChartComponent,
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'departements/health',
+    component: DepartementLineChartComponent,
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'services/health',
+    component: ServiceLineChartComponent,
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'plateaux/health',
+    component: PlateauLineChartComponent,
+    canActivate: [UserRouteAccessService]
+  },
+  {
     path: 'departement/:name/services',
     component: DServicesComponent,
 
@@ -131,19 +171,6 @@ export const userManagementRoute: Routes = [
     },
     canActivate: [UserRouteAccessService]
   },
-  /* {
-    path: 'departement/:name/users',
-    component: UserDepartementComponent,
-    resolve: {
-      pagingParams: JhiResolvePagingParams
-    },
-    data: {
-      authorities: ['ROLE_ADMIN'],
-      pageTitle: 'userManagement.home.title',
-      defaultSort: 'id,asc'
-    },
-    canActivate: [UserRouteAccessService]
-  }, */
   {
     path: 'departement/users',
     component: UserDepartementComponent,

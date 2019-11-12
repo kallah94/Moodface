@@ -20,8 +20,7 @@ export class DepartementLineChartComponent implements OnInit {
           resbis.body.forEach(objet => {
             health.push(objet.health);
           });
-          this.linechart.push(new LineChartDemo(name, health).data);
-          this.linechart.sort();
+          this.linechart.push(new LineChartDemo(name, health));
         });
       });
     });

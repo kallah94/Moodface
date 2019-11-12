@@ -10,7 +10,7 @@ import { IMoodboard } from 'app/shared/model/moodboard.model';
   styleUrls: ['./moodboarddepartement.component.scss']
 })
 export class MoodboarddepartementComponent implements OnInit {
-  moodboard: IMoodboard[];
+  moodboarddepartement: IMoodboard[];
   departementName: String;
 
   constructor(private moodService: MoodService, private activatedRoute: ActivatedRoute) {}
@@ -19,7 +19,7 @@ export class MoodboarddepartementComponent implements OnInit {
     const name = this.activatedRoute.snapshot.paramMap.get('name');
     this.departementName = name;
     this.moodService.getMoodBoardDepartement(name).subscribe(res => {
-      this.moodboard = res.body;
+      this.moodboarddepartement = res.body;
     });
   }
 }

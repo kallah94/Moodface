@@ -17,21 +17,23 @@ Navbar
 
 .navbar {
   padding: 0.2rem 1rem;
-
   ul.navbar-nav {
     .nav-item {
       margin-left: 0.5em;
     }
   }
-
   a.nav-link {
     font-weight: 400;
+  }
+  .span {
+    margin-left: 0.5em;
   }
 }
 
 /* ==========================================================================
 Logo styles
 ========================================================================== */
+
 /*.logo-img {
   height: 45px;
   width: 45px;
@@ -39,4 +41,32 @@ Logo styles
   vertical-align: middle;
   background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
   background-size: contain;
-}*/
+  */
+
+.fa-smile {
+  color: greenyellow;
+}
+
+.fa-certificate {
+  color: orangered;
+}
+
+.fa-home {
+  color: orangered;
+}
+
+.fa-circle {
+  color: rgba(8, 7, 7, 0.966);
+}
+
+.fa-heart {
+  color: rgb(255, 0, 0);
+}
+
+.fa-heartbeat {
+  color: rgb(255, 115, 0);
+}
+
+.fa-cog {
+  color: rgb(0, 183, 255);
+}

@@ -12,17 +12,12 @@ export class PieChartDemo {
         {
           data: dat,
           backgroundColor: [
-            '#008000', // vert foncee
-            '#B0F2B6', // vert d eau
-            '#FFA500', // orange
-            '#FF0000' // rouge
+            ' greenYellow', // vert foncee
+            '#a5d152', // vert d eau
+            '#FFCE56', // orange
+            'red' // rouge
           ],
-          hoverBackgroundColor: [
-            '#B0F2B6', // vert d eau
-            '#36A2EB',
-            '#FFCE56',
-            '#FDDDDD'
-          ]
+          hoverBackgroundColor: ['#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB']
         }
       ]
     };
@@ -30,8 +25,11 @@ export class PieChartDemo {
       title: {
         display: true,
         text: titre,
+        orient: 'vertical',
+        position: 'bottom',
         fontSize: 20,
-        fontColor: '#FFFFFF'
+        fontColor: '#FFFFFF',
+        fontFamily: 'Montserrat'
       },
       tooltips: {
         callbacks: {
@@ -52,18 +50,14 @@ export class PieChartDemo {
         enabled: true
       },
       legend: {
+        text: 'Legende',
         orient: 'vertical',
         position: 'left',
         display: true,
         labels: {
-          fontColor: '#FFFFFFF'
-        }
-      },
-      labelLine: {
-        normal: {
-          lineStyle: {
-            color: '#FFFFF'
-          }
+          fontColor: '#FFFFFFF',
+          fontSize: 14,
+          fontFamily: 'Montserrat'
         }
       }
     };

@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./moodboardplateau.component.scss']
 })
 export class MoodboardplateauComponent implements OnInit {
-  moodboard: IMoodboard[];
+  moodboardplateau: IMoodboard[];
   plateauName: String;
 
   constructor(private moodService: MoodService, private activatedRoute: ActivatedRoute) {}
@@ -18,7 +18,7 @@ export class MoodboardplateauComponent implements OnInit {
     const name = this.activatedRoute.snapshot.paramMap.get('name');
     this.plateauName = name;
     this.moodService.getMoodBoardPlateau(name).subscribe(res => {
-      this.moodboard = res.body;
+      this.moodboardplateau = res.body;
     });
   }
 }
